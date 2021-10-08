@@ -29,7 +29,7 @@ import {
 } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Keys } from "../constants/keys";
+import { StorageKeys } from "../constants/StorageKeys";
 import {} from "../contexts/AuthContext";
 import { Loading } from "../components/Loading";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -131,7 +131,7 @@ function BottomTabNavigator() {
               <Pressable
                 onPress={() => navigation.navigate("Modal")}
                 style={({ pressed }) => ({
-                  cursor: 'pointer',
+                  cursor: "pointer",
                   opacity: pressed ? 0.5 : 1,
                 })}
               >
