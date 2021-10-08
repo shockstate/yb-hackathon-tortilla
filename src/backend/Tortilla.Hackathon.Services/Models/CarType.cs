@@ -1,7 +1,7 @@
 ﻿
 using System.Runtime.Serialization;
 
-namespace Tortilla.Hackathon.API.Models
+namespace Tortilla.Hackathon.Services.Models
 {
     public enum CarType
     {

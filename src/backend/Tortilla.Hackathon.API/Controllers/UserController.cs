@@ -1,4 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Tortilla.Hackathon.Services.Interfaces;
+using Tortilla.Hackathon.Services.Models.Dtos;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,20 +15,78 @@ namespace Tortilla.Hackathon.API.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-
-
-        // GET api/<UserController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        private readonly IUserService userService;
+        private readonly ILogger<UserController> logger;
+        public UserController(
+            IUserService userService, ILogger<UserController> logger)
         {
-            return "user";
+            this.userService = userService;
+            this.logger = logger;
+        }
+        // GET api/<UserController>/5
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(UserCredentialsDto userCredentialsDto)
+        {
+            try
+            {
+                await userService.Login(userCredentialsDto);
+            }
+            catch (NotImplementedException ex)
+            {
+                logger.LogError(ex, ex.Message);
+                return StatusCode(StatusCodes.Status501NotImplemented, ex.Message);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                logger.LogError(ex, ex.Message);
+                return StatusCode(StatusCodes.Status401Unauthorized, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+            return StatusCode(StatusCodes.Status302Found);
         }
 
         // POST api/<UserController>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpPost("register")]
+        public async Task<IActionResult> RegisterUser(CreateUserDto userDto, CancellationToken cancellationToken = default)
         {
-            //create user
+            //validate data
+            try
+            {
+                await userService.Register(userDto);
+            }
+            catch (NotImplementedException ex)
+            {
+                logger.LogError(ex, ex.Message);
+                return StatusCode(StatusCodes.Status501NotImplemented, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+            return StatusCode(StatusCodes.Status201Created);
+        }
+
+        [HttpPost("{id}/car")]
+        public async Task<IActionResult> AddCar([FromRoute] string userId, [FromBody] CarDto carDto, CancellationToken cancellationToken = default)
+        {
+            //validate data
+            try
+            {
+                await userService.AddCar(userId, carDto);
+            }
+            catch (NotImplementedException ex)
+            {
+                logger.LogError(ex, ex.Message);
+                return StatusCode(StatusCodes.Status501NotImplemented, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+            return StatusCode(StatusCodes.Status201Created);
         }
     }
 }
