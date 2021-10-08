@@ -7,7 +7,9 @@ namespace Tortilla.Hackathon.Data
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Trip> Trips { get; set; }
+        public DbSet<DayTrip> DayTrips { get; set; }
         public DbSet<Car> Cars { get; set; }
+        public DbSet<Passenger> Passengers { get; set; }
 
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
@@ -44,8 +46,7 @@ namespace Tortilla.Hackathon.Data
                 .HasForeignKey(e => e.UserId);
 
             modelBuilder.Entity<Passenger>()
-                .ToTable("Passengers")
-                .HasKey(t => new { t.UserId, t.TripId });
+                .HasKey(e => e.Id);
 
             modelBuilder.Entity<Passenger>()
                 .HasOne(pt => pt.User)
@@ -53,9 +54,9 @@ namespace Tortilla.Hackathon.Data
                 .HasForeignKey(pt => pt.UserId);
 
             modelBuilder.Entity<Passenger>()
-                .HasOne(pt => pt.Trip)
+                .HasOne(pt => pt.DayTrip)
                 .WithMany(t => t.Passengers)
-                .HasForeignKey(pt => pt.TripId);
+                .HasForeignKey(pt => pt.DayTripId);
         }
     }
 }
