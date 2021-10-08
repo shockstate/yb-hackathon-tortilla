@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -67,6 +68,11 @@ namespace Tortilla.Hackathon.API.Controllers
             {
                 logger.LogError(ex, ex.Message);
                 return StatusCode(StatusCodes.Status501NotImplemented, ex.Message);
+            }
+            catch (DuplicateNameException ex)
+            {
+                logger.LogError(ex, ex.Message);
+                return StatusCode(StatusCodes.Status409Conflict, ex.Message);
             }
             catch (Exception ex)
             {
