@@ -1,6 +1,7 @@
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { Component, ReactElement, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import LoginForm from "../components/LoginForm";
 
 import { useAuth } from "../hooks/useAuth";
 
@@ -17,6 +18,8 @@ const LoginScreen = (): ReactElement => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>This is the login</Text>
+
+      <LoginForm />
 
       <TouchableOpacity onPress={() => login()} style={styles.link}>
         <Text style={styles.linkText}>Go to home screen!</Text>
