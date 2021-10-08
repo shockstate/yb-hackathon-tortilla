@@ -3,8 +3,7 @@ import { Text, View, TextInput, Button, StyleSheet } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import CarTypeEnum from "../enums/CarTypeEnum";
 import RegisterUserModel from "../models/RegisterUserModel";
-import CarModel from "../models/CarModel";
-import { onChange } from "react-native-reanimated";
+import DateField from "react-native-datefield";
 
 export default function App() {
   const {
@@ -63,7 +62,7 @@ export default function App() {
         control={control}
         render={({ field: { onChange, onBlur, value } }) => (
           <>
-            <Text style={styles.label}>Last name</Text>
+            <Text style={styles.label}>Last name:</Text>
             <TextInput
               style={styles.input}
               placeholder="Doe"
@@ -83,6 +82,28 @@ export default function App() {
       />
       {errors.lastName && (
         <Text style={styles.errorText}>The last name is required.</Text>
+      )}
+
+      <Controller
+        control={control}
+        render={({ field: { onChange, value } }) => (
+          <>
+            <Text style={styles.label}>Birthdate:</Text>
+            <DateField
+              styleInput={styles.dateInput}
+              onSubmit={(value) => {
+                onChange(value);
+              }}
+            />
+          </>
+        )}
+        name="birthdate"
+        rules={{
+          required: true,
+        }}
+      />
+      {errors.birthdate && (
+        <Text style={styles.errorText}>The birthdate is required.</Text>
       )}
 
       <Controller
@@ -118,6 +139,8 @@ export default function App() {
             <Text style={styles.label}>Password:</Text>
             <TextInput
               style={styles.input}
+              placeholder="**********"
+              secureTextEntry={true}
               onBlur={onBlur}
               onChangeText={(value) => {
                 onChange(value);
@@ -203,6 +226,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 20,
     marginBottom: 12,
+    display: "flex",
+    justifyContent: "center",
   },
   form: {
     margin: 12,
@@ -215,6 +240,13 @@ const styles = StyleSheet.create({
     marginTop: 12,
     borderWidth: 1,
     padding: 10,
+  },
+  dateInput: {
+    fontSize: 15,
+    padding: 12,
+    border: "1px solid",
+    width: "32%",
+    marginTop: 12,
   },
   label: {
     marginTop: 12,
