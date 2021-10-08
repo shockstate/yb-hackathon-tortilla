@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Tortilla.Hackathon.Services.Interfaces;
 using Tortilla.Hackathon.Services.Models.Dtos.Trips;
@@ -23,11 +22,11 @@ namespace Tortilla.Hackathon.API.Controllers
         }
 
         [HttpGet("myTrips")]
-        public async Task<IActionResult> GetMyTrips([EmailAddress] string email)
+        public async Task<IActionResult> GetMyTrips(Guid userId)
         {
             try
             {
-                var trips = await tripService.GetMyTripsAsOwnerOrPassengerByUserEmailAsync(email);
+                var trips = await tripService.GetMyTripsAsOwnerOrPassengerByUserIdAsync(userId);
                 return Ok(trips);
             }
             catch (Exception ex)

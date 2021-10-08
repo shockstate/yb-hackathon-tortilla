@@ -12,27 +12,24 @@ namespace Tortilla.Hackathon.Services.Services
 {
     public class TripService : ITripService
     {
-        private readonly IUserRepository userRepository;
         private readonly ITripRepository tripRepository;
         private readonly IMapper mapper;
         private readonly IGeolocationService geolocationService;
 
-        public TripService(IUserRepository userRepository, ITripRepository tripRepository, 
+        public TripService(ITripRepository tripRepository, 
             IMapper mapper, IGeolocationService geolocationService)
         {
-            this.userRepository = userRepository;
             this.tripRepository = tripRepository;
             this.mapper = mapper;
             this.geolocationService = geolocationService;
         }
 
-        public async Task<IList<MyTripDto>> GetMyTripsAsOwnerOrPassengerByUserEmailAsync(string email)
+        public async Task<IList<MyTripDto>> GetMyTripsAsOwnerOrPassengerByUserIdAsync(Guid userId)
         {
-            var user = await userRepository.GetUserByEmailAsync(email);
-            var myTrips = await tripRepository.GetMyTripsAsOwnerOrPassengerByUserIdAsync(user.Id);
+            var myTrips = await tripRepository.GetMyTripsAsOwnerOrPassengerByUserIdAsync(userId);
 
             var myTripsDto = mapper.Map<List<MyTripDto>>(myTrips);
-            await ResolveIsPassengerFieldsAndLocationsForDto(user.Id, myTrips, myTripsDto);
+            await ResolveIsPassengerFieldsAndLocationsForDto(userId, myTrips, myTripsDto);
 
             return myTripsDto;
         }
