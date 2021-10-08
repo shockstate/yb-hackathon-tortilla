@@ -1,5 +1,5 @@
 import React, { ReactElement, useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, ScrollView } from "react-native";
 import { Loading } from "../components/Loading";
 import SignUpForm from "../components/SignUpForm";
 import { Api } from "../constants/Api";
@@ -48,7 +48,7 @@ const SignUpScreen = ({
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Text style={styles.title}>Sign Up</Text>
 
       <SignUpForm register={register} />
@@ -60,7 +60,7 @@ const SignUpScreen = ({
       >
         <Text style={styles.linkText}>Go to home screen!</Text>
       </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -70,8 +70,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
     padding: 20,
   },
   title: {
