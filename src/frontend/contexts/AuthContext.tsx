@@ -40,7 +40,7 @@ const AuthProvider: React.FC = ({ children }) => {
   const callLoginAsync = async (email: string, password: string) => {
     setLoading(true);
     try {
-      const response = await fetch(`${Api.URL}/Users/login`, {
+      const response = await fetch(`${Api.URL}/User/login`, {
         method: "POST",
         headers: {
           Accept: "application/json",

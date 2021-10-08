@@ -2,9 +2,6 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { Component, ReactElement, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-import { RootStackParamList, RootStackScreenProps } from "../types";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Keys } from "../constants/keys";
 import { useAuth } from "../hooks/useAuth";
 
 const LoginScreen = (): ReactElement => {
