@@ -10,6 +10,6 @@ namespace Tortilla.Hackathon.Services.Models.Dtos
         public string Email { get; set; } = string.Empty;
         public DateTime DateOfBirth { get; set; } = DateTime.MinValue;
         public string DriversLicenceNumber { get; set; } = string.Empty;
-        public CarDto Car { get; set; }
+        public CarDto Car { get; set; } = new CarDto();
     }
 }

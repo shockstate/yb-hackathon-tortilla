@@ -9,7 +9,7 @@ namespace Tortilla.Hackathon.Services.Models.Dtos
     public class CarDto
     {
         public string Model { get; set; }
-        public DateTime Year { get; set; }
+        public int Year { get; set; }
         public int MaxCapacity { get; set; }
         public CarType CarType { get; set; }
     }
