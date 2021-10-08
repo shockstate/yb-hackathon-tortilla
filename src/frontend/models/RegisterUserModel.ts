@@ -7,14 +7,8 @@ interface RegisterUserModel {
   email: string;
   password: string;
   birthDate: Date;
-  drivingLicenseNumber: string;
+  driversLicenseNumber: string;
   car: CarModel;
-  //   car: {
-  //     model: string;
-  //     year: string;
-  //     maxCapacity: string;
-  //     carType: CarTypeEnum;
-  //   };
 }
 
 export default RegisterUserModel;

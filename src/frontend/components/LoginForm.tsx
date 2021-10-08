@@ -72,7 +72,7 @@ export default function LoginForm({ login }: LoginFormProps) {
       )}
 
       <View style={styles.submitButton}>
-        <Button title="Submit" onPress={handleSubmit(onSubmit)} />
+        <Button title="Login" onPress={handleSubmit(onSubmit)} />
       </View>
     </View>
   );

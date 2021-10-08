@@ -6,14 +6,18 @@ import RegisterUserModel from "../models/RegisterUserModel";
 import DateField from "react-native-datefield";
 import { Picker } from "@react-native-picker/picker";
 
-export default function App() {
+interface RegisterUserFormProps {
+  register: (user: RegisterUserModel) => Promise<Response> | undefined;
+}
+
+export default function RegisterUserForm({ register }: RegisterUserFormProps) {
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data: RegisterUserModel) => console.log(data);
+  const onSubmit = (data: RegisterUserModel) => register(data);
 
   return (
     <View style={styles.form}>
@@ -160,13 +164,13 @@ export default function App() {
             />
           </>
         )}
-        name="drivingLicenseNumber"
+        name="driversLicenseNumber"
         rules={{
           required: true,
         }}
         defaultValue=""
       />
-      {errors.drivingLicenseNumber && (
+      {errors.driversLicenseNumber && (
         <Text style={styles.errorText}>
           The driving licence number is required.
         </Text>
@@ -285,7 +289,7 @@ export default function App() {
       </View>
 
       <View style={styles.submitButton}>
-        <Button title="Submit" onPress={handleSubmit(onSubmit)} />
+        <Button title="Register" onPress={handleSubmit(onSubmit)} />
       </View>
     </View>
   );
