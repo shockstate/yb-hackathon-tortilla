@@ -16,6 +16,12 @@ namespace Tortilla.Hackathon.Data.Repositories
             this.dbContext = dbContext;
         }
 
+        public async Task InsertAsync(Trip trip)
+        {
+            await dbContext.Trips.AddAsync(trip);
+            await dbContext.SaveChangesAsync();
+        }
+
         public async Task<IList<Trip>> GetTripsByUserIdAsync(Guid userId)
         {
             return await dbContext.Trips
@@ -28,6 +34,7 @@ namespace Tortilla.Hackathon.Data.Repositories
         {
             return await dbContext.Trips
                 .Where(t => t.UserId == userId || t.Passengers.Any(p => p.UserId == userId))
+                .Where(t =>  t.Recurrency != TripRecurrency.None || t.StartDateTime <= DateTime.Now )
                 .ToListAsync();
         }
     }

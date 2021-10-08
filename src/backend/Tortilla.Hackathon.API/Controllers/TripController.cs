@@ -5,6 +5,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Tortilla.Hackathon.Services.Interfaces;
+using Tortilla.Hackathon.Services.Models.Dtos.Trips;
 
 namespace Tortilla.Hackathon.API.Controllers
 {
@@ -35,7 +36,20 @@ namespace Tortilla.Hackathon.API.Controllers
             }
         }
 
-        //public void CreateTrip([FromBody] string value)
+        [HttpPost]
+        public async Task<IActionResult> CreateTrip(CreateTripDto createTripDto)
+        {
+            try
+            { 
+                await tripService.CreateTripAsync(createTripDto);
+                return StatusCode(StatusCodes.Status201Created);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
         //public void RequestJoinToTrip([FromBody] string value)
         //public void AcceptRequestToJoinTrip([FromBody] string value)
     }

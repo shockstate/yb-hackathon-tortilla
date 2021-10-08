@@ -1,9 +1,8 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
-using Geolocation;
 using Tortilla.Hackathon.Data.Repositories;
 using Tortilla.Hackathon.Domain;
 using Tortilla.Hackathon.Services.Interfaces;
@@ -47,6 +46,12 @@ namespace Tortilla.Hackathon.Services.Services
                 myTripDto.OriginDescription = await geolocationService.GetLocationDescription(myTripDto.OriginLatitude, myTripDto.OriginLongitude);
                 myTripDto.DestinationDescription = await geolocationService.GetLocationDescription(myTripDto.DestinationLatitude, myTripDto.DestinationLongitude);
             }
+        }
+
+        public async Task CreateTripAsync(CreateTripDto createTripDto)
+        {
+            var trip = mapper.Map<Trip>(createTripDto);
+            await tripRepository.InsertAsync(trip);
         }
     }
 }
