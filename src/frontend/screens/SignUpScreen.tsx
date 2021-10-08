@@ -55,10 +55,10 @@ const SignUpScreen = ({
       {loading && <Loading></Loading>}
 
       <TouchableOpacity
-        onPress={() => navigation.replace("Root")}
+        onPress={() => navigation.replace("Home")}
         style={styles.link}
       >
-        <Text style={styles.linkText}>Go to home screen!</Text>
+        <Text style={styles.linkText}>Go back</Text>
       </TouchableOpacity>
     </ScrollView>
   );
