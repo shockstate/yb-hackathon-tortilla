@@ -58,10 +58,6 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 function RootNavigator(userData: any) {
   const { authData, loading } = useAuth();
 
-  if (loading) {
-    return <Loading />;
-  }
-
   return (
     <Stack.Navigator>
       {!authData ? (
