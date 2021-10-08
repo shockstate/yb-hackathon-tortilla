@@ -36,6 +36,12 @@ namespace Tortilla.Hackathon.Services.Services
             var hashedPassword = Security.GetHashString(userCredentialsDto.Password);
             var user = await userRepository.GetUserByEmailAsync(userCredentialsDto.Email);
 
+            if (user == null)
+            {
+                logger.LogInformation($"User with email {userCredentialsDto.Email} does not exist");
+                throw new KeyNotFoundException($"User with email {userCredentialsDto.Email} does not exist");
+            }
+
             if (user.PasswordHash != hashedPassword)
             {
                 throw new UnauthorizedAccessException();

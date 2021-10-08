@@ -42,6 +42,11 @@ namespace Tortilla.Hackathon.API.Controllers
                 logger.LogError(ex, ex.Message);
                 return StatusCode(StatusCodes.Status401Unauthorized, ex.Message);
             }
+            catch (KeyNotFoundException ex)
+            {
+                logger.LogError(ex, ex.Message);
+                return StatusCode(StatusCodes.Status404NotFound, ex.Message);
+            }
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
