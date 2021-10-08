@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -43,6 +44,11 @@ namespace Tortilla.Hackathon.API.Controllers
                 logger.LogError(ex, ex.Message);
                 return StatusCode(StatusCodes.Status401Unauthorized, ex.Message);
             }
+            catch (KeyNotFoundException ex)
+            {
+                logger.LogError(ex, ex.Message);
+                return StatusCode(StatusCodes.Status404NotFound, ex.Message);
+            }
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
@@ -62,6 +68,11 @@ namespace Tortilla.Hackathon.API.Controllers
             {
                 logger.LogError(ex, ex.Message);
                 return StatusCode(StatusCodes.Status501NotImplemented, ex.Message);
+            }
+            catch (DuplicateNameException ex)
+            {
+                logger.LogError(ex, ex.Message);
+                return StatusCode(StatusCodes.Status409Conflict, ex.Message);
             }
             catch (Exception ex)
             {

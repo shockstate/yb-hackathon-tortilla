@@ -47,7 +47,15 @@ namespace Tortilla.Hackathon.API
                 options => options.UseSqlServer(Configuration.GetConnectionString("Db"))
             );
 
+            services.AddCors(o => o.AddPolicy("AllCorsPolicy", builder =>
+                {
+                    builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                }));
+
             services.AddControllers();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,6 +71,9 @@ namespace Tortilla.Hackathon.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("AllCorsPolicy");
+
 
             app.UseAuthorization();
 
