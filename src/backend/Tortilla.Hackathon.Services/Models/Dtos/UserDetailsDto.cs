@@ -1,7 +1,7 @@
 ﻿
 using System;
 
-namespace Tortilla.Hackathon.API.Models.Dtos
+namespace Tortilla.Hackathon.Services.Models.Dtos
 {
     public class UserDetailsDto
     {

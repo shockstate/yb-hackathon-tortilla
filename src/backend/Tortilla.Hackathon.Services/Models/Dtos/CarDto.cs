@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace Tortilla.Hackathon.API.Models
+namespace Tortilla.Hackathon.Services.Models.Dtos
 {
-    public class Car
+    public class CarDto
     {
         public string Model { get; set; }
-        public DateTime Year { get; set; }
+        public int Year { get; set; }
         public int MaxCapacity { get; set; }
         public CarType CarType { get; set; }
-        }
+    }
 }

@@ -33,21 +33,25 @@ import {
   RootTabScreenProps,
 } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Keys } from "../constants/keys";
+import { useAuth } from "../contexts/AuthContext";
+import { Loading } from "../components/Loading";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { Text } from "../components/Themed";
 
-export default function Navigation({
-  colorScheme,
-}: {
-  colorScheme: ColorSchemeName;
-}) {
+const Navigation = ({ colorScheme }: { colorScheme: ColorSchemeName }) => {
+  const [userData, setUserData] = React.useState(null);
+
   return (
     <NavigationContainer
       linking={LinkingConfiguration}
       theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
     >
-      <RootNavigator />
+      <RootNavigator userData={userData} />
     </NavigationContainer>
   );
-}
+};
 
 /**
  * A root stack navigator is often used for displaying modals on top of all other content.
@@ -55,42 +59,52 @@ export default function Navigation({
  */
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-function RootNavigator() {
+function RootNavigator(userData: any) {
+  const { authData, loading } = useAuth();
+
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <Stack.Navigator>
-      <Stack.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Login"
-        component={LoginScreen}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="SignUp"
-        component={SignUpScreen}
-        // options={{
-        //  title: "Sign in",
-        // When logging out, a pop animation feels intuitive
-        // You can remove this if you want the default 'push' animation
-        //animationTypeForReplace: state.isSignout ? "pop" : "push",
-        // }}
-      />
-      <Stack.Screen
-        name="Root"
-        component={BottomTabNavigator}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="NotFound"
-        component={NotFoundScreen}
-        options={{ title: "Oops!" }}
-      />
-      <Stack.Group screenOptions={{ presentation: "modal" }}>
-        <Stack.Screen name="Modal" component={ModalScreen} />
-      </Stack.Group>
+      {!authData ? (
+        <>
+          <Stack.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Login"
+            component={LoginScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="SignUp"
+            component={SignUpScreen}
+            options={{
+              title: "Sign in",
+            }}
+          />
+        </>
+      ) : (
+        <>
+          <Stack.Screen
+            name="Root"
+            component={BottomTabNavigator}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="NotFound"
+            component={NotFoundScreen}
+            options={{ title: "Oops!" }}
+          />
+          <Stack.Group screenOptions={{ presentation: "modal" }}>
+            <Stack.Screen name="Modal" component={ModalScreen} />
+          </Stack.Group>
+        </>
+      )}
     </Stack.Navigator>
   );
 }
@@ -103,7 +117,7 @@ const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
 function BottomTabNavigator() {
   const colorScheme = useColorScheme();
-
+  const auth = useAuth();
   return (
     <BottomTab.Navigator
       initialRouteName="TabOne"
@@ -118,19 +132,24 @@ function BottomTabNavigator() {
           title: "Tab One",
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           headerRight: () => (
-            <Pressable
-              onPress={() => navigation.navigate("Modal")}
-              style={({ pressed }) => ({
-                opacity: pressed ? 0.5 : 1,
-              })}
-            >
-              <FontAwesome
-                name="info-circle"
-                size={25}
-                color={Colors[colorScheme].text}
-                style={{ marginRight: 15 }}
-              />
-            </Pressable>
+            <>
+              <TouchableOpacity onPress={() => auth.signOut()}>
+                <Text>Log out</Text>
+              </TouchableOpacity>
+              <Pressable
+                onPress={() => navigation.navigate("Modal")}
+                style={({ pressed }) => ({
+                  opacity: pressed ? 0.5 : 1,
+                })}
+              >
+                <FontAwesome
+                  name="info-circle"
+                  size={25}
+                  color={Colors[colorScheme].text}
+                  style={{ marginRight: 15 }}
+                />
+              </Pressable>
+            </>
           ),
         })}
       />
@@ -188,3 +207,5 @@ function CalendarTabIcon(props: {
 }) {
   return <AntDesign size={30} style={{ marginBottom: -3 }} {...props} />;
 }
+
+export default Navigation;

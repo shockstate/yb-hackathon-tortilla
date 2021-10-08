@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Tortilla.Hackathon.Services.Interfaces;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -9,6 +11,14 @@ namespace Tortilla.Hackathon.API.Controllers
     [ApiController]
     public class TripController : ControllerBase
     {
+        private readonly ITripService tripService;
+        private readonly ILogger<UserController> logger;
+        public TripController(
+            ITripService tripService, ILogger<UserController> logger)
+        {
+            this.tripService = tripService;
+            this.logger = logger;
+        }
         // GET: api/<TripController>
         [HttpGet]
         public IEnumerable<string> Get()

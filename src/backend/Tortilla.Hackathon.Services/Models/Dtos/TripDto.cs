@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Geolocation;
+﻿using Geolocation;
 
-namespace Tortilla.Hackathon.API.Models.Dtos
+namespace Tortilla.Hackathon.Services.Models.Dtos
 {
     public class TripDto
     {
