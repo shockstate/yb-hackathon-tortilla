@@ -62,11 +62,12 @@ const AuthProvider: React.FC = ({ children }) => {
 
   const signIn = async (email: string, password: string) => {
     const loginResult = await callLoginAsync(email, password);
-    console.log(loginResult, "loginResult");
-    if (loginResult && loginResult.status === 200) {
+    if (loginResult && loginResult.ok) {
+      const userData = await loginResult?.json();
       const _authData = {
         name: "LoggedUser",
         email: email,
+        id: userData.userId,
       } as AuthData;
 
       setAuthData(_authData);

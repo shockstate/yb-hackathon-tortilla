@@ -45,6 +45,11 @@ namespace Tortilla.Hackathon.Data
                 .WithMany(e => e.Trips)
                 .HasForeignKey(e => e.UserId);
 
+            modelBuilder.Entity<Trip>()
+                .HasMany(e => e.DayTrips)
+                .WithOne(e => e.Trip)
+                .HasForeignKey(e => e.TripId);
+
             modelBuilder.Entity<Passenger>()
                 .HasKey(e => e.Id);
 

@@ -70,20 +70,9 @@ export default function TabOneScreen({
   };
 
   const getUserTrips = async () => {
-    // const data = [
-    //   {
-    //     id: "1",
-    //     originDescription: "isolutions Bcn",
-    //     destinationDescription: "Yb Stadium",
-    //   } as TripModel,
-    //   {
-    //     id: "2",
-    //     originDescription: "Bern",
-    //     destinationDescription: "Zurich",
-    //   } as TripModel,
-    // ] as TripModel[];
-
-    const data = await fetch(`${Api.URL}/Trip/${auth.authData?.id}`)
+    const data = await fetch(
+      `${Api.URL}/Trip/myTrips?userId=${auth.authData?.id}`
+    )
       .then((response) => response.json())
       .then((json) => {
         setTripsData(json);
