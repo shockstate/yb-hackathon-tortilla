@@ -23,10 +23,10 @@ namespace Tortilla.Hackathon.Data.Repositories
                 .FirstOrDefaultAsync();
         }
 
-        public Task Update()
+        public async Task Update(Passenger passenger)
         {
-            dbContext.SaveChanges();
-            return Task.CompletedTask;
+            dbContext.Passengers.Update(passenger);
+            await dbContext.SaveChangesAsync();
         }
     }
 }

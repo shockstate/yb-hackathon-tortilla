@@ -40,6 +40,11 @@ namespace Tortilla.Hackathon.Services.Services
             {
                 throw new KeyNotFoundException("Passenger does not exist");
             }
+
+            if (passenger.PassengerStatus != PassengerStatus.Pending)
+            {
+                throw new InvalidOperationException("It is only possible to change passengers in status pending");
+            }
             var acceptedPassengers = passenger.DayTrip.Passengers.Count(p => p.PassengerStatus == PassengerStatus.Accepted);
             if (isAccepted)
             {
@@ -54,19 +59,19 @@ namespace Tortilla.Hackathon.Services.Services
                 if (passenger.User.Points - pointsToSubstract < 0)
                 {
                     passenger.PassengerStatus = PassengerStatus.Rejected;
-                    await passengerRepository.Update();
+                    await passengerRepository.Update(passenger);
                     throw new InvalidOperationException("User has not enough points to be in this trip");
                 }
 
                 passenger.PassengerStatus = PassengerStatus.Accepted;
                 passenger.User.Points -= pointsToSubstract;
                 passenger.DayTrip.Trip.User.Points += pointsToAdd;
-                await passengerRepository.Update();
+                await passengerRepository.Update(passenger);
             }
             else
             {
                 passenger.PassengerStatus = PassengerStatus.Rejected;
-                await passengerRepository.Update();
+                await passengerRepository.Update(passenger);
             }
         }
     }
