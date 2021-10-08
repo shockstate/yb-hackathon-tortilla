@@ -22,7 +22,7 @@ namespace Tortilla.Hackathon.Services.Services
 
         public async Task<IList<PendingPassengerDto>> GetPendingPassengersAsync(Guid tripUserId)
         {
-            var trips = await tripRepository.GetTripsByUserAsync(tripUserId);
+            var trips = await tripRepository.GetTripsByUserIdAsync(tripUserId);
             var pendingPassengers = trips
                 .SelectMany(trip => trip.Passengers)
                 .Where(p => p.AcceptedDateTime is null);

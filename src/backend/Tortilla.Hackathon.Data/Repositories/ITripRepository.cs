@@ -7,6 +7,7 @@ namespace Tortilla.Hackathon.Data.Repositories
 {
     public interface ITripRepository
     {
-        Task<IList<Trip>> GetTripsByUserAsync(Guid userId);
+        Task<IList<Trip>> GetTripsByUserIdAsync(Guid userId);
+        Task<IList<Trip>> GetMyTripsAsOwnerOrPassengerByUserIdAsync(Guid userId);
     }
 }

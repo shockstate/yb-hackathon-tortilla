@@ -3,6 +3,7 @@ using AutoMapper;
 using Tortilla.Hackathon.Domain;
 using Tortilla.Hackathon.Services.Helpers;
 using Tortilla.Hackathon.Services.Models.Dtos;
+using Tortilla.Hackathon.Services.Models.Dtos.Trips;
 
 namespace Tortilla.Hackathon.Services.Models
 {
@@ -22,6 +23,9 @@ namespace Tortilla.Hackathon.Services.Models
             CreateMap<User, UserDetailsDto>();
 
             CreateMap<Passenger, PendingPassengerDto>();
+
+            CreateMap<Trip, MyTripDto>()
+                .ForMember(dest => dest.TripId, opts => opts.MapFrom(src => src.Id));
         }
     }
 }
