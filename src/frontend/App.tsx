@@ -11,12 +11,6 @@ export default function App() {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
 
-  console.log("rendered app");
-
-  React.useEffect(() => {
-    console.log("useEffect app");
-  }, []);
-
   if (!isLoadingComplete) {
     return null;
   } else {

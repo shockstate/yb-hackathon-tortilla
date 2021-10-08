@@ -5,7 +5,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { RootStackParamList, RootStackScreenProps } from "../types";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Keys } from "../constants/keys";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../hooks/useAuth";
 
 const storeUserData = async (value: any) => {
   try {
