@@ -29,7 +29,8 @@ namespace Tortilla.Hackathon.API.Controllers
         {
             try
             {
-                await userService.LoginAsync(userCredentialsDto);
+                var loginResponse = await userService.LoginAsync(userCredentialsDto);
+                return Ok(loginResponse);
             }
             catch (NotImplementedException ex)
             {
@@ -50,10 +51,8 @@ namespace Tortilla.Hackathon.API.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
-            return Ok();
         }
         
-
         [HttpPost("register")]
         public async Task<IActionResult> RegisterUser(CreateUserDto userDto, CancellationToken cancellationToken = default)
         {
@@ -78,7 +77,7 @@ namespace Tortilla.Hackathon.API.Controllers
             return StatusCode(StatusCodes.Status201Created);
         }
 
-        [HttpGet("")]
+        [HttpGet]
         public async Task<IActionResult> GetUser(string email, CancellationToken cancellationToken = default)
         {
             try

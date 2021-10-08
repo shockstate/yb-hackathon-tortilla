@@ -7,7 +7,7 @@ namespace Tortilla.Hackathon.Services.Interfaces
     public interface IUserService
     {
         Task RegisterAsync(CreateUserDto user);
-        Task LoginAsync(UserCredentialsDto credentials);
+        Task<LoginResponseDto> LoginAsync(UserCredentialsDto credentials);
         Task<UserDetailsDto> GetUserByEmailAsync(string email);
     }
 }

@@ -1,25 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
+using Tortilla.Hackathon.Domain;
 
-namespace Tortilla.Hackathon.Domain
+namespace Tortilla.Hackathon.Services.Models.Dtos.Trips
 {
-    public class Trip
+    public class CreateTripDto
     {
-        public Trip()
-        {
-            Passengers = new Collection<Passenger>();
-        }
-
-        public Guid Id { get; set; }
+        [Required]
         public double OriginLatitude { get; set; }
+        [Required]
         public double OriginLongitude { get; set; }
+        [Required]
         public double DestinationLatitude { get; set; }
+        [Required]
         public double DestinationLongitude { get; set; }
+        [Required]
         public DateTime StartDateTime { get; set; }
+        [Required]
         public TripRecurrency Recurrency { get; set; }
+        [Required]
         public Guid UserId { get; set; }
-        public virtual User User { get; set; }
-        public virtual ICollection<Passenger> Passengers { get; set; }
     }
 }

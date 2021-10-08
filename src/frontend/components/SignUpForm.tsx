@@ -4,34 +4,23 @@ import { useForm, Controller } from "react-hook-form";
 import CarTypeEnum from "../enums/CarTypeEnum";
 import RegisterUserModel from "../models/RegisterUserModel";
 import DateField from "react-native-datefield";
+import { Picker } from "@react-native-picker/picker";
 
-export default function App() {
+interface RegisterUserFormProps {
+  register: (user: RegisterUserModel) => Promise<Response> | undefined;
+}
+
+export default function RegisterUserForm({ register }: RegisterUserFormProps) {
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data: RegisterUserModel) => console.log(data);
-
-  const [userData, setUserData] = useState<RegisterUserModel>({
-    firstName: "",
-    lastName: "",
-    email: "",
-    birthDate: new Date(),
-    password: "",
-    drivingLicenseNumber: "",
-    car: {
-      model: "",
-      year: "",
-      maxCapacity: "",
-      carType: CarTypeEnum.ELECTRIC,
-    },
-  });
+  const onSubmit = (data: RegisterUserModel) => register(data);
 
   return (
     <View style={styles.form}>
-      <Text style={styles.title}>Register</Text>
       <Controller
         control={control}
         render={({ field: { onChange, onBlur, value } }) => (
@@ -175,47 +164,132 @@ export default function App() {
             />
           </>
         )}
-        name="drivingLicenseNumber"
+        name="driversLicenseNumber"
         rules={{
           required: true,
         }}
         defaultValue=""
       />
-      {errors.drivingLicenseNumber && (
+      {errors.driversLicenseNumber && (
         <Text style={styles.errorText}>
           The driving licence number is required.
         </Text>
       )}
 
-      {/* <Controller
-        control={control}
-        render={({ field: { onBlur, value } }) => (
-          <>
-            <Text>Car model:</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Renault"
-              onBlur={onBlur}
-              onChangeText={(value) => {
-                setUserData({
-                  ...userData,
-                  car: {
-                    ...userData.car,
-                    model: value,
-                  },
-                });
-              }}
-              value={value}
-            />
-          </>
+      <View style={styles.addCar}>
+        <Text style={styles.title}>Add your car</Text>
+        <Controller
+          control={control}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <>
+              <Text style={styles.label}>Car model:</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Renault twingo"
+                onBlur={onBlur}
+                onChangeText={(value) => {
+                  onChange(value);
+                }}
+                value={value}
+              />
+            </>
+          )}
+          name="car.model"
+          rules={{
+            required: true,
+          }}
+          defaultValue=""
+        />
+        {errors.model && (
+          <Text style={styles.errorText}>The car model is required.</Text>
         )}
-        name="model"
-        defaultValue=""
-      />
-      {errors.car.model && <Text>This field is required.</Text>} */}
+
+        <Controller
+          control={control}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <>
+              <Text style={styles.label}>Registration year:</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="2018"
+                onBlur={onBlur}
+                onChangeText={(value) => {
+                  onChange(value);
+                }}
+                value={value}
+              />
+            </>
+          )}
+          name="car.year"
+          rules={{
+            required: true,
+          }}
+          defaultValue=""
+        />
+        {errors.year && (
+          <Text style={styles.errorText}>
+            The registration year is required.
+          </Text>
+        )}
+
+        <Controller
+          control={control}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <>
+              <Text style={styles.label}>Maximum capacity:</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="4"
+                onBlur={onBlur}
+                onChangeText={(value) => {
+                  onChange(value);
+                }}
+                value={value}
+              />
+            </>
+          )}
+          name="car.maxCapacity"
+          rules={{
+            required: true,
+          }}
+          defaultValue=""
+        />
+        {errors.maxCapacity && (
+          <Text style={styles.errorText}>
+            The maximum capacity is required.
+          </Text>
+        )}
+
+        <Controller
+          control={control}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <>
+              <Text style={styles.label}>Car type:</Text>
+              <Picker
+                style={{ height: 40, marginTop: 12 }}
+                onValueChange={onChange}
+              >
+                <Picker.Item value="None" label="None" />
+                <Picker.Item value={CarTypeEnum.DIESEL} label="Diesel" />
+                <Picker.Item value={CarTypeEnum.GASOLINE} label="Gasoline" />
+                <Picker.Item value={CarTypeEnum.HYBRID} label="Hybrid" />
+                <Picker.Item value={CarTypeEnum.ELECTRIC} label="Electric" />
+              </Picker>
+            </>
+          )}
+          name="car.carType"
+          rules={{
+            required: true,
+          }}
+          defaultValue=""
+        />
+        {errors.carType && (
+          <Text style={styles.errorText}>The car type is required.</Text>
+        )}
+      </View>
 
       <View style={styles.submitButton}>
-        <Button title="Submit" onPress={handleSubmit(onSubmit)} />
+        <Button title="Register" onPress={handleSubmit(onSubmit)} />
       </View>
     </View>
   );
@@ -250,6 +324,16 @@ const styles = StyleSheet.create({
   },
   label: {
     marginTop: 12,
+  },
+  addCar: {
+    border: "1px solid",
+    marginTop: 12,
+    marginBottom: 12,
+    padding: 12,
+  },
+  carType: {
+    height: 40,
+    maringTop: 12,
   },
   errorText: {
     color: "red",
