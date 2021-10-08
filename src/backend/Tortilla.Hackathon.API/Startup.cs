@@ -36,6 +36,8 @@ namespace Tortilla.Hackathon.API
             services.AddHttpContextAccessor();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ITripRepository, TripRepository>();
+            services.AddScoped<IPassengerRepository, PassengerRepository>();
             services.AddAutoMapper(typeof(MappingProfile).Assembly);
 
             if (Environment.IsDevelopment())

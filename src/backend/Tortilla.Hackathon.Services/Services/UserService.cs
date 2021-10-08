@@ -44,7 +44,7 @@ namespace Tortilla.Hackathon.Services.Services
             logger.LogInformation("Login was successful");
         }
 
-        public async Task<UserDetailsDto> GetUserAsync(string email)
+        public async Task<UserDetailsDto> GetUserByEmailAsync(string email)
         {
             var user = await userRepository.GetUserByEmailAsync(email);
             if (user == null)
