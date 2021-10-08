@@ -6,12 +6,15 @@
 
   <ItemGroup>
     <PackageReference Include="Geolocation" Version="1.2.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Tortilla.Hackathon.Data\Tortilla.Hackathon.Data.csproj" />
-    <ProjectReference Include="..\Tortilla.Hackaton.Data\Tortilla.Hackathon.Data.csproj" />
   </ItemGroup>
 
 </Project>
