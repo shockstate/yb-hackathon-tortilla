@@ -94,7 +94,6 @@ const styles = StyleSheet.create({
   dateInput: {
     fontSize: 15,
     padding: 12,
-    border: "1px solid",
     width: "32%",
     marginTop: 12,
   },
@@ -102,14 +101,9 @@ const styles = StyleSheet.create({
     marginTop: 12,
   },
   addCar: {
-    border: "1px solid",
     marginTop: 12,
     marginBottom: 12,
     padding: 12,
-  },
-  carType: {
-    height: 40,
-    maringTop: 12,
   },
   errorText: {
     color: "red",
