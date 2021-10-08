@@ -33,7 +33,7 @@ namespace Tortilla.Hackathon.Services.Services
         {
             //TODO: hash password
             var hashedPassword = "";
-            var user = await userRepository.GetUserByEmail(userCredentialsDto.Email);
+            var user = await userRepository.GetUserByEmailAsync(userCredentialsDto.Email);
 
             if (user.PasswordHash != hashedPassword)
             {
@@ -46,7 +46,7 @@ namespace Tortilla.Hackathon.Services.Services
         public async Task AddCar(string userId, CarDto carDto)
         {
             var car = mapper.Map<Car>(carDto);
-            await userRepository.InsertCar(userId, car);
+            await userRepository.InsertCarAsync(userId, car);
             logger.LogInformation("User created successfully");
         }
     }
