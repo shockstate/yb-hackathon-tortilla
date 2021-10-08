@@ -40,7 +40,7 @@ namespace Tortilla.Hackathon.Services.Services
             logger.LogInformation("User created successfully");
         }
 
-        public async Task LoginAsync(UserCredentialsDto userCredentialsDto)
+        public async Task<LoginResponseDto> LoginAsync(UserCredentialsDto userCredentialsDto)
         {
             var hashedPassword = Security.GetHashString(userCredentialsDto.Password);
             var user = await userRepository.GetUserByEmailAsync(userCredentialsDto.Email);
@@ -57,6 +57,8 @@ namespace Tortilla.Hackathon.Services.Services
             }
 
             logger.LogInformation("Login was successful");
+
+            return new LoginResponseDto { UserId = user.Id };
         }
 
         public async Task<UserDetailsDto> GetUserByEmailAsync(string email)
