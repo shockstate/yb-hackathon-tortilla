@@ -16,12 +16,15 @@ namespace Tortilla.Hackathon.Services.Services
         private readonly IUserRepository userRepository;
         private readonly ITripRepository tripRepository;
         private readonly IMapper mapper;
+        private readonly IGeolocationService geolocationService;
 
-        public TripService(IUserRepository userRepository, ITripRepository tripRepository, IMapper mapper)
+        public TripService(IUserRepository userRepository, ITripRepository tripRepository, 
+            IMapper mapper, IGeolocationService geolocationService)
         {
             this.userRepository = userRepository;
             this.tripRepository = tripRepository;
             this.mapper = mapper;
+            this.geolocationService = geolocationService;
         }
 
         public async Task<IList<MyTripDto>> GetMyTripsAsOwnerOrPassengerByUserEmailAsync(string email)
@@ -30,17 +33,19 @@ namespace Tortilla.Hackathon.Services.Services
             var myTrips = await tripRepository.GetMyTripsAsOwnerOrPassengerByUserIdAsync(user.Id);
 
             var myTripsDto = mapper.Map<List<MyTripDto>>(myTrips);
-            ResolveIsPassengerFieldsForDto(user.Id, myTrips, myTripsDto);
+            await ResolveIsPassengerFieldsAndLocationsForDto(user.Id, myTrips, myTripsDto);
 
             return myTripsDto;
         }
 
-        private static void ResolveIsPassengerFieldsForDto(Guid userId, IList<Trip> trips, IList<MyTripDto> myTripDtos)
+        private async Task ResolveIsPassengerFieldsAndLocationsForDto(Guid userId, IList<Trip> trips, IList<MyTripDto> myTripDtos)
         {
             foreach (var myTripDto in myTripDtos)
             {
                 var trip = trips.First(t => t.Id == myTripDto.TripId);
                 myTripDto.IsUserPassenger = trip.UserId != userId;
+                myTripDto.OriginDescription = await geolocationService.GetLocationDescription(myTripDto.OriginLatitude, myTripDto.OriginLongitude);
+                myTripDto.DestinationDescription = await geolocationService.GetLocationDescription(myTripDto.DestinationLatitude, myTripDto.DestinationLongitude);
             }
         }
     }

@@ -36,6 +36,7 @@ namespace Tortilla.Hackathon.API
             services.AddHttpContextAccessor();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ITripService, TripService>();
+            services.AddScoped<IGeolocationService, GeolocationService>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ITripRepository, TripRepository>();
             services.AddScoped<IPassengerRepository, PassengerRepository>();
