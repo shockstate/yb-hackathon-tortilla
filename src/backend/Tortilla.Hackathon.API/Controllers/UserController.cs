@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -53,7 +54,6 @@ namespace Tortilla.Hackathon.API.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> RegisterUser(CreateUserDto userDto, CancellationToken cancellationToken = default)
         {
-            //validate data
             try
             {
                 await userService.RegisterAsync(userDto);
