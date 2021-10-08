@@ -19,6 +19,7 @@ namespace Tortilla.Hackathon.API.Controllers
             this.tripService = tripService;
             this.logger = logger;
         }
+
         // GET: api/<TripController>
         [HttpGet]
         public IEnumerable<string> Get()

@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Net;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Threading;
+using System.Threading.Tasks;
 using Tortilla.Hackathon.Services.Interfaces;
 using Tortilla.Hackathon.Services.Models.Dtos;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Tortilla.Hackathon.API.Controllers
 {
@@ -86,7 +83,7 @@ namespace Tortilla.Hackathon.API.Controllers
         {
             try
             {
-                var user = await userService.GetUserAsync(email);
+                var user = await userService.GetUserByEmailAsync(email);
                 return new JsonResult(user);
 
             }

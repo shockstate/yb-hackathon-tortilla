@@ -9,7 +9,7 @@ namespace Tortilla.Hackathon.Domain
         public User()
         {
             Trips = new Collection<Trip>();
-            TripsAsPassenger = new Collection<UserTripPassenger>();
+            Passengers = new Collection<Passenger>();
         }
 
         public Guid Id { get; set; }
@@ -24,6 +24,6 @@ namespace Tortilla.Hackathon.Domain
         public Guid CarId { get; set; }
         public virtual Car Car { get; set; }
         public virtual ICollection<Trip> Trips { get; set; }
-        public virtual ICollection<UserTripPassenger> TripsAsPassenger { get; set; }
+        public virtual ICollection<Passenger> Passengers { get; set; }
     }
 }

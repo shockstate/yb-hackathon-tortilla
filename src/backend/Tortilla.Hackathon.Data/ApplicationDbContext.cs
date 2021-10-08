@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using Tortilla.Hackathon.Domain;
 
 namespace Tortilla.Hackathon.Data
@@ -45,16 +43,16 @@ namespace Tortilla.Hackathon.Data
                 .WithMany(e => e.Trips)
                 .HasForeignKey(e => e.UserId);
 
-            modelBuilder.Entity<UserTripPassenger>()
-                .ToTable("UserTrip_Passengers")
+            modelBuilder.Entity<Passenger>()
+                .ToTable("Passengers")
                 .HasKey(t => new { t.UserId, t.TripId });
 
-            modelBuilder.Entity<UserTripPassenger>()
+            modelBuilder.Entity<Passenger>()
                 .HasOne(pt => pt.User)
-                .WithMany(p => p.TripsAsPassenger)
+                .WithMany(p => p.Passengers)
                 .HasForeignKey(pt => pt.UserId);
 
-            modelBuilder.Entity<UserTripPassenger>()
+            modelBuilder.Entity<Passenger>()
                 .HasOne(pt => pt.Trip)
                 .WithMany(t => t.Passengers)
                 .HasForeignKey(pt => pt.TripId);

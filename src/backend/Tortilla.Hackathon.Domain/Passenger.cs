@@ -2,7 +2,7 @@
 
 namespace Tortilla.Hackathon.Domain
 {
-    public class UserTripPassenger
+    public class Passenger
     {
         public Guid UserId { get; set; }
         public virtual User User { get; set; }
