@@ -236,7 +236,7 @@ export default function RegisterUserForm({ register }: RegisterUserFormProps) {
           control={control}
           render={({ field: { onChange, onBlur, value } }) => (
             <>
-              <Text style={styles.label}>Maximum capacity:</Text>
+              <Text style={styles.label}>Maximum passengers capacity:</Text>
               <TextInput
                 style={styles.input}
                 placeholder="4"

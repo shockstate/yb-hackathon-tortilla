@@ -5,8 +5,11 @@ import LoginForm from "../components/LoginForm";
 import { Loading } from "../components/Loading";
 
 import { useAuth } from "../hooks/useAuth";
+import { RootStackScreenProps } from "../types";
 
-const LoginScreen = (): ReactElement => {
+const LoginScreen = ({
+  navigation,
+}: RootStackScreenProps<"Login">): ReactElement => {
   const auth = useAuth();
   const [hasLoginError, setHasLoginError] = useState<boolean>(false);
 
@@ -21,6 +24,15 @@ const LoginScreen = (): ReactElement => {
       <Text style={styles.title}>Login</Text>
 
       <LoginForm login={login} />
+      <Text>
+        You don't have an account? Go to{" "}
+        <Text
+          onPress={() => navigation.replace("SignUp")}
+          style={styles.signUp}
+        >
+          SIGN UP
+        </Text>
+      </Text>
 
       {auth.loading && <Loading></Loading>}
 
@@ -48,13 +60,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
   },
-  link: {
-    marginTop: 15,
-    paddingVertical: 15,
-  },
-  linkText: {
-    fontSize: 14,
-    color: "#2e78b7",
+  signUp: {
+    color: "#2196F3",
   },
   loginFailed: {
     fontWeight: "bold",
