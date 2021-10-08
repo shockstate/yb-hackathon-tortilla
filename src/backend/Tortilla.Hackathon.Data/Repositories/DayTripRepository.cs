@@ -27,5 +27,18 @@ namespace Tortilla.Hackathon.Data.Repositories
                 //.Where(dayTrip => dayTrip.DateTime >= DateTime.Now && dayTrip.DateTime <= DateTime.Now.AddDays(7))
                 .ToListAsync();
         }
+
+        public async Task<IList<DayTrip>> GetDayTripsAvailableByDateTimeForUser(DateTime dateTime, Guid userId)
+        {
+            // I search all the trips in the day
+            var dateTimeWithNoTime = DateTime.Parse(dateTime.ToShortDateString());
+
+            return await dbContext.DayTrips
+                .Include(d => d.Trip)
+                .Where(dayTrip => dayTrip.DateTime >= dateTimeWithNoTime && dayTrip.DateTime < dateTimeWithNoTime)
+                .Where(dayTrip => !dayTrip.Passengers.Any(p => p.UserId == userId))
+                .Where(dayTrip => dayTrip.Trip.User.Car.MaxCapacity > dayTrip.Passengers.Count + 1)
+                .ToListAsync();
+        }
     }
 }

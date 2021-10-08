@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using GeoCoordinatePortable;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -90,6 +91,24 @@ namespace Tortilla.Hackathon.Services.Services
                     });
                 }
             }
+        }
+
+        public async Task<IList<DayTripDto>> SearchDayTripsAsync(SearchTripsDto searchTripsDto)
+        {
+            var dayTripsInDateTime = await dayTripRepository.GetDayTripsAvailableByDateTimeForUser(searchTripsDto.DateTime, searchTripsDto.UserId);
+            
+            var maxRadiusInMeters = 5000;
+            var originGeoCoordinate = new GeoCoordinate(searchTripsDto.OriginLatitude, searchTripsDto.OriginLongitude);
+            var destinationGeoCoordinate = new GeoCoordinate(searchTripsDto.DestinationLatitude, searchTripsDto.DestinationLongitude);
+
+            var dayTripsInRadius = dayTripsInDateTime
+                .Where(dayTrip =>
+                    originGeoCoordinate.GetDistanceTo(new GeoCoordinate(dayTrip.Trip.OriginLatitude, dayTrip.Trip.OriginLongitude)) <= maxRadiusInMeters &&
+                    destinationGeoCoordinate.GetDistanceTo(new GeoCoordinate(dayTrip.Trip.DestinationLatitude, dayTrip.Trip.DestinationLongitude)) <= maxRadiusInMeters);
+
+            var dayTripDtos = mapper.Map<List<DayTripDto>>(dayTripsInRadius);
+
+            return dayTripDtos;
         }
     }
 }
