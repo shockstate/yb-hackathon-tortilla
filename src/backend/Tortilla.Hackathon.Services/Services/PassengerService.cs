@@ -23,11 +23,13 @@ namespace Tortilla.Hackathon.Services.Services
         public async Task<IList<PendingPassengerDto>> GetPendingPassengersAsync(Guid tripUserId)
         {
             var trips = await tripRepository.GetTripsByUserIdAsync(tripUserId);
-            var pendingPassengers = trips
-                .SelectMany(trip => trip.Passengers)
-                .Where(p => p.AcceptedDateTime is null);
+            //var pendingPassengers = trips
+            //    .SelectMany(trip => trip.Passengers)
+            //    .Where(p => p.AcceptedDateTime is null);
 
-            return mapper.Map<List<PendingPassengerDto>>(pendingPassengers);
+            //return mapper.Map<List<PendingPassengerDto>>(pendingPassengers);
+
+            throw new NotImplementedException();
         }
     }
 }

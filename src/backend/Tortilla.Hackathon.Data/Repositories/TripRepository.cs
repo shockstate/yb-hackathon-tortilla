@@ -26,14 +26,16 @@ namespace Tortilla.Hackathon.Data.Repositories
         {
             return await dbContext.Trips
                 .Where(t => t.UserId == userId)
-                .Include(t => t.Passengers.Select(p => p.User))
+                // TODO:
+                //.Include(t => t.Passengers.Select(p => p.User))
                 .ToListAsync();
         }
 
         public async Task<IList<Trip>> GetMyTripsAsOwnerOrPassengerByUserIdAsync(Guid userId)
         {
             return await dbContext.Trips
-                .Where(t => t.UserId == userId || t.Passengers.Any(p => p.UserId == userId))
+                // TODO:
+                //.Where(t => t.UserId == userId || t.Passengers.Any(p => p.UserId == userId))
                 .Where(t =>  t.Recurrency != TripRecurrency.None || t.StartDateTime <= DateTime.Now )
                 .ToListAsync();
         }
