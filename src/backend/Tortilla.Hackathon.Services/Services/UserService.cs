@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
@@ -27,7 +28,15 @@ namespace Tortilla.Hackathon.Services.Services
         public async Task RegisterAsync(CreateUserDto userDto)
         {
             var user = mapper.Map<User>(userDto);
+
+            var userWithMail = await userRepository.GetUserByEmailAsync(userDto.Email);
+            if (userWithMail != null)
+            {
+                logger.LogInformation($"User with email {userDto.Email} already exists");
+                throw new DuplicateNameException($"User with email {userWithMail.Email} already exists");
+            }
             await userRepository.InsertAsync(user);
+
             logger.LogInformation("User created successfully");
         }
 
