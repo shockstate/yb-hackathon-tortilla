@@ -4,6 +4,7 @@ using AutoMapper;
 using Microsoft.Extensions.Logging;
 using Tortilla.Hackathon.Data.Repositories;
 using Tortilla.Hackathon.Domain;
+using Tortilla.Hackathon.Services.Helpers;
 using Tortilla.Hackathon.Services.Interfaces;
 using Tortilla.Hackathon.Services.Models.Dtos;
 
@@ -31,8 +32,7 @@ namespace Tortilla.Hackathon.Services.Services
 
         public async Task LoginAsync(UserCredentialsDto userCredentialsDto)
         {
-            //TODO: hash password
-            var hashedPassword = "";
+            var hashedPassword = Security.GetHashString(userCredentialsDto.Password);
             var user = await userRepository.GetUserByEmailAsync(userCredentialsDto.Email);
 
             if (user.PasswordHash != hashedPassword)
