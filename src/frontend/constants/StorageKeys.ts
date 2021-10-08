@@ -1,3 +1,3 @@
-export const Keys = {
+export const StorageKeys = {
   USER_STORE_KEY: "@userData",
 };

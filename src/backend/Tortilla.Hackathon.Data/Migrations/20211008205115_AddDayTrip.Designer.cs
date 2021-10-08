@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tortilla.Hackathon.Data;
 
 namespace Tortilla.Hackathon.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211008205115_AddDayTrip")]
+    partial class AddDayTrip
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -97,17 +99,11 @@ namespace Tortilla.Hackathon.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("DestinationDescription")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<double>("DestinationLatitude")
                         .HasColumnType("float");
 
                     b.Property<double>("DestinationLongitude")
                         .HasColumnType("float");
-
-                    b.Property<string>("OriginDescription")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("OriginLatitude")
                         .HasColumnType("float");
@@ -183,7 +179,7 @@ namespace Tortilla.Hackathon.Data.Migrations
             modelBuilder.Entity("Tortilla.Hackathon.Domain.DayTrip", b =>
                 {
                     b.HasOne("Tortilla.Hackathon.Domain.Trip", "Trip")
-                        .WithMany("DayTrips")
+                        .WithMany()
                         .HasForeignKey("TripId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -224,11 +220,6 @@ namespace Tortilla.Hackathon.Data.Migrations
             modelBuilder.Entity("Tortilla.Hackathon.Domain.DayTrip", b =>
                 {
                     b.Navigation("Passengers");
-                });
-
-            modelBuilder.Entity("Tortilla.Hackathon.Domain.Trip", b =>
-                {
-                    b.Navigation("DayTrips");
                 });
 
             modelBuilder.Entity("Tortilla.Hackathon.Domain.User", b =>

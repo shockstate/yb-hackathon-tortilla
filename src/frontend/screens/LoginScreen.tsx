@@ -69,7 +69,6 @@ const styles = StyleSheet.create({
   errorMessage: {
     backgroundColor: "#EAD7D7",
     color: "#BA6A68",
-    border: "1px solid #C69194",
     paddingTop: 12,
     paddingBottom: 12,
     paddingLeft: 6,

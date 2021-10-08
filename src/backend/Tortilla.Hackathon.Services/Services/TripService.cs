@@ -12,46 +12,84 @@ namespace Tortilla.Hackathon.Services.Services
 {
     public class TripService : ITripService
     {
-        private readonly IUserRepository userRepository;
         private readonly ITripRepository tripRepository;
         private readonly IMapper mapper;
         private readonly IGeolocationService geolocationService;
-
-        public TripService(IUserRepository userRepository, ITripRepository tripRepository, 
-            IMapper mapper, IGeolocationService geolocationService)
+        private readonly IDayTripRepository dayTripRepository;
+        private readonly List<DayOfWeek> workableDays = new List<DayOfWeek> 
         {
-            this.userRepository = userRepository;
+            DayOfWeek.Monday,
+            DayOfWeek.Tuesday,
+            DayOfWeek.Wednesday,
+            DayOfWeek.Tuesday,
+            DayOfWeek.Friday
+        };
+
+        public TripService(ITripRepository tripRepository, 
+            IMapper mapper, IGeolocationService geolocationService,
+            IDayTripRepository dayTripRepository)
+        {
             this.tripRepository = tripRepository;
             this.mapper = mapper;
             this.geolocationService = geolocationService;
+            this.dayTripRepository = dayTripRepository;
         }
 
-        public async Task<IList<MyTripDto>> GetMyTripsAsOwnerOrPassengerByUserEmailAsync(string email)
+        public async Task<IList<MyDayTripDto>> GetMyTripsAsOwnerOrPassengerByUserIdAsync(Guid userId)
         {
-            var user = await userRepository.GetUserByEmailAsync(email);
-            var myTrips = await tripRepository.GetMyTripsAsOwnerOrPassengerByUserIdAsync(user.Id);
+            var myDayTrips = await dayTripRepository.GetMyTripsAsOwnerOrPassengerByUserIdAsync(userId);
 
-            var myTripsDto = mapper.Map<List<MyTripDto>>(myTrips);
-            await ResolveIsPassengerFieldsAndLocationsForDto(user.Id, myTrips, myTripsDto);
+            var myDayTripDtos = mapper.Map<List<MyDayTripDto>>(myDayTrips);
+            ResolveIsPassengerFieldsForDto(userId, myDayTrips, myDayTripDtos);
 
-            return myTripsDto;
+            return myDayTripDtos;
         }
 
-        private async Task ResolveIsPassengerFieldsAndLocationsForDto(Guid userId, IList<Trip> trips, IList<MyTripDto> myTripDtos)
+        private static void ResolveIsPassengerFieldsForDto(Guid userId, IList<DayTrip> dayTrips, IList<MyDayTripDto> myDayTripDtos)
         {
-            foreach (var myTripDto in myTripDtos)
+            foreach (var myDayTripDto in myDayTripDtos)
             {
-                var trip = trips.First(t => t.Id == myTripDto.TripId);
-                myTripDto.IsUserPassenger = trip.UserId != userId;
-                myTripDto.OriginDescription = await geolocationService.GetLocationDescription(myTripDto.OriginLatitude, myTripDto.OriginLongitude);
-                myTripDto.DestinationDescription = await geolocationService.GetLocationDescription(myTripDto.DestinationLatitude, myTripDto.DestinationLongitude);
+                var myDayTrip = dayTrips.First(t => t.Id == myDayTripDto.Id);
+                myDayTripDto.IsUserPassenger = myDayTrip.Trip.UserId != userId;
             }
         }
 
         public async Task CreateTripAsync(CreateTripDto createTripDto)
         {
             var trip = mapper.Map<Trip>(createTripDto);
+            trip.OriginDescription = await geolocationService.GetLocationDescription(trip.OriginLatitude, trip.OriginLongitude);
+            trip.DestinationDescription = await geolocationService.GetLocationDescription(trip.DestinationLatitude, trip.DestinationLongitude);
+            CreateDayTripsForTrip(trip);
+
             await tripRepository.InsertAsync(trip);
+        }
+
+        private void CreateDayTripsForTrip(Trip trip)
+        {
+            if (trip.Recurrency == TripRecurrency.None)
+            {
+                trip.DayTrips.Add(new DayTrip
+                {
+                    DateTime = trip.StartDateTime
+                });
+
+                return;
+            }
+
+            // For the following 30 days create trips.
+            for (int i = 0; i < 30; i++)
+            {
+                var tripDateTime = trip.StartDateTime.AddDays(i);
+
+                if (trip.Recurrency == TripRecurrency.EveryDay || 
+                    (trip.Recurrency == TripRecurrency.EveryWorkday && workableDays.Contains(tripDateTime.DayOfWeek)))
+                {
+                    trip.DayTrips.Add(new DayTrip
+                    {
+                        DateTime = tripDateTime
+                    });
+                }
+            }
         }
     }
 }

@@ -1,7 +1,7 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AuthData } from "../models/AuthData";
-import { Keys } from "../constants/keys";
+import { StorageKeys } from "../constants/StorageKeys";
 import { Api } from "../constants/Api";
 
 export type AuthContextData = {
@@ -25,7 +25,7 @@ const AuthProvider: React.FC = ({ children }) => {
   async function loadStorageData(): Promise<void> {
     try {
       const authDataSerialized = await AsyncStorage.getItem(
-        Keys.USER_STORE_KEY
+        StorageKeys.USER_STORE_KEY
       );
       if (authDataSerialized) {
         const _authData: AuthData = JSON.parse(authDataSerialized);
@@ -62,16 +62,20 @@ const AuthProvider: React.FC = ({ children }) => {
 
   const signIn = async (email: string, password: string) => {
     const loginResult = await callLoginAsync(email, password);
-    console.log(loginResult, "loginResult");
-    if (loginResult && loginResult.status === 200) {
+    if (loginResult && loginResult.ok) {
+      const userData = await loginResult?.json();
       const _authData = {
         name: "LoggedUser",
         email: email,
+        id: userData.userId,
       } as AuthData;
 
       setAuthData(_authData);
 
-      AsyncStorage.setItem(Keys.USER_STORE_KEY, JSON.stringify(_authData));
+      AsyncStorage.setItem(
+        StorageKeys.USER_STORE_KEY,
+        JSON.stringify(_authData)
+      );
     } else {
       signOut();
     }
@@ -80,7 +84,7 @@ const AuthProvider: React.FC = ({ children }) => {
   const signOut = async () => {
     setAuthData(undefined);
 
-    await AsyncStorage.removeItem(Keys.USER_STORE_KEY);
+    await AsyncStorage.removeItem(StorageKeys.USER_STORE_KEY);
   };
 
   return (

@@ -1,18 +1,17 @@
 ﻿using System;
-using Tortilla.Hackathon.Domain;
 
 namespace Tortilla.Hackathon.Services.Models.Dtos.Trips
 {
-    public class MyTripDto
+    public class MyDayTripDto
     {
-        public Guid TripId { get; set; }
+        public Guid Id { get; set; }
         public string OriginDescription { get; set; }
         public double OriginLatitude { get; set; }
         public double OriginLongitude { get; set; }
         public string DestinationDescription { get; set; }
         public double DestinationLatitude { get; set; }
         public double DestinationLongitude { get; set; }
-        public TripRecurrency Recurrency { get; set; }
+        public DateTime DateTime { get; set; }
         public bool IsUserPassenger { get; set; }
     }
 }
