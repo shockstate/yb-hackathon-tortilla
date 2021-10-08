@@ -19,9 +19,12 @@ namespace Tortilla.Hackathon.Data.Repositories
         public async Task<IList<DayTrip>> GetMyTripsAsOwnerOrPassengerByUserIdAsync(Guid userId)
         {
             return await dbContext.DayTrips
+                .Include(d => d.Trip)
                 .Where(dayTrip =>
                     dayTrip.Trip.UserId == userId ||
                     dayTrip.Passengers.Any(p => p.UserId == userId))
+                // My following trips (one week)
+                //.Where(dayTrip => dayTrip.DateTime >= DateTime.Now && dayTrip.DateTime <= DateTime.Now.AddDays(7))
                 .ToListAsync();
         }
     }

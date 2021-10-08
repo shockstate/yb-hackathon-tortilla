@@ -49,7 +49,9 @@ namespace Tortilla.Hackathon.API
             }
 
             services.AddDbContext<ApplicationDbContext>(
-                options => options.UseSqlServer(Configuration.GetConnectionString("Db"))
+                options => options
+                .UseLazyLoadingProxies()
+                .UseSqlServer(Configuration.GetConnectionString("Db"))
             );
 
             services.AddCors(o => o.AddPolicy("AllCorsPolicy", builder =>
