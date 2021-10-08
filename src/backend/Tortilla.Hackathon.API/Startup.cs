@@ -2,6 +2,7 @@ using System.Text.Json.Serialization;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -10,6 +11,8 @@ using Tortilla.Hackathon.API.Extensions;
 using Tortilla.Hackathon.API.Models;
 using Tortilla.Hackathon.Services.Interfaces;
 using Tortilla.Hackathon.Services.Services;
+using Tortilla.Hackathon.Data;
+using Tortilla.Hackathon.Data.Repositories;
 
 namespace Tortilla.Hackathon.API
 {
@@ -34,13 +37,20 @@ namespace Tortilla.Hackathon.API
                 .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
             services.AddHttpContextAccessor();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddAutoMapper(typeof(MappingProfile).Assembly);
+
             if (Environment.IsDevelopment())
             {
                 services.AddSwagger(Configuration);
             }
+
+            services.AddDbContext<ApplicationDbContext>(
+                options => options.UseSqlServer(Configuration.GetConnectionString("Db"))
+            );
+
             services.AddControllers();
-            }
+        }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
