@@ -20,6 +20,7 @@ namespace Tortilla.Hackathon.Data
         {
             modelBuilder.Entity<User>()
                 .HasKey(e => e.Id);
+
             modelBuilder.Entity<User>()
                 .HasOne(e => e.Car)
                 .WithOne(e => e.User)
@@ -45,6 +46,7 @@ namespace Tortilla.Hackathon.Data
                 .HasForeignKey(e => e.UserId);
 
             modelBuilder.Entity<UserTripPassenger>()
+                .ToTable("UserTrip_Passengers")
                 .HasKey(t => new { t.UserId, t.TripId });
 
             modelBuilder.Entity<UserTripPassenger>()
