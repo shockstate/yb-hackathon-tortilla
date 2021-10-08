@@ -9,5 +9,6 @@ namespace Tortilla.Hackathon.Services.Interfaces
     {
         Task RegisterAsync(CreateUserDto user);
         Task LoginAsync(UserCredentialsDto credentials);
+        Task<UserDetailsDto> GetUserAsync(string email);
     }
 }

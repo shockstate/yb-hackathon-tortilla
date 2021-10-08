@@ -9,7 +9,7 @@ namespace Tortilla.Hackathon.Services.Models.Dtos
         public string LastName { get; set; }
         public string Email { get; set; }
         public DateTime DateOfBirth { get; set; }
-        public string DriversLicenceNumber { get; set; }
+        public string DriversLicenseNumber { get; set; }
         public int TotalCo2Saved { get; set; }
         public int Points { get; set; }
     }

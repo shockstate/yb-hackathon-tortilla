@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
@@ -41,6 +42,19 @@ namespace Tortilla.Hackathon.Services.Services
             }
 
             logger.LogInformation("Login was successful");
+        }
+
+        public async Task<UserDetailsDto> GetUserAsync(string email)
+        {
+            var user = await userRepository.GetUserByEmailAsync(email);
+            if (user == null)
+            {
+                logger.LogInformation($"User with email {email} does not exist");
+                throw new KeyNotFoundException($"User with email {email} does not exist");
+            }
+            var userDto = mapper.Map<UserDetailsDto>(user);
+            logger.LogInformation("Get mail was successful");
+            return userDto;
         }
     }
 }
