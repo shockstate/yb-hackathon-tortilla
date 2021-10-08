@@ -9,6 +9,7 @@ namespace Tortilla.Hackathon.Domain
         public User()
         {
             Trips = new Collection<Trip>();
+            TripsAsPassenger = new Collection<Trip>();
         }
 
         public Guid Id { get; set; }
@@ -21,7 +22,8 @@ namespace Tortilla.Hackathon.Domain
         public int TotalCo2Saved { get; set; }
         public int Points { get; set; }
         public Guid CarId { get; set; }
-        public Car Car { get; set; }
-        public ICollection<Trip> Trips { get; set; }
+        public virtual Car Car { get; set; }
+        public virtual ICollection<Trip> Trips { get; set; }
+        public virtual ICollection<Trip> TripsAsPassenger { get; set; }
     }
 }
