@@ -20,6 +20,8 @@ namespace Tortilla.Hackathon.Services.Models
                     TotalCo2Saved = 0
                 });
             CreateMap<User, UserDetailsDto>();
+
+            CreateMap<Passenger, PendingPassengerDto>();
         }
     }
 }
