@@ -26,6 +26,8 @@ namespace Tortilla.Hackathon.Services.Models
 
             CreateMap<Trip, MyTripDto>()
                 .ForMember(dest => dest.TripId, opts => opts.MapFrom(src => src.Id));
+
+            CreateMap<CreateTripDto, Trip>();
         }
     }
 }
