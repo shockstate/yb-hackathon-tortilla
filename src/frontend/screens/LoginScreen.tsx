@@ -1,6 +1,7 @@
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { Component, ReactElement, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import LoginForm from "../components/LoginForm";
 import { Loading } from "../components/Loading";
 
 import { useAuth } from "../hooks/useAuth";
@@ -10,7 +11,7 @@ const LoginScreen = (): ReactElement => {
   const [hasLoginError, setHasLoginError] = useState<boolean>(false);
 
   const login = async () => {
-    await auth.signIn("string", "string"); //ToDo: pass data from forms
+    await auth.signIn("test@test.com", "test"); //ToDo: pass data from forms
 
     setHasLoginError(!auth.authData);
   };
@@ -18,6 +19,8 @@ const LoginScreen = (): ReactElement => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>This is the login</Text>
+
+      <LoginForm />
 
       <TouchableOpacity onPress={() => login()} style={styles.link}>
         <Text style={styles.linkText}>Go to home screen!</Text>

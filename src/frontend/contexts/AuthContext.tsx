@@ -52,8 +52,7 @@ const AuthProvider: React.FC = ({ children }) => {
           password: password,
         }),
       });
-      const json = await response.json();
-      return json;
+      return response;
     } catch (error) {
       console.error(error);
     } finally {

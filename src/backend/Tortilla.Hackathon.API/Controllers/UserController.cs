@@ -30,6 +30,7 @@ namespace Tortilla.Hackathon.API.Controllers
             try
             {
                 await userService.LoginAsync(userCredentialsDto);
+                return Ok();
             }
             catch (NotImplementedException ex)
             {
@@ -50,7 +51,6 @@ namespace Tortilla.Hackathon.API.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
-            return Ok();
         }
         
 
