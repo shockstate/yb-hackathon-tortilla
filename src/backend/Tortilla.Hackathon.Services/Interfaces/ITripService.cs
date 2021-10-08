@@ -8,7 +8,7 @@ namespace Tortilla.Hackathon.Services.Interfaces
 {
     public interface ITripService
     {
-        Task<IList<MyTripDto>> GetMyTripsAsOwnerOrPassengerByUserIdAsync(Guid userId);
+        Task<IList<MyDayTripDto>> GetMyTripsAsOwnerOrPassengerByUserIdAsync(Guid userId);
         Task CreateTripAsync(CreateTripDto createTripDto);
     }
 }

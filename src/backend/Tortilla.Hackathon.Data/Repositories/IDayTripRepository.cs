@@ -5,9 +5,8 @@ using Tortilla.Hackathon.Domain;
 
 namespace Tortilla.Hackathon.Data.Repositories
 {
-    public interface ITripRepository
+    public interface IDayTripRepository
     {
-        Task InsertAsync(Trip trip);
-        Task<IList<Trip>> GetTripsByUserIdAsync(Guid userId);
+        Task<IList<DayTrip>> GetMyTripsAsOwnerOrPassengerByUserIdAsync(Guid userId);
     }
 }

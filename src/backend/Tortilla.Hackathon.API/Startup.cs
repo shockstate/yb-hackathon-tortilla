@@ -35,11 +35,13 @@ namespace Tortilla.Hackathon.API
                 .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
             services.AddHttpContextAccessor();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IPassengerService, PassengerService>();
             services.AddScoped<ITripService, TripService>();
             services.AddScoped<IGeolocationService, GeolocationService>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ITripRepository, TripRepository>();
             services.AddScoped<IPassengerRepository, PassengerRepository>();
+            services.AddScoped<IDayTripRepository, DayTripRepository>();
             services.AddAutoMapper(typeof(MappingProfile).Assembly);
 
             if (Environment.IsDevelopment())
@@ -48,7 +50,9 @@ namespace Tortilla.Hackathon.API
             }
 
             services.AddDbContext<ApplicationDbContext>(
-                options => options.UseSqlServer(Configuration.GetConnectionString("Db"))
+                options => options
+                .UseLazyLoadingProxies()
+                .UseSqlServer(Configuration.GetConnectionString("Db"))
             );
 
             services.AddCors(o => o.AddPolicy("AllCorsPolicy", builder =>
