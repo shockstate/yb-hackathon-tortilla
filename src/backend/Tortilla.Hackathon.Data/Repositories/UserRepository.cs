@@ -17,5 +17,15 @@ namespace Tortilla.Hackathon.Data.Repositories
             await _dbContext.Users.AddAsync(user);
             await _dbContext.SaveChangesAsync();
         }
+
+        public Task<User> GetUserByEmail(string email)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task InsertCar(string userId, Car car)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
