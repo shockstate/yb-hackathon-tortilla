@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 using Tortilla.Hackathon.Domain;
 
 namespace Tortilla.Hackathon.Data
@@ -26,11 +28,13 @@ namespace Tortilla.Hackathon.Data
             modelBuilder.Entity<User>()
                 .HasMany(e => e.Trips)
                 .WithOne(e => e.User)
-                .HasForeignKey(e => e.UserId);
+                .HasForeignKey(e => e.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            //modelBuilder.Entity<User>()
-            //    .HasMany(e => e.TripsAsPassenger)
-            //    .WithMany(e => e.Passengers);
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.TripsAsPassenger)
+                .WithMany(e => e.Passengers)
+                .UsingEntity(j => j.ToTable("UserTrip_Passengers"));
 
             modelBuilder.Entity<Car>()
                 .HasKey(e => e.Id);
