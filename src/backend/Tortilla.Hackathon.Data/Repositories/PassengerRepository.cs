@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Tortilla.Hackathon.Domain;
 
 namespace Tortilla.Hackathon.Data.Repositories
@@ -12,9 +16,17 @@ namespace Tortilla.Hackathon.Data.Repositories
             this.dbContext = dbContext;
         }
 
-        public IList<Passenger> GetPassengersByTripId()
+        public Task<Passenger> GetPassengerById(Guid id)
         {
-            throw new System.NotImplementedException();
+            return dbContext.Passengers
+                .Where(p => p.Id == id)
+                .FirstOrDefaultAsync();
+        }
+
+        public Task Update()
+        {
+            dbContext.SaveChanges();
+            return Task.CompletedTask;
         }
     }
 }
