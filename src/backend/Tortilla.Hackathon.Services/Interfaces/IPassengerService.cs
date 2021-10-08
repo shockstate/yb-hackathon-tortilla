@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Tortilla.Hackathon.Services.Models.Dtos;
 
 namespace Tortilla.Hackathon.Services.Interfaces
 {
     public interface IPassengerService
     {
-        IList<PendingPassengerDto> GetPendingPassengers(Guid tripUserId);
+        Task<IList<PendingPassengerDto>> GetPendingPassengersAsync(Guid tripUserId);
     }
 }

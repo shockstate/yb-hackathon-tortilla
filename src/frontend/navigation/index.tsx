@@ -121,8 +121,8 @@ function BottomTabNavigator() {
         name="TabOne"
         component={TabOneScreen}
         options={({ navigation }: RootTabScreenProps<"TabOne">) => ({
-          title: "Tab One",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: "My Trips",
+          tabBarIcon: ({ color }) => <TabBarIcon name="car" color={color} />,
           headerRight: () => (
             <>
               <TouchableOpacity onPress={() => auth.signOut()}>

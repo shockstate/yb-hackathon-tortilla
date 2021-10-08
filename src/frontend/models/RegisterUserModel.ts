@@ -1,3 +1,4 @@
+import CarTypeEnum from "../enums/CarTypeEnum";
 import CarModel from "./CarModel";
 
 interface RegisterUserModel {
@@ -6,7 +7,7 @@ interface RegisterUserModel {
   email: string;
   password: string;
   birthDate: Date;
-  drivingLicenseNumber: string;
+  driversLicenseNumber: string;
   car: CarModel;
 }
 
