@@ -1,15 +1,15 @@
-name: Build and deploy .NET Core app to Windows WebApp tortillateam
+name: Build and deploy .NET Core app to Windows WebApp CarLess
 on:
   push:
     branches:
     - master
 env:
-  AZURE_WEBAPP_NAME: tortillateam-CarLess
+  AZURE_WEBAPP_NAME: CarLess
   AZURE_WEBAPP_PACKAGE_PATH: Tortilla.Hackathon.API/publish
-  AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.tortillateam_7b5b }}
+  AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.CarLess_7d83 }}
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 5.0.x
-  WORKING_DIRECTORY: src/backend
+  WORKING_DIRECTORY: Tortilla.Hackathon.API
 jobs:
   build-and-deploy:
     runs-on: windows-latest
