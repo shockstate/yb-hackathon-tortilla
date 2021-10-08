@@ -10,7 +10,11 @@ namespace Tortilla.Hackathon.Services.Models
         public MappingProfile()
         {
             // Add as many of these lines as you need to map your objects
-            CreateMap<User, CreateUserDto>();
+            CreateMap<CarDto, Car>()
+                .ConstructUsing((_, context) => new Car
+                {
+                    Id = Guid.NewGuid()
+                });
             CreateMap<CreateUserDto, User>()
                 .ConstructUsing((_, context) => new User
                 {

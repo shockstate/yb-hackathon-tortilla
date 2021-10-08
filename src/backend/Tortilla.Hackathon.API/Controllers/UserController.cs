@@ -29,7 +29,7 @@ namespace Tortilla.Hackathon.API.Controllers
         {
             try
             {
-                await userService.Login(userCredentialsDto);
+                await userService.LoginAsync(userCredentialsDto);
             }
             catch (NotImplementedException ex)
             {
@@ -55,7 +55,7 @@ namespace Tortilla.Hackathon.API.Controllers
             //validate data
             try
             {
-                await userService.Register(userDto);
+                await userService.RegisterAsync(userDto);
             }
             catch (NotImplementedException ex)
             {
@@ -69,24 +69,24 @@ namespace Tortilla.Hackathon.API.Controllers
             return StatusCode(StatusCodes.Status201Created);
         }
 
-        [HttpPost("{id}/car")]
-        public async Task<IActionResult> AddCar([FromRoute] string userId, [FromBody] CarDto carDto, CancellationToken cancellationToken = default)
-        {
-            //validate data
-            try
-            {
-                await userService.AddCar(userId, carDto);
-            }
-            catch (NotImplementedException ex)
-            {
-                logger.LogError(ex, ex.Message);
-                return StatusCode(StatusCodes.Status501NotImplemented, ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-            }
-            return StatusCode(StatusCodes.Status201Created);
-        }
+        //[HttpPost("{id}/car")]
+        //public async Task<IActionResult> AddCar([FromRoute] string userId, [FromBody] CarDto carDto, CancellationToken cancellationToken = default)
+        //{
+        //    //validate data
+        //    try
+        //    {
+        //        await userService.AddCar(userId, carDto);
+        //    }
+        //    catch (NotImplementedException ex)
+        //    {
+        //        logger.LogError(ex, ex.Message);
+        //        return StatusCode(StatusCodes.Status501NotImplemented, ex.Message);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+        //    }
+        //    return StatusCode(StatusCodes.Status201Created);
+        //}
     }
 }

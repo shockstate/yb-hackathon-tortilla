@@ -22,14 +22,14 @@ namespace Tortilla.Hackathon.Services.Services
             this.logger = logger;
         }
 
-        public async Task Register(CreateUserDto userDto)
+        public async Task RegisterAsync(CreateUserDto userDto)
         {
             var user = mapper.Map<User>(userDto);
             await userRepository.InsertAsync(user);
             logger.LogInformation("User created successfully");
         }
 
-        public async Task Login(UserCredentialsDto userCredentialsDto)
+        public async Task LoginAsync(UserCredentialsDto userCredentialsDto)
         {
             //TODO: hash password
             var hashedPassword = "";
@@ -43,11 +43,11 @@ namespace Tortilla.Hackathon.Services.Services
             logger.LogInformation("Login was successful");
         }
 
-        public async Task AddCar(string userId, CarDto carDto)
-        {
-            var car = mapper.Map<Car>(carDto);
-            await userRepository.InsertCar(userId, car);
-            logger.LogInformation("User created successfully");
-        }
+        //public async Task AddCar(string userId, CarDto carDto)
+        //{
+        //    var car = mapper.Map<Car>(carDto);
+        //    await userRepository.InsertCar(userId, car);
+        //    logger.LogInformation("User created successfully");
+        //}
     }
 }
