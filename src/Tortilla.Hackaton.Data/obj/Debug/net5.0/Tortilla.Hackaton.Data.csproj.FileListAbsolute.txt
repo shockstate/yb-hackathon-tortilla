@@ -1,0 +1,15 @@
+C:\Repos\yb-hackathon-tortilla\src\Tortilla.Hackaton.Data\bin\Debug\net5.0\Tortilla.Hackaton.Data.deps.json
+C:\Repos\yb-hackathon-tortilla\src\Tortilla.Hackaton.Data\bin\Debug\net5.0\Tortilla.Hackaton.Data.dll
+C:\Repos\yb-hackathon-tortilla\src\Tortilla.Hackaton.Data\bin\Debug\net5.0\ref\Tortilla.Hackaton.Data.dll
+C:\Repos\yb-hackathon-tortilla\src\Tortilla.Hackaton.Data\bin\Debug\net5.0\Tortilla.Hackaton.Data.pdb
+C:\Repos\yb-hackathon-tortilla\src\Tortilla.Hackaton.Data\bin\Debug\net5.0\Tortilla.Hackaton.Domain.dll
+C:\Repos\yb-hackathon-tortilla\src\Tortilla.Hackaton.Data\bin\Debug\net5.0\Tortilla.Hackaton.Domain.pdb
+C:\Repos\yb-hackathon-tortilla\src\Tortilla.Hackaton.Data\obj\Debug\net5.0\Tortilla.Hackaton.Data.csproj.AssemblyReference.cache
+C:\Repos\yb-hackathon-tortilla\src\Tortilla.Hackaton.Data\obj\Debug\net5.0\Tortilla.Hackaton.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Repos\yb-hackathon-tortilla\src\Tortilla.Hackaton.Data\obj\Debug\net5.0\Tortilla.Hackaton.Data.AssemblyInfoInputs.cache
+C:\Repos\yb-hackathon-tortilla\src\Tortilla.Hackaton.Data\obj\Debug\net5.0\Tortilla.Hackaton.Data.AssemblyInfo.cs
+C:\Repos\yb-hackathon-tortilla\src\Tortilla.Hackaton.Data\obj\Debug\net5.0\Tortilla.Hackaton.Data.csproj.CoreCompileInputs.cache
+C:\Repos\yb-hackathon-tortilla\src\Tortilla.Hackaton.Data\obj\Debug\net5.0\Tortilla.Hackaton.Data.csproj.CopyComplete
+C:\Repos\yb-hackathon-tortilla\src\Tortilla.Hackaton.Data\obj\Debug\net5.0\Tortilla.Hackaton.Data.dll
+C:\Repos\yb-hackathon-tortilla\src\Tortilla.Hackaton.Data\obj\Debug\net5.0\ref\Tortilla.Hackaton.Data.dll
+C:\Repos\yb-hackathon-tortilla\src\Tortilla.Hackaton.Data\obj\Debug\net5.0\Tortilla.Hackaton.Data.pdb
