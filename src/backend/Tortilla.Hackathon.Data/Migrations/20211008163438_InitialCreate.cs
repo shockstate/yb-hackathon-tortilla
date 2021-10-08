@@ -54,8 +54,10 @@ namespace Tortilla.Hackathon.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Origin = table.Column<double>(type: "float", nullable: false),
-                    Destination = table.Column<double>(type: "float", nullable: false),
+                    OriginLatitude = table.Column<double>(type: "float", nullable: false),
+                    OriginLongitude = table.Column<double>(type: "float", nullable: false),
+                    DestinationLatitude = table.Column<double>(type: "float", nullable: false),
+                    DestinationLongitude = table.Column<double>(type: "float", nullable: false),
                     StartDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Recurrency = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
@@ -72,7 +74,7 @@ namespace Tortilla.Hackathon.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserTrip_Passengers",
+                name: "Passengers",
                 columns: table => new
                 {
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -81,15 +83,15 @@ namespace Tortilla.Hackathon.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserTrip_Passengers", x => new { x.UserId, x.TripId });
+                    table.PrimaryKey("PK_Passengers", x => new { x.UserId, x.TripId });
                     table.ForeignKey(
-                        name: "FK_UserTrip_Passengers_Trips_TripId",
+                        name: "FK_Passengers_Trips_TripId",
                         column: x => x.TripId,
                         principalTable: "Trips",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserTrip_Passengers_Users_UserId",
+                        name: "FK_Passengers_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -103,14 +105,14 @@ namespace Tortilla.Hackathon.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Passengers_TripId",
+                table: "Passengers",
+                column: "TripId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Trips_UserId",
                 table: "Trips",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserTrip_Passengers_TripId",
-                table: "UserTrip_Passengers",
-                column: "TripId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -119,7 +121,7 @@ namespace Tortilla.Hackathon.Data.Migrations
                 name: "Cars");
 
             migrationBuilder.DropTable(
-                name: "UserTrip_Passengers");
+                name: "Passengers");
 
             migrationBuilder.DropTable(
                 name: "Trips");
