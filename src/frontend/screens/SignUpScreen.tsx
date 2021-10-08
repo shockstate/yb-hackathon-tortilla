@@ -1,5 +1,6 @@
 import React, { Component, ReactElement } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import RegisterUserForm from "../components/RegisterUserForm";
 
 import { RootStackScreenProps } from "../types";
 
@@ -9,6 +10,8 @@ const SignUpScreen = ({
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Sign Up</Text>
+
+      <RegisterUserForm />
 
       <TouchableOpacity
         onPress={() => navigation.replace("Root")}
