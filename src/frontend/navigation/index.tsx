@@ -131,11 +131,12 @@ function BottomTabNavigator() {
               <Pressable
                 onPress={() => navigation.navigate("Modal")}
                 style={({ pressed }) => ({
+                  cursor: 'pointer',
                   opacity: pressed ? 0.5 : 1,
                 })}
               >
                 <FontAwesome
-                  name="info-circle"
+                  name="user"
                   size={25}
                   color={Colors[colorScheme].text}
                   style={{ marginRight: 15 }}
