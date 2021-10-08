@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Threading.Tasks;
 using Tortilla.Hackathon.Domain;
 
 namespace Tortilla.Hackathon.Data.Repositories
 {
     public interface IPassengerRepository
     {
-        IList<Passenger> GetPassengersByTripId();
+        Task<Passenger> GetPassengerById(Guid id);
+        Task Update(Passenger passenger);
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Tortilla.Hackathon.Services.Interfaces;
 using Tortilla.Hackathon.Services.Models.Dtos.Trips;
@@ -35,7 +36,7 @@ namespace Tortilla.Hackathon.API.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost("")]
         public async Task<IActionResult> CreateTrip(CreateTripDto createTripDto)
         {
             try

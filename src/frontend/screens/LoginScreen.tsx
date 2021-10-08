@@ -5,8 +5,11 @@ import LoginForm from "../components/LoginForm";
 import { Loading } from "../components/Loading";
 
 import { useAuth } from "../hooks/useAuth";
+import { RootStackScreenProps } from "../types";
 
-const LoginScreen = (): ReactElement => {
+const LoginScreen = ({
+  navigation,
+}: RootStackScreenProps<"Login">): ReactElement => {
   const auth = useAuth();
   const [hasLoginError, setHasLoginError] = useState<boolean>(false);
 
@@ -21,6 +24,13 @@ const LoginScreen = (): ReactElement => {
       <Text style={styles.title}>Login</Text>
 
       <LoginForm login={login} />
+
+      <TouchableOpacity
+        onPress={() => navigation.replace("Home")}
+        style={styles.link}
+      >
+        <Text style={styles.linkText}>Go back</Text>
+      </TouchableOpacity>
 
       {auth.loading && <Loading></Loading>}
 

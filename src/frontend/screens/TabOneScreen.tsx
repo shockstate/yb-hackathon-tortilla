@@ -5,6 +5,7 @@ import { FlatList, TouchableHighlight } from "react-native-gesture-handler";
 
 import { Text, View } from "../components/Themed";
 import { Api } from "../constants/Api";
+import Colors from "../constants/Colors";
 import { useAuth } from "../hooks/useAuth";
 import TripModel from "../models/TripModel";
 import { RootTabScreenProps } from "../types";
@@ -22,7 +23,7 @@ export default function TabOneScreen({
           size={30}
           style={{ marginBottom: -3 }}
           name="car-outline"
-          color="#fff"
+          color={Colors.light.tint}
         />
         <View style={styles.iconSeparator}></View>
         <Text>{item.originDescription}</Text>
@@ -33,7 +34,7 @@ export default function TabOneScreen({
           size={30}
           style={{ marginBottom: -3 }}
           name="car"
-          color="#fff"
+          color={Colors.light.tint}
         />
         <View style={styles.iconSeparator}></View>
         <Text>{item.destinationDescription}</Text>
@@ -44,7 +45,7 @@ export default function TabOneScreen({
           size={30}
           style={{ marginBottom: -3 }}
           name={item.isUserPassanger ? "people" : "key"}
-          color="#fff"
+          color={Colors.light.tint}
         />
         <View style={styles.iconSeparator}></View>
         <Text>{item.isUserPassanger ? "Passenger" : "Driver"}</Text>
@@ -55,7 +56,7 @@ export default function TabOneScreen({
           size={30}
           style={{ marginBottom: -3 }}
           name="time"
-          color="#fff"
+          color={Colors.light.tint}
         />
         <View style={styles.iconSeparator}></View>
         <Text>{item.recurrency}</Text>
@@ -146,6 +147,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     padding: 20,
     borderRadius: 10,
+    borderWidth: 1,
     shadowColor: "rgba(0, 0, 0, 0.25)",
     shadowOffset: { width: 2, height: 2 }, //0 6
     shadowRadius: 10,
@@ -154,7 +156,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
   },
   cardTitle: {
-    fontSize: 32,
+    fontSize: 16,
     color: "#fff",
     textAlign: "left",
   },
