@@ -68,25 +68,5 @@ namespace Tortilla.Hackathon.API.Controllers
             }
             return StatusCode(StatusCodes.Status201Created);
         }
-
-        [HttpPost("{id}/car")]
-        public async Task<IActionResult> AddCar([FromRoute] string userId, [FromBody] CarDto carDto, CancellationToken cancellationToken = default)
-        {
-            //validate data
-            try
-            {
-                await userService.AddCar(userId, carDto);
-            }
-            catch (NotImplementedException ex)
-            {
-                logger.LogError(ex, ex.Message);
-                return StatusCode(StatusCodes.Status501NotImplemented, ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-            }
-            return StatusCode(StatusCodes.Status201Created);
-        }
     }
 }

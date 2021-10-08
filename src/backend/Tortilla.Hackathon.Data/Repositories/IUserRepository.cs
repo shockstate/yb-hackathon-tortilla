@@ -7,6 +7,5 @@ namespace Tortilla.Hackathon.Data.Repositories
     {
         Task InsertAsync(User user);
         Task<User> GetUserByEmailAsync(string email);
-        Task InsertCarAsync(string userId, Car car);
     }
 }

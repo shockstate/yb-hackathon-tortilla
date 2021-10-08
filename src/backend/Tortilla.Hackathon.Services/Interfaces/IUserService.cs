@@ -9,6 +9,5 @@ namespace Tortilla.Hackathon.Services.Interfaces
     {
         Task Register(CreateUserDto user);
         Task Login(UserCredentialsDto credentials);
-        Task AddCar(string userId, CarDto car);
     }
 }

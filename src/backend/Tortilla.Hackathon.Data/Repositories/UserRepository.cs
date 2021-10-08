@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading.Tasks;
 using Tortilla.Hackathon.Domain;
 
 namespace Tortilla.Hackathon.Data.Repositories
@@ -20,12 +22,9 @@ namespace Tortilla.Hackathon.Data.Repositories
 
         public Task<User> GetUserByEmailAsync(string email)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public Task InsertCarAsync(string userId, Car car)
-        {
-            throw new System.NotImplementedException();
+            return dbContext.Users
+                .Where(u => u.Email == email)
+                .FirstOrDefaultAsync();
         }
     }
 }

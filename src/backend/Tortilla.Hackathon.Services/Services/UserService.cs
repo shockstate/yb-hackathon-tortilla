@@ -43,11 +43,5 @@ namespace Tortilla.Hackathon.Services.Services
             logger.LogInformation("Login was successful");
         }
 
-        public async Task AddCar(string userId, CarDto carDto)
-        {
-            var car = mapper.Map<Car>(carDto);
-            await userRepository.InsertCarAsync(userId, car);
-            logger.LogInformation("User created successfully");
-        }
     }
 }
