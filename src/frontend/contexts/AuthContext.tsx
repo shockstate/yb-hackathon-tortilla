@@ -2,11 +2,12 @@ import React, { createContext, useState, useContext, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AuthData } from "../models/AuthData";
 import { Keys } from "../constants/keys";
+import { Api } from "../constants/Api";
 
 export type AuthContextData = {
   authData?: AuthData;
   loading: boolean;
-  signIn(): Promise<void>;
+  signIn(email: string, password: string): Promise<void>;
   signOut(): void;
 };
 
@@ -36,14 +37,42 @@ const AuthProvider: React.FC = ({ children }) => {
     }
   }
 
-  const signIn = async () => {
-    //ToDo: call the service passing credential (email and password).
+  const callLoginAsync = async (email: string, password: string) => {
+    setLoading(true);
+    try {
+      const response = await fetch(`${Api.URL}/Users/login`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
+      const json = await response.json();
+      return json;
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    const _authData = { name: "Java", email: "jasd@asd.com" } as AuthData;
+  const signIn = async (email: string, password: string) => {
+    const loginResult = await callLoginAsync(email, password);
+    console.log(loginResult, "loginResult");
+    if (loginResult) {
+      const _authData = {
+        name: "LoggedUser",
+        email: email,
+      } as AuthData;
 
-    setAuthData(_authData);
+      setAuthData(_authData);
 
-    AsyncStorage.setItem(Keys.USER_STORE_KEY, JSON.stringify(_authData));
+      AsyncStorage.setItem(Keys.USER_STORE_KEY, JSON.stringify(_authData));
+    }
   };
 
   const signOut = async () => {
