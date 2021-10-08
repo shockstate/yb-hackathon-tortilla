@@ -10,7 +10,7 @@ using Tortilla.Hackathon.Data;
 namespace Tortilla.Hackathon.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211008142759_InitialCreate")]
+    [Migration("20211008152249_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -116,17 +116,20 @@ namespace Tortilla.Hackathon.Data.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("TripUser", b =>
+            modelBuilder.Entity("Tortilla.Hackathon.Domain.UserTripPassenger", b =>
                 {
-                    b.Property<Guid>("PassengersId")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("TripsAsPassengerId")
+                    b.Property<Guid>("TripId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("PassengersId", "TripsAsPassengerId");
+                    b.Property<DateTime>("AcceptedDateTime")
+                        .HasColumnType("datetime2");
 
-                    b.HasIndex("TripsAsPassengerId");
+                    b.HasKey("UserId", "TripId");
+
+                    b.HasIndex("TripId");
 
                     b.ToTable("UserTrip_Passengers");
                 });
@@ -153,19 +156,28 @@ namespace Tortilla.Hackathon.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("TripUser", b =>
+            modelBuilder.Entity("Tortilla.Hackathon.Domain.UserTripPassenger", b =>
                 {
-                    b.HasOne("Tortilla.Hackathon.Domain.User", null)
-                        .WithMany()
-                        .HasForeignKey("PassengersId")
+                    b.HasOne("Tortilla.Hackathon.Domain.Trip", "Trip")
+                        .WithMany("Passengers")
+                        .HasForeignKey("TripId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Tortilla.Hackathon.Domain.Trip", null)
-                        .WithMany()
-                        .HasForeignKey("TripsAsPassengerId")
+                    b.HasOne("Tortilla.Hackathon.Domain.User", "User")
+                        .WithMany("TripsAsPassenger")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Trip");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Tortilla.Hackathon.Domain.Trip", b =>
+                {
+                    b.Navigation("Passengers");
                 });
 
             modelBuilder.Entity("Tortilla.Hackathon.Domain.User", b =>
@@ -173,6 +185,8 @@ namespace Tortilla.Hackathon.Data.Migrations
                     b.Navigation("Car");
 
                     b.Navigation("Trips");
+
+                    b.Navigation("TripsAsPassenger");
                 });
 #pragma warning restore 612, 618
         }

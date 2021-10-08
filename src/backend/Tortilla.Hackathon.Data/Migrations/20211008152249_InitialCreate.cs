@@ -75,21 +75,22 @@ namespace Tortilla.Hackathon.Data.Migrations
                 name: "UserTrip_Passengers",
                 columns: table => new
                 {
-                    PassengersId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TripsAsPassengerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TripId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AcceptedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserTrip_Passengers", x => new { x.PassengersId, x.TripsAsPassengerId });
+                    table.PrimaryKey("PK_UserTrip_Passengers", x => new { x.UserId, x.TripId });
                     table.ForeignKey(
-                        name: "FK_UserTrip_Passengers_Trips_TripsAsPassengerId",
-                        column: x => x.TripsAsPassengerId,
+                        name: "FK_UserTrip_Passengers_Trips_TripId",
+                        column: x => x.TripId,
                         principalTable: "Trips",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserTrip_Passengers_Users_PassengersId",
-                        column: x => x.PassengersId,
+                        name: "FK_UserTrip_Passengers_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -107,9 +108,9 @@ namespace Tortilla.Hackathon.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserTrip_Passengers_TripsAsPassengerId",
+                name: "IX_UserTrip_Passengers_TripId",
                 table: "UserTrip_Passengers",
-                column: "TripsAsPassengerId");
+                column: "TripId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

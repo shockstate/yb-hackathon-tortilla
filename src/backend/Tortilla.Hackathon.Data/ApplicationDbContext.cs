@@ -20,6 +20,7 @@ namespace Tortilla.Hackathon.Data
         {
             modelBuilder.Entity<User>()
                 .HasKey(e => e.Id);
+
             modelBuilder.Entity<User>()
                 .HasOne(e => e.Car)
                 .WithOne(e => e.User)
@@ -30,11 +31,6 @@ namespace Tortilla.Hackathon.Data
                 .WithOne(e => e.User)
                 .HasForeignKey(e => e.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<User>()
-                .HasMany(e => e.TripsAsPassenger)
-                .WithMany(e => e.Passengers)
-                .UsingEntity(j => j.ToTable("UserTrip_Passengers"));
 
             modelBuilder.Entity<Car>()
                 .HasKey(e => e.Id);
@@ -48,6 +44,20 @@ namespace Tortilla.Hackathon.Data
                 .HasOne(e => e.User)
                 .WithMany(e => e.Trips)
                 .HasForeignKey(e => e.UserId);
+
+            modelBuilder.Entity<UserTripPassenger>()
+                .ToTable("UserTrip_Passengers")
+                .HasKey(t => new { t.UserId, t.TripId });
+
+            modelBuilder.Entity<UserTripPassenger>()
+                .HasOne(pt => pt.User)
+                .WithMany(p => p.TripsAsPassenger)
+                .HasForeignKey(pt => pt.UserId);
+
+            modelBuilder.Entity<UserTripPassenger>()
+                .HasOne(pt => pt.Trip)
+                .WithMany(t => t.Passengers)
+                .HasForeignKey(pt => pt.TripId);
         }
     }
 }
