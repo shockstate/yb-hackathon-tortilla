@@ -12,9 +12,10 @@ namespace Tortilla.Hackathon.Data.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task Insert(User user)
+        public async Task InsertAsync(User user)
         {
-            await _dbContext.AddAsync(user);
+            await _dbContext.Users.AddAsync(user);
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

@@ -24,7 +24,7 @@ namespace Tortilla.Hackathon.Services.Services
         public async Task RegisterUser(CreateUserDto userDto)
         {
             var user = mapper.Map<User>(userDto);
-            await userRepository.Insert(user);
+            await userRepository.InsertAsync(user);
             logger.LogInformation("User created successfully");
         }
     }
