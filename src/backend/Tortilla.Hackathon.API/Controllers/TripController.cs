@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Tortilla.Hackathon.Services.Interfaces;
 
@@ -19,10 +22,17 @@ namespace Tortilla.Hackathon.API.Controllers
         }
 
         [HttpGet("myTrips")]
-        public async Task<IActionResult> GetMyTrips(string email)
+        public async Task<IActionResult> GetMyTrips([EmailAddress] string email)
         {
-            var trips = await tripService.GetMyTripsAsOwnerOrPassengerByUserEmailAsync(email);
-            return Ok(trips);
+            try
+            {
+                var trips = await tripService.GetMyTripsAsOwnerOrPassengerByUserEmailAsync(email);
+                return Ok(trips);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
 
         //public void CreateTrip([FromBody] string value)

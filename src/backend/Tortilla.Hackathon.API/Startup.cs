@@ -35,6 +35,7 @@ namespace Tortilla.Hackathon.API
                 .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
             services.AddHttpContextAccessor();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ITripService, TripService>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ITripRepository, TripRepository>();
             services.AddScoped<IPassengerRepository, PassengerRepository>();
