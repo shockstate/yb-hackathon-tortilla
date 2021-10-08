@@ -40,25 +40,25 @@ namespace Tortilla.Hackathon.Services.Services
             var myDayTrips = await dayTripRepository.GetMyTripsAsOwnerOrPassengerByUserIdAsync(userId);
 
             var myDayTripDtos = mapper.Map<List<MyDayTripDto>>(myDayTrips);
-            await ResolveIsPassengerFieldsAndLocationsForDto(userId, myDayTrips, myDayTripDtos);
+            ResolveIsPassengerFieldsForDto(userId, myDayTrips, myDayTripDtos);
 
             return myDayTripDtos;
         }
 
-        private async Task ResolveIsPassengerFieldsAndLocationsForDto(Guid userId, IList<DayTrip> dayTrips, IList<MyDayTripDto> myDayTripDtos)
+        private static void ResolveIsPassengerFieldsForDto(Guid userId, IList<DayTrip> dayTrips, IList<MyDayTripDto> myDayTripDtos)
         {
             foreach (var myDayTripDto in myDayTripDtos)
             {
                 var myDayTrip = dayTrips.First(t => t.Id == myDayTripDto.Id);
                 myDayTripDto.IsUserPassenger = myDayTrip.Trip.UserId != userId;
-                myDayTripDto.OriginDescription = await geolocationService.GetLocationDescription(myDayTripDto.OriginLatitude, myDayTripDto.OriginLongitude);
-                myDayTripDto.DestinationDescription = await geolocationService.GetLocationDescription(myDayTripDto.DestinationLatitude, myDayTripDto.DestinationLongitude);
             }
         }
 
         public async Task CreateTripAsync(CreateTripDto createTripDto)
         {
             var trip = mapper.Map<Trip>(createTripDto);
+            trip.OriginDescription = await geolocationService.GetLocationDescription(trip.OriginLatitude, trip.OriginLongitude);
+            trip.DestinationDescription = await geolocationService.GetLocationDescription(trip.DestinationLatitude, trip.DestinationLongitude);
             CreateDayTripsForTrip(trip);
 
             await tripRepository.InsertAsync(trip);
