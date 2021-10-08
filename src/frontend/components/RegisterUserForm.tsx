@@ -17,7 +17,6 @@ export default function App() {
 
   return (
     <View style={styles.form}>
-      <Text style={styles.title}>Register</Text>
       <Controller
         control={control}
         render={({ field: { onChange, onBlur, value } }) => (

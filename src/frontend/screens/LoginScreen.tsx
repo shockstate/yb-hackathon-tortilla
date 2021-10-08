@@ -10,26 +10,25 @@ const LoginScreen = (): ReactElement => {
   const auth = useAuth();
   const [hasLoginError, setHasLoginError] = useState<boolean>(false);
 
-  const login = async () => {
-    await auth.signIn("test@test.com", "test"); //ToDo: pass data from forms
+  const login = async (email: string, password: string) => {
+    await auth.signIn(email, password);
 
     setHasLoginError(!auth.authData);
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>This is the login</Text>
+      <Text style={styles.title}>Login</Text>
 
-      <LoginForm />
-
-      <TouchableOpacity onPress={() => login()} style={styles.link}>
-        <Text style={styles.linkText}>Go to home screen!</Text>
-      </TouchableOpacity>
+      <LoginForm login={login} />
 
       {auth.loading && <Loading></Loading>}
 
       {hasLoginError && (
-        <Text style={styles.title}>Cannot login you at the moment =(</Text>
+        <Text style={styles.errorMessage}>
+          <Text style={styles.loginFailed}>Login Failed:</Text> Wrong
+          credentials
+        </Text>
       )}
     </View>
   );
@@ -56,5 +55,17 @@ const styles = StyleSheet.create({
   linkText: {
     fontSize: 14,
     color: "#2e78b7",
+  },
+  loginFailed: {
+    fontWeight: "bold",
+  },
+  errorMessage: {
+    backgroundColor: "#EAD7D7",
+    color: "#BA6A68",
+    border: "1px solid #C69194",
+    paddingTop: 12,
+    paddingBottom: 12,
+    paddingLeft: 6,
+    paddingRight: 6,
   },
 });
