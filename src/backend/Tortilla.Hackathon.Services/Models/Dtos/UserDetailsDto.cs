@@ -1,7 +1,9 @@
-﻿using System;
-namespace Tortilla.Hackathon.Services.Models
+﻿
+using System;
+
+namespace Tortilla.Hackathon.Services.Models.Dtos
 {
-    public record User
+    public class UserDetailsDto
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

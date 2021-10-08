@@ -1,8 +1,9 @@
-﻿using AutoMapper;
-using Tortilla.Hackathon.API.Models.Dtos;
-using Tortilla.Hackathon.Services.Models;
+﻿using System;
+using AutoMapper;
+using Tortilla.Hackathon.Domain;
+using Tortilla.Hackathon.Services.Models.Dtos;
 
-namespace Tortilla.Hackathon.API.Models
+namespace Tortilla.Hackathon.Services.Models
 {
     public class MappingProfile : Profile
     {
@@ -13,6 +14,7 @@ namespace Tortilla.Hackathon.API.Models
             CreateMap<CreateUserDto, User>()
                 .ConstructUsing((_, context) => new User
                 {
+                    Id = Guid.NewGuid(),
                     Points = 0,
                     TotalCo2Saved = 0
                 });

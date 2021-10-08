@@ -5,9 +5,8 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Tortilla.Hackathon.API.Models.Dtos;
 using Tortilla.Hackathon.Services.Interfaces;
-using Tortilla.Hackathon.Services.Models;
+using Tortilla.Hackathon.Services.Models.Dtos;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,13 +17,11 @@ namespace Tortilla.Hackathon.API.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService userService;
-        private readonly IMapper mapper;
         private readonly ILogger<UserController> logger;
         public UserController(
-            IUserService userService, IMapper mapper, ILogger<UserController> logger)
+            IUserService userService, ILogger<UserController> logger)
         {
             this.userService = userService;
-            this.mapper = mapper;
             this.logger = logger;
         }
         // GET api/<UserController>/5
@@ -41,8 +38,7 @@ namespace Tortilla.Hackathon.API.Controllers
             //validate data
             try
             {
-                var user = mapper.Map<User>(userDto);
-                await userService.RegisterUser(user);
+                await userService.RegisterUser(userDto);
             }
             catch (NotImplementedException ex)
             {

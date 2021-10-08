@@ -10,4 +10,8 @@
     <PackageReference Include="Geolocation" Version="1.2.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Tortilla.Hackathon.Data\Tortilla.Hackathon.Data.csproj" />
+  </ItemGroup>
+
 </Project>

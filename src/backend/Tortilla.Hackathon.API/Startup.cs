@@ -1,18 +1,16 @@
 using System.Text.Json.Serialization;
-using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
 using Tortilla.Hackathon.API.Extensions;
-using Tortilla.Hackathon.API.Models;
 using Tortilla.Hackathon.Services.Interfaces;
 using Tortilla.Hackathon.Services.Services;
 using Tortilla.Hackathon.Data;
 using Tortilla.Hackathon.Data.Repositories;
+using Tortilla.Hackathon.Services.Models;
 
 namespace Tortilla.Hackathon.API
 {

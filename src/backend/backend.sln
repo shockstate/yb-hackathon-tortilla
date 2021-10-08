@@ -5,10 +5,11 @@ VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tortilla.Hackathon.API", "Tortilla.Hackathon.API\Tortilla.Hackathon.API.csproj", "{E2ABACD6-7E65-4BB5-A5EB-15C24468B7E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tortilla.Hackathon.Services", "Tortilla.Hackathon.Services\Tortilla.Hackathon.Services.csproj", "{9CE9BD4F-FB66-4764-87EF-973F2C233447}"
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tortilla.Hackathon.Data", "Tortilla.Hackathon.Data\Tortilla.Hackathon.Data.csproj", "{624D0953-0235-42CA-8090-A2062D3E9586}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tortilla.Hackathon.Services", "Tortilla.Hackathon.Services\Tortilla.Hackathon.Services.csproj", "{9CE9BD4F-FB66-4764-87EF-973F2C233447}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tortilla.Hackathon.Domain", "Tortilla.Hackathon.Domain\Tortilla.Hackathon.Domain.csproj", "{6EC6206E-B6AC-4617-8822-6FF7780287E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tortilla.Hackathon.Data", "Tortilla.Hackathon.Data\Tortilla.Hackathon.Data.csproj", "{624D0953-0235-42CA-8090-A2062D3E9586}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tortilla.Hackathon.Domain", "Tortilla.Hackathon.Domain\Tortilla.Hackathon.Domain.csproj", "{6EC6206E-B6AC-4617-8822-6FF7780287E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
