@@ -1,8 +1,3 @@
-/**
- * If you are not familiar with React Navigation, refer to the "Fundamentals" guide:
- * https://reactnavigation.org/docs/getting-started
- *
- */
 import { FontAwesome } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
@@ -35,10 +30,11 @@ import {
 import LinkingConfiguration from "./LinkingConfiguration";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Keys } from "../constants/keys";
-import { useAuth } from "../contexts/AuthContext";
+import {} from "../contexts/AuthContext";
 import { Loading } from "../components/Loading";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Text } from "../components/Themed";
+import { useAuth } from "../hooks/useAuth";
 
 const Navigation = ({ colorScheme }: { colorScheme: ColorSchemeName }) => {
   const [userData, setUserData] = React.useState(null);
