@@ -29,7 +29,7 @@ namespace Tortilla.Hackathon.API.Controllers
         {
             try
             {
-                await userService.Login(userCredentialsDto);
+                await userService.LoginAsync(userCredentialsDto);
             }
             catch (NotImplementedException ex)
             {
@@ -55,7 +55,7 @@ namespace Tortilla.Hackathon.API.Controllers
             //validate data
             try
             {
-                await userService.Register(userDto);
+                await userService.RegisterAsync(userDto);
             }
             catch (NotImplementedException ex)
             {
