@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -23,13 +25,13 @@ namespace Tortilla.Hackathon.API.Controllers
             this.userService = userService;
             this.logger = logger;
         }
-        // GET api/<UserController>/5
+
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserCredentialsDto userCredentialsDto)
         {
             try
             {
-                await userService.Login(userCredentialsDto);
+                await userService.LoginAsync(userCredentialsDto);
             }
             catch (NotImplementedException ex)
             {
@@ -41,21 +43,25 @@ namespace Tortilla.Hackathon.API.Controllers
                 logger.LogError(ex, ex.Message);
                 return StatusCode(StatusCodes.Status401Unauthorized, ex.Message);
             }
+            catch (KeyNotFoundException ex)
+            {
+                logger.LogError(ex, ex.Message);
+                return StatusCode(StatusCodes.Status404NotFound, ex.Message);
+            }
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
-            return StatusCode(StatusCodes.Status302Found);
+            return Ok();
         }
+        
 
-        // POST api/<UserController>
         [HttpPost("register")]
         public async Task<IActionResult> RegisterUser(CreateUserDto userDto, CancellationToken cancellationToken = default)
         {
-            //validate data
             try
             {
-                await userService.Register(userDto);
+                await userService.RegisterAsync(userDto);
             }
             catch (NotImplementedException ex)
             {
@@ -69,24 +75,29 @@ namespace Tortilla.Hackathon.API.Controllers
             return StatusCode(StatusCodes.Status201Created);
         }
 
-        [HttpPost("{id}/car")]
-        public async Task<IActionResult> AddCar([FromRoute] string userId, [FromBody] CarDto carDto, CancellationToken cancellationToken = default)
+        [HttpGet("")]
+        public async Task<IActionResult> GetUser(string email, CancellationToken cancellationToken = default)
         {
-            //validate data
             try
             {
-                await userService.AddCar(userId, carDto);
+                var user = await userService.GetUserAsync(email);
+                return new JsonResult(user);
+
             }
             catch (NotImplementedException ex)
             {
                 logger.LogError(ex, ex.Message);
                 return StatusCode(StatusCodes.Status501NotImplemented, ex.Message);
             }
+            catch (KeyNotFoundException ex)
+            {
+                logger.LogError(ex, ex.Message);
+                return StatusCode(StatusCodes.Status404NotFound, ex.Message);
+            }
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
-            return StatusCode(StatusCodes.Status201Created);
         }
     }
 }

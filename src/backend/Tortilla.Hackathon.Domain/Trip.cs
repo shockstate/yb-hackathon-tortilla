@@ -8,16 +8,19 @@ namespace Tortilla.Hackathon.Domain
     {
         public Trip()
         {
-            Passengers = new Collection<User>();
+            Passengers = new Collection<UserTripPassenger>();
         }
 
         public Guid Id { get; set; }
-        public double Origin { get; set; }
-        public double Destination { get; set; }
+
+        public double OriginLatitude { get; set; }
+        public double OriginLongitude { get; set; }
+        public double DestinationLatitude { get; set; }
+        public double DestinationLongitude { get; set; }
         public DateTime StartDateTime { get; set; }
         public TripRecurrency Recurrency { get; set; }
         public Guid UserId { get; set; }
         public virtual User User { get; set; }
-        public virtual ICollection<User> Passengers { get; set; }
+        public virtual ICollection<UserTripPassenger> Passengers { get; set; }
     }
 }

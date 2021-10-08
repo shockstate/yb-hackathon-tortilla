@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
 using Tortilla.Hackathon.Data.Repositories;
 using Tortilla.Hackathon.Domain;
+using Tortilla.Hackathon.Services.Helpers;
 using Tortilla.Hackathon.Services.Interfaces;
 using Tortilla.Hackathon.Services.Models.Dtos;
 
@@ -22,18 +24,23 @@ namespace Tortilla.Hackathon.Services.Services
             this.logger = logger;
         }
 
-        public async Task Register(CreateUserDto userDto)
+        public async Task RegisterAsync(CreateUserDto userDto)
         {
             var user = mapper.Map<User>(userDto);
             await userRepository.InsertAsync(user);
             logger.LogInformation("User created successfully");
         }
 
-        public async Task Login(UserCredentialsDto userCredentialsDto)
+        public async Task LoginAsync(UserCredentialsDto userCredentialsDto)
         {
-            //TODO: hash password
-            var hashedPassword = "";
-            var user = await userRepository.GetUserByEmail(userCredentialsDto.Email);
+            var hashedPassword = Security.GetHashString(userCredentialsDto.Password);
+            var user = await userRepository.GetUserByEmailAsync(userCredentialsDto.Email);
+
+            if (user == null)
+            {
+                logger.LogInformation($"User with email {userCredentialsDto.Email} does not exist");
+                throw new KeyNotFoundException($"User with email {userCredentialsDto.Email} does not exist");
+            }
 
             if (user.PasswordHash != hashedPassword)
             {
@@ -43,11 +50,17 @@ namespace Tortilla.Hackathon.Services.Services
             logger.LogInformation("Login was successful");
         }
 
-        public async Task AddCar(string userId, CarDto carDto)
+        public async Task<UserDetailsDto> GetUserAsync(string email)
         {
-            var car = mapper.Map<Car>(carDto);
-            await userRepository.InsertCar(userId, car);
-            logger.LogInformation("User created successfully");
+            var user = await userRepository.GetUserByEmailAsync(email);
+            if (user == null)
+            {
+                logger.LogInformation($"User with email {email} does not exist");
+                throw new KeyNotFoundException($"User with email {email} does not exist");
+            }
+            var userDto = mapper.Map<UserDetailsDto>(user);
+            logger.LogInformation("Get mail was successful");
+            return userDto;
         }
     }
 }

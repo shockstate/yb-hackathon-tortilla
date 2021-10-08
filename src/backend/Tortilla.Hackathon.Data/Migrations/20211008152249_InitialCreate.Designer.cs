@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tortilla.Hackathon.Data;
 
 namespace Tortilla.Hackathon.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211008152249_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,16 +56,10 @@ namespace Tortilla.Hackathon.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<double>("DestinationLatitude")
+                    b.Property<double>("Destination")
                         .HasColumnType("float");
 
-                    b.Property<double>("DestinationLongitude")
-                        .HasColumnType("float");
-
-                    b.Property<double>("OriginLatitude")
-                        .HasColumnType("float");
-
-                    b.Property<double>("OriginLongitude")
+                    b.Property<double>("Origin")
                         .HasColumnType("float");
 
                     b.Property<int>("Recurrency")

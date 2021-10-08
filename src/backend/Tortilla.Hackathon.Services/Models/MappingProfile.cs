@@ -1,6 +1,7 @@
 ﻿using System;
 using AutoMapper;
 using Tortilla.Hackathon.Domain;
+using Tortilla.Hackathon.Services.Helpers;
 using Tortilla.Hackathon.Services.Models.Dtos;
 
 namespace Tortilla.Hackathon.Services.Models
@@ -9,15 +10,16 @@ namespace Tortilla.Hackathon.Services.Models
     {
         public MappingProfile()
         {
-            // Add as many of these lines as you need to map your objects
-            CreateMap<User, CreateUserDto>();
+            CreateMap<CarType, Domain.CarType>();
+            CreateMap<CarDto, Car>();
             CreateMap<CreateUserDto, User>()
-                .ConstructUsing((_, context) => new User
+                .ConstructUsing((item, _) => new User
                 {
-                    Id = Guid.NewGuid(),
+                    PasswordHash = Security.GetHashString(item.Password),
                     Points = 0,
                     TotalCo2Saved = 0
                 });
+            CreateMap<User, UserDetailsDto>();
         }
     }
 }
