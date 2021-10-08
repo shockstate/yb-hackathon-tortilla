@@ -12,8 +12,11 @@ namespace Tortilla.Hackathon.Domain
         }
 
         public Guid Id { get; set; }
-        public double Origin { get; set; }
-        public double Destination { get; set; }
+
+        public double OriginLatitude { get; set; }
+        public double OriginLongitude { get; set; }
+        public double DestinationLatitude { get; set; }
+        public double DestinationLongitude { get; set; }
         public DateTime StartDateTime { get; set; }
         public TripRecurrency Recurrency { get; set; }
         public Guid UserId { get; set; }
