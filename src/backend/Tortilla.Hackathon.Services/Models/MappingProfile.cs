@@ -24,8 +24,11 @@ namespace Tortilla.Hackathon.Services.Models
 
             CreateMap<Passenger, PendingPassengerDto>();
 
-            CreateMap<Trip, MyTripDto>()
-                .ForMember(dest => dest.TripId, opts => opts.MapFrom(src => src.Id));
+            CreateMap<DayTrip, MyDayTripDto>()
+                .ForMember(dest => dest.OriginLatitude, opts => opts.MapFrom(src => src.Trip.OriginLatitude))
+                .ForMember(dest => dest.OriginLongitude, opts => opts.MapFrom(src => src.Trip.OriginLongitude))
+                .ForMember(dest => dest.DestinationLatitude, opts => opts.MapFrom(src => src.Trip.DestinationLatitude))
+                .ForMember(dest => dest.DestinationLongitude, opts => opts.MapFrom(src => src.Trip.DestinationLongitude));
 
             CreateMap<CreateTripDto, Trip>();
         }
