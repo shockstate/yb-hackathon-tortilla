@@ -8,10 +8,10 @@ namespace Tortilla.Hackathon.Services.Models
         [EnumMember(Value = "Diesel")]
         Diesel = 0,
         [EnumMember(Value = "Gasoline")]
-        Gasoline = 0,
+        Gasoline = 1,
         [EnumMember(Value = "Hybrid")]
-        Hybrid = 0,
+        Hybrid = 2,
         [EnumMember(Value = "Electric")]
-        Electric = 0,
+        Electric = 3,
     }
 }
