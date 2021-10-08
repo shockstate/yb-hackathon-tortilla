@@ -10,7 +10,7 @@ using Tortilla.Hackathon.Data;
 namespace Tortilla.Hackathon.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211008131957_InitialCreate")]
+    [Migration("20211008135459_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -116,21 +116,6 @@ namespace Tortilla.Hackathon.Data.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("TripUser", b =>
-                {
-                    b.Property<Guid>("PassengersId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("TripsAsPassengerId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("PassengersId", "TripsAsPassengerId");
-
-                    b.HasIndex("TripsAsPassengerId");
-
-                    b.ToTable("TripUser");
-                });
-
             modelBuilder.Entity("Tortilla.Hackathon.Domain.Car", b =>
                 {
                     b.HasOne("Tortilla.Hackathon.Domain.User", "User")
@@ -151,21 +136,6 @@ namespace Tortilla.Hackathon.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("TripUser", b =>
-                {
-                    b.HasOne("Tortilla.Hackathon.Domain.User", null)
-                        .WithMany()
-                        .HasForeignKey("PassengersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Tortilla.Hackathon.Domain.Trip", null)
-                        .WithMany()
-                        .HasForeignKey("TripsAsPassengerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Tortilla.Hackathon.Domain.User", b =>
