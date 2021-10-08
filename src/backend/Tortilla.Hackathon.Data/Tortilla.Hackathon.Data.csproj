@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Tortilla.Hackaton.Domain\Tortilla.Hackaton.Domain.csproj" />
+    <ProjectReference Include="..\Tortilla.Hackathon.Domain\Tortilla.Hackathon.Domain.csproj" />
   </ItemGroup>
 
 </Project>

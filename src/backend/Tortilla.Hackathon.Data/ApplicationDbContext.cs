@@ -1,8 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using Tortilla.Hackaton.Domain;
+using Tortilla.Hackathon.Domain;
 
-namespace Tortilla.Hackaton.Data
+namespace Tortilla.Hackathon.Data
 {
     public class ApplicationDbContext : DbContext
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Tortilla.Hackaton.Domain
+namespace Tortilla.Hackathon.Domain
 {
     public class User
     {
