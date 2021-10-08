@@ -15,6 +15,14 @@ namespace Tortilla.Hackathon.Services.Services
         private readonly ITripRepository tripRepository;
         private readonly IMapper mapper;
         private readonly IGeolocationService geolocationService;
+        private readonly List<DayOfWeek> workableDays = new List<DayOfWeek> 
+        {
+            DayOfWeek.Monday,
+            DayOfWeek.Tuesday,
+            DayOfWeek.Wednesday,
+            DayOfWeek.Tuesday,
+            DayOfWeek.Friday
+        };
 
         public TripService(ITripRepository tripRepository, 
             IMapper mapper, IGeolocationService geolocationService)
@@ -48,7 +56,37 @@ namespace Tortilla.Hackathon.Services.Services
         public async Task CreateTripAsync(CreateTripDto createTripDto)
         {
             var trip = mapper.Map<Trip>(createTripDto);
+            CreateDayTripsForTrip(trip);
+
             await tripRepository.InsertAsync(trip);
+        }
+
+        private void CreateDayTripsForTrip(Trip trip)
+        {
+            if (trip.Recurrency == TripRecurrency.None)
+            {
+                trip.DayTrips.Add(new DayTrip
+                {
+                    DateTime = trip.StartDateTime
+                });
+
+                return;
+            }
+
+            // For the following 30 days create trips.
+            for (int i = 0; i < 30; i++)
+            {
+                var tripDateTime = trip.StartDateTime.AddDays(i);
+
+                if (trip.Recurrency == TripRecurrency.EveryDay || 
+                    (trip.Recurrency == TripRecurrency.EveryWorkday && workableDays.Contains(tripDateTime.DayOfWeek)))
+                {
+                    trip.DayTrips.Add(new DayTrip
+                    {
+                        DateTime = tripDateTime
+                    });
+                }
+            }
         }
     }
 }
