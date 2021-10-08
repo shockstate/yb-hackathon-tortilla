@@ -7,6 +7,8 @@ namespace Tortilla.Hackathon.Services.Interfaces
 {
     public interface IUserService
     {
-        Task RegisterUser(CreateUserDto user);
+        Task Register(CreateUserDto user);
+        Task Login(UserCredentialsDto credentials);
+        Task AddCar(string userId, CarDto car);
     }
 }
