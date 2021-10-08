@@ -1,4 +1,4 @@
-import React, { Component, ReactElement } from "react";
+import React, { ReactElement } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import RegisterUserForm from "../components/RegisterUserForm";
 

@@ -1,31 +1,31 @@
-import React, { useState } from "react";
+import React from "react";
 import { Text, View, TextInput, Button, StyleSheet } from "react-native";
 import { useForm, Controller } from "react-hook-form";
-import CarTypeEnum from "../enums/CarTypeEnum";
-import RegisterUserModel from "../models/RegisterUserModel";
-import DateField from "react-native-datefield";
-import { Picker } from "@react-native-picker/picker";
+import LoginModel from "../models/LoginModel";
 
-export default function App() {
+interface LoginFormProps {
+  login: (email: string, password: string) => Promise<void>;
+}
+
+export default function LoginForm({ login }: LoginFormProps) {
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data: RegisterUserModel) => console.log(data);
+  const onSubmit = (data: LoginModel) => login(data.email, data.password);
 
   return (
     <View style={styles.form}>
-      <Text style={styles.title}>Register</Text>
       <Controller
         control={control}
         render={({ field: { onChange, onBlur, value } }) => (
           <>
-            <Text style={styles.label}>First name:</Text>
+            <Text style={styles.label}>Email:</Text>
             <TextInput
               style={styles.input}
-              placeholder="John"
+              placeholder="test@accenture.ch"
               onBlur={onBlur}
               onChangeText={(value) => {
                 onChange(value);
@@ -34,15 +34,43 @@ export default function App() {
             />
           </>
         )}
-        name="firstName"
+        name="email"
         rules={{
           required: true,
         }}
         defaultValue=""
       />
       {errors.firstName && (
-        <Text style={styles.errorText}>The first name is required.</Text>
+        <Text style={styles.errorText}>The email is required.</Text>
       )}
+
+      <Controller
+        control={control}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <>
+            <Text style={styles.label}>Password:</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="**********"
+              secureTextEntry={true}
+              onBlur={onBlur}
+              onChangeText={(value) => {
+                onChange(value);
+              }}
+              value={value}
+            />
+          </>
+        )}
+        name="password"
+        rules={{
+          required: true,
+        }}
+        defaultValue=""
+      />
+      {errors.firstName && (
+        <Text style={styles.errorText}>The password is required.</Text>
+      )}
+
       <View style={styles.submitButton}>
         <Button title="Submit" onPress={handleSubmit(onSubmit)} />
       </View>
@@ -51,13 +79,6 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  title: {
-    fontWeight: "bold",
-    fontSize: 20,
-    marginBottom: 12,
-    display: "flex",
-    justifyContent: "center",
-  },
   form: {
     margin: 12,
     borderWidth: 1,
