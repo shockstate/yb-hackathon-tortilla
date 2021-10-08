@@ -4,6 +4,9 @@
  *
  */
 import { FontAwesome } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
   NavigationContainer,
@@ -18,10 +21,11 @@ import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 import HomeScreen from "../screens/HomeScreen";
 import LoginScreen from "../screens/LoginScreen";
+import SignUpScreen from "../screens/SignUpScreen";
 import ModalScreen from "../screens/ModalScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
-import SignUpScreen from "../screens/SignUpScreen";
 import TabOneScreen from "../screens/TabOneScreen";
+import TabThreeScreen from "../screens/TabThreeScreen";
 import TabTwoScreen from "../screens/TabTwoScreen";
 import {
   RootStackParamList,
@@ -134,8 +138,20 @@ function BottomTabNavigator() {
         name="TabTwo"
         component={TabTwoScreen}
         options={{
-          title: "Tab Two",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: "Offer",
+          tabBarIcon: ({ color }) => (
+            <MaterialIcons name="add-location-alt" size={24} color={color} />
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name="TabThree"
+        component={TabThreeScreen}
+        options={{
+          title: "Calendar",
+          tabBarIcon: ({ color }) => (
+            <CalendarTabIcon name="calendar" color={color} />
+          ),
         }}
       />
     </BottomTab.Navigator>
@@ -150,4 +166,25 @@ function TabBarIcon(props: {
   color: string;
 }) {
   return <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />;
+}
+
+function OfferTabIcon(props: {
+  name: React.ComponentProps<typeof MaterialIcons>["name"];
+  color: string;
+}) {
+  return <MaterialIcons size={30} style={{ marginBottom: -3 }} {...props} />;
+}
+
+function BookTabIcon(props: {
+  name: React.ComponentProps<typeof Entypo>["name"];
+  color: string;
+}) {
+  return <Entypo size={30} style={{ marginBottom: -3 }} {...props} />;
+}
+
+function CalendarTabIcon(props: {
+  name: React.ComponentProps<typeof AntDesign>["name"];
+  color: string;
+}) {
+  return <AntDesign size={30} style={{ marginBottom: -3 }} {...props} />;
 }
