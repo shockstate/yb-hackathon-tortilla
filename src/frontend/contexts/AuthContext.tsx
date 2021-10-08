@@ -32,6 +32,7 @@ const AuthProvider: React.FC = ({ children }) => {
         setAuthData(_authData);
       }
     } catch (error) {
+      signOut();
     } finally {
       setLoading(false);
     }
@@ -51,8 +52,7 @@ const AuthProvider: React.FC = ({ children }) => {
           password: password,
         }),
       });
-      const json = await response.json();
-      return json;
+      return response;
     } catch (error) {
       console.error(error);
     } finally {
@@ -63,7 +63,7 @@ const AuthProvider: React.FC = ({ children }) => {
   const signIn = async (email: string, password: string) => {
     const loginResult = await callLoginAsync(email, password);
     console.log(loginResult, "loginResult");
-    if (loginResult) {
+    if (loginResult && loginResult.status === 200) {
       const _authData = {
         name: "LoggedUser",
         email: email,
@@ -72,6 +72,8 @@ const AuthProvider: React.FC = ({ children }) => {
       setAuthData(_authData);
 
       AsyncStorage.setItem(Keys.USER_STORE_KEY, JSON.stringify(_authData));
+    } else {
+      signOut();
     }
   };
 
