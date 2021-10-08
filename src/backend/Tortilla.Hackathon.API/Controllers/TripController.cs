@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 using Tortilla.Hackathon.Services.Interfaces;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Tortilla.Hackathon.API.Controllers
 {
@@ -20,40 +21,22 @@ namespace Tortilla.Hackathon.API.Controllers
             this.logger = logger;
         }
 
-        // GET: api/<TripController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        [HttpGet("myTrips")]
+        public async Task<IActionResult> GetMyTrips([EmailAddress] string email)
         {
-            return new string[] { "trip 1", "trip 2" };
+            try
+            {
+                var trips = await tripService.GetMyTripsAsOwnerOrPassengerByUserEmailAsync(email);
+                return Ok(trips);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
 
-        // GET api/<TripController>/5
-        [HttpGet("{id}")]
-        public string GetTripbyId(int id)
-        {
-            return "details of the trip";
-        }
-
-        // POST api/<TripController>
-        [HttpPost]
-        public void CreateTrip([FromBody] string value)
-        {
-            //create a trip request
-        }
-
-        // POST api/<TripController>/5/members/requests
-        [HttpPost("{id}/members/request")]
-        public void RequestJoinToTrip([FromBody] string value)
-        {
-            //create a trip request
-        }
-
-        // POST api/<TripController>/5/members/accept
-        [HttpPost("{id}/members/accept")]
-        public void AcceptRequestToJoinTrip([FromBody] string value)
-        {
-            //create a trip request
-        }
-
+        //public void CreateTrip([FromBody] string value)
+        //public void RequestJoinToTrip([FromBody] string value)
+        //public void AcceptRequestToJoinTrip([FromBody] string value)
     }
 }

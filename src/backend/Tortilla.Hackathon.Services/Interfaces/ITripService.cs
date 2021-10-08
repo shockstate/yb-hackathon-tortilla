@@ -1,11 +1,12 @@
 ﻿
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using Geolocation;
+using Tortilla.Hackathon.Services.Models.Dtos.Trips;
 
 namespace Tortilla.Hackathon.Services.Interfaces
 {
     public interface ITripService
     {
-        Task GetTrips(Coordinate origin, Coordinate destination);
+        Task<IList<MyTripDto>> GetMyTripsAsOwnerOrPassengerByUserEmailAsync(string email);
     }
 }
