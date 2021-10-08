@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -23,7 +25,7 @@ namespace Tortilla.Hackathon.API.Controllers
             this.userService = userService;
             this.logger = logger;
         }
-        // GET api/<UserController>/5
+
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserCredentialsDto userCredentialsDto)
         {
@@ -45,14 +47,13 @@ namespace Tortilla.Hackathon.API.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
-            return StatusCode(StatusCodes.Status302Found);
+            return Ok();
         }
+        
 
-        // POST api/<UserController>
         [HttpPost("register")]
         public async Task<IActionResult> RegisterUser(CreateUserDto userDto, CancellationToken cancellationToken = default)
         {
-            //validate data
             try
             {
                 await userService.RegisterAsync(userDto);
@@ -67,6 +68,31 @@ namespace Tortilla.Hackathon.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
             return StatusCode(StatusCodes.Status201Created);
+        }
+
+        [HttpGet("")]
+        public async Task<IActionResult> GetUser(string email, CancellationToken cancellationToken = default)
+        {
+            try
+            {
+                var user = await userService.GetUserAsync(email);
+                return new JsonResult(user);
+
+            }
+            catch (NotImplementedException ex)
+            {
+                logger.LogError(ex, ex.Message);
+                return StatusCode(StatusCodes.Status501NotImplemented, ex.Message);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                logger.LogError(ex, ex.Message);
+                return StatusCode(StatusCodes.Status404NotFound, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
     }
 }
