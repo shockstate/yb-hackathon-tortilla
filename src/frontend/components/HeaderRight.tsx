@@ -17,7 +17,6 @@ export default function HeaderRight({ navigation }: HeaderRightProps) {
         <Pressable
           onPress={() => navigation.navigate("Ranking")}
           style={({ pressed }) => ({
-            cursor: "pointer",
             opacity: pressed ? 0.5 : 1,
           })}
         >
@@ -33,7 +32,6 @@ export default function HeaderRight({ navigation }: HeaderRightProps) {
         <Pressable
           onPress={() => navigation.navigate("Account")}
           style={({ pressed }) => ({
-            cursor: "pointer",
             opacity: pressed ? 0.5 : 1,
           })}
         >

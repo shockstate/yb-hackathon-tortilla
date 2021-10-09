@@ -4,17 +4,13 @@ import { useEffect, useState } from "react";
 import {
   Image,
   Platform,
-  Pressable,
   StyleSheet,
-  TouchableOpacity,
   Button,
 } from "react-native";
-import logo from "../assets/images/profile.png";
 import { Text, View } from "../components/Themed";
 import { Api } from "../constants/Api";
 import { useAuth } from "../hooks/useAuth";
 import UserDetails from "../models/UserDetailsModel";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default function ModalScreen() {
   const auth = useAuth();
@@ -48,14 +44,31 @@ export default function ModalScreen() {
       console.error(error);
     }
   };
+  
+  const getRandomImage = () => {
+    var chosen = Math.floor(Math.random() * 6);
+      switch(chosen){
+        case 0:
+          return <Image source={require("../assets/images/img0.png")} style={{ width: 150, height: 150 }} />
+        case 1:
+          return <Image source={require("../assets/images/img1.png")} style={{ width: 150, height: 150 }} />
+        case 2:
+          return <Image source={require("../assets/images/img2.png")} style={{ width: 150, height: 150 }} />
+        case 3:
+          return <Image source={require("../assets/images/img3.png")} style={{ width: 150, height: 150 }} />
+        case 4:
+          return <Image source={require("../assets/images/img4.png")} style={{ width: 150, height: 150 }} />
+        default:
+          return <Image source={require("../assets/images/img5.png")} style={{ width: 150, height: 150 }} />
+      }
+  }
 
   return (
     <View style={styles.container}>
       <View style={styles.logout}>
         <Button title="Logout" onPress={() => auth.signOut()} color="#F41E1E" />
       </View>
-
-      <Image source={logo} style={{ width: 150, height: 150 }} />
+      {getRandomImage()}      
       <Text style={styles.title}>Personal information</Text>
       <View
         style={styles.separator}
@@ -139,6 +152,5 @@ const styles = StyleSheet.create({
     position: "absolute",
     right: 12,
     top: 12,
-    cursor: "pointer",
   },
 });

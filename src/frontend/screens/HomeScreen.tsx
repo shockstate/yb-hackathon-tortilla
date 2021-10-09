@@ -1,31 +1,33 @@
 import React, { Component, ReactElement } from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Button,
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 import { RootStackScreenProps } from "../types";
-import logo from '../assets/images/logo.png';
+import logo from "../assets/images/logo.png";
 
 const HomeScreen = ({
   navigation,
 }: RootStackScreenProps<"Home">): ReactElement => {
   return (
     <View style={styles.container}>
+      <Image source={logo} style={{ width: 257, height: 59 }} />
 
-      <Image source={logo} style={{ width: 257, height: 59}}/>
-      
       <Text style={styles.title}>Welcome!</Text>
 
-      <TouchableOpacity
-        onPress={() => navigation.replace("Login")}
-        style={styles.link}
-      >
-        <Text style={styles.linkText}>Login</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => navigation.replace("SignUp")}
-        style={styles.link}
-      >
-        <Text style={styles.linkText}>Sign up</Text>
-      </TouchableOpacity>
+      <View style={styles.link}>
+        <Button title="Login" onPress={() => navigation.replace("Login")} />
+      </View>
+
+      <View style={styles.link}>
+        <Button title="Sign up" onPress={() => navigation.replace("SignUp")} />
+      </View>
     </View>
   );
 };
@@ -43,13 +45,10 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: "bold",
+    marginBottom: 15,
   },
   link: {
     marginTop: 15,
-    paddingVertical: 15,
-  },
-  linkText: {
-    fontSize: 14,
-    color: "#2e78b7",
+    width: 80,
   },
 });
