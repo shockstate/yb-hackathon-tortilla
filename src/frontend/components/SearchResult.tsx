@@ -1,16 +1,19 @@
 import { Ionicons } from "@expo/vector-icons";
-import * as WebBrowser from "expo-web-browser";
 import moment from "moment";
 import React from "react";
-import { StatusBar, StyleSheet, TouchableOpacity } from "react-native";
+import { Button, StatusBar, StyleSheet, TouchableOpacity } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
+import { Api } from "../constants/Api";
 
 import Colors from "../constants/Colors";
+import { useAuth } from "../hooks/useAuth";
 import TripModel from "../models/TripModel";
 import { MonoText } from "./StyledText";
 import { Text, View } from "./Themed";
 
 export default function SearchResult(data: any) {
+  const auth = useAuth();
+
   const Item = ({ item }: { item: TripModel }) => (
     <View style={styles.item}>
       <Text style={styles.cardTitle}>
@@ -36,14 +39,15 @@ export default function SearchResult(data: any) {
       </Text>
 
       <Text style={styles.cardTitle}>
-        <Ionicons
-          size={30}
-          style={{ marginBottom: -3 }}
-          name={item.isUserPassanger ? "people" : "key"}
-          color={Colors.light.tint}
-        />
+        <Text>Distance to origin (meters)</Text>
         <View style={styles.iconSeparator}></View>
-        <Text>{item.isUserPassanger ? "Passenger" : "Driver"}</Text>
+        <Text>{item.originDistanceInMeters}</Text>
+      </Text>
+
+      <Text style={styles.cardTitle}>
+        <Text>Distanc to destination (meters)</Text>
+        <View style={styles.iconSeparator}></View>
+        <Text>{item.destinationDistanceInMeters}</Text>
       </Text>
 
       <Text style={styles.cardTitle}>
@@ -56,20 +60,45 @@ export default function SearchResult(data: any) {
         <View style={styles.iconSeparator}></View>
         <Text>{moment(item.dateTime).format("MMMM Do YYYY, h:mm:ss a")}</Text>
       </Text>
+
+      <Button title="Request" onPress={() => createRequest(item.id)} />
     </View>
   );
 
-  const renderItem = ({ item }: { item: TripModel }) => <Item item={item} />;
+  const createRequest = async (tripId: string) => {
+    try {
+      const response = await fetch(`${Api.URL}/trip/request`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          dayTripId: tripId,
+          userId: auth.authData?.id,
+        }),
+      });
+      if (response.ok) {
+        alert("Requested OK");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
+  const renderItem = ({ item }: { item: TripModel }) => <Item item={item} />;
+  console.log(data, "data is");
   return (
     <View>
       <Text style={styles.title}>Your search results</Text>
-      {data && data.length > 0 && (
-        <FlatList
-          data={data}
-          renderItem={renderItem}
-          keyExtractor={(item: TripModel) => item.id}
-        />
+      {data && data.data.length && (
+        <>
+          <FlatList
+            data={data.data}
+            renderItem={renderItem}
+            keyExtractor={(item: TripModel) => item.id}
+          />
+        </>
       )}
     </View>
   );

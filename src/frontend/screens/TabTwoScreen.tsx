@@ -30,7 +30,7 @@ export default function TabTwoScreen() {
           originLongitude: searchModel.originLongitude,
           destinationLatitude: searchModel.destinationLatitude,
           destinationLongitude: searchModel.destinationLongitude,
-          date: searchModel.date,
+          dateTime: searchModel.date,
           userId: auth.authData?.id,
         }),
       });
