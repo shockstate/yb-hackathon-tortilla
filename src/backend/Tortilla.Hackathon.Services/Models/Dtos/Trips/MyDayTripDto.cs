@@ -1,4 +1,5 @@
 ﻿using System;
+using Tortilla.Hackathon.Domain;
 
 namespace Tortilla.Hackathon.Services.Models.Dtos.Trips
 {
