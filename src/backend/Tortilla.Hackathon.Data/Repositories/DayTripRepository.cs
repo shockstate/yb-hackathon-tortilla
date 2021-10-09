@@ -39,7 +39,7 @@ namespace Tortilla.Hackathon.Data.Repositories
                 .Where(dayTrip => dayTrip.DateTime >= dateTimeBeginningOfTheDay && dayTrip.DateTime < dateTimeEndOfTheDay)
                 .Where(dayTrip => !dayTrip.Passengers.Any(p => p.UserId == userId))
                 .Where(dayTrip => dayTrip.Trip.UserId != userId)
-                .Where(dayTrip => dayTrip.Trip.User.Car.MaxCapacity - 1 > dayTrip.Passengers.Count)
+                .Where(dayTrip => dayTrip.Trip.User.Car.MaxPassengersCapacity > dayTrip.Passengers.Count)
                 .ToListAsync();
         }
 

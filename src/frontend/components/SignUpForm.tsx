@@ -248,7 +248,7 @@ export default function RegisterUserForm({ register }: RegisterUserFormProps) {
                 onValueChange={onChange}
               >
                 <Picker.Item
-                  value={2}
+                  value={1}
                   label="Small car - (up to 1 passenger)"
                 />
                 <Picker.Item
@@ -256,8 +256,8 @@ export default function RegisterUserForm({ register }: RegisterUserFormProps) {
                   label="Medium car - (up to 4 passengers)"
                 />
                 <Picker.Item
-                  value={6}
-                  label="Large car - (6 or more passengers)"
+                  value={5}
+                  label="Large car - (5 or more passengers)"
                 />
               </Picker>
             </>
