@@ -19,7 +19,7 @@ import { Loading } from "./Loading";
 
 export default function CreateTripModal({
   navigation,
-}: RootStackScreenProps<"Create Trip Modal">) {
+}: RootStackScreenProps<"CreateTripModal">) {
   const {
     handleSubmit,
     control,
@@ -73,9 +73,8 @@ export default function CreateTripModal({
               control={control}
               render={({ field: { onChange, onBlur, value } }) => (
                 <>
-                  <Text style={styles.label}>Origin</Text>
                   <Picker
-                    style={{ height: 40, marginTop: 12 }}
+                    style={{ height: 40, marginTop: 12, width: "100%" }}
                     onValueChange={onChange}
                   >
                     <Picker.Item
@@ -121,9 +120,8 @@ export default function CreateTripModal({
               control={control}
               render={({ field: { onChange, onBlur, value } }) => (
                 <>
-                  <Text style={styles.label}>Destination</Text>
                   <Picker
-                    style={{ height: 40, marginTop: 12 }}
+                    style={{ height: 40, marginTop: 12, width: "100%" }}
                     onValueChange={onChange}
                   >
                     <Picker.Item
