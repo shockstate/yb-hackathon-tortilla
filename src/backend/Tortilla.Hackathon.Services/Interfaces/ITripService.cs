@@ -11,5 +11,6 @@ namespace Tortilla.Hackathon.Services.Interfaces
         Task<IList<MyDayTripDto>> GetMyTripsAsOwnerOrPassengerByUserIdAsync(Guid userId);
         Task CreateTripAsync(CreateTripDto createTripDto);
         Task<IList<DayTripDto>> SearchDayTripsAsync(SearchTripsDto searchTripsDto);
+        Task CreteDayTripRequest(DayTripRequestDto dayTripRequestDto);
     }
 }
