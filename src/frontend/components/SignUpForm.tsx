@@ -85,6 +85,7 @@ export default function RegisterUserForm({ register }: RegisterUserFormProps) {
             <Text style={styles.label}>Birthdate:</Text>
             <DateField
               styleInput={styles.dateInput}
+              labelDate="Date"
               onSubmit={(value) => {
                 onChange(value);
               }}
@@ -326,7 +327,10 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     borderRadius: 5,
-    padding: 50,
+    paddingTop: 50,
+    paddingBottom: 50,
+    paddingLeft: 20,
+    paddingRight: 20,
   },
   input: {
     height: 40,
@@ -349,7 +353,10 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     borderWidth: 1,
     borderColor: "black",
-    padding: 30,
+    paddingTop: 30,
+    paddingBottom: 30,
+    paddingLeft: 20,
+    paddingRight: 20,
   },
   errorText: {
     color: "red",

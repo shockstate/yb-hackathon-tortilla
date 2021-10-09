@@ -117,7 +117,16 @@ export default function ModalScreen() {
         return (
           <Image
             source={require("../assets/images/img5.png")}
-            style={{ width: 25, height: 25 }}
+            style={{
+              width: 25,
+              height: 25,
+              marginRight: 20,
+              borderWidth: 1,
+              borderBottomLeftRadius: 50,
+              borderBottomRightRadius: 50,
+              borderTopLeftRadius: 50,
+              borderTopRightRadius: 50,
+            }}
           />
         );
     }
