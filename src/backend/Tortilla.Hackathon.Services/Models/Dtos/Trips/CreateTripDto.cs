@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Tortilla.Hackathon.Domain;
+using Tortilla.Hackathon.Services.Validations;
 
 namespace Tortilla.Hackathon.Services.Models.Dtos.Trips
 {
@@ -15,6 +16,7 @@ namespace Tortilla.Hackathon.Services.Models.Dtos.Trips
         [Required]
         public double DestinationLongitude { get; set; }
         [Required]
+        [StartDateTimeAttribute]
         public DateTime StartDateTime { get; set; }
         [Required]
         public TripRecurrency Recurrency { get; set; }
