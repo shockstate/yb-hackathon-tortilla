@@ -24,6 +24,15 @@ const LoginScreen = ({
       <Text style={styles.title}>Login</Text>
 
       <LoginForm login={login} />
+      <Text>
+        You don't have an account? Go to{" "}
+        <Text
+          onPress={() => navigation.replace("SignUp")}
+          style={styles.signUp}
+        >
+          SIGN UP
+        </Text>
+      </Text>
 
       <TouchableOpacity
         onPress={() => navigation.replace("Home")}
@@ -58,13 +67,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
   },
-  link: {
-    marginTop: 15,
-    paddingVertical: 15,
-  },
-  linkText: {
-    fontSize: 14,
-    color: "#2e78b7",
+  signUp: {
+    color: "#2196F3",
   },
   loginFailed: {
     fontWeight: "bold",

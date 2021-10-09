@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Tortilla.Hackathon.Services.Interfaces;
 using Tortilla.Hackathon.Services.Models.Dtos.Trips;
@@ -36,7 +35,7 @@ namespace Tortilla.Hackathon.API.Controllers
             }
         }
 
-        [HttpPost("")]
+        [HttpPost]
         public async Task<IActionResult> CreateTrip(CreateTripDto createTripDto)
         {
             try
@@ -49,5 +48,22 @@ namespace Tortilla.Hackathon.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+
+        // TODO: HttpGet => For simpliyfy
+        [HttpPost("search")]
+        public async Task<IActionResult> SearchTrips(SearchTripsDto searchTripsDto)
+        {
+            try
+            {
+                var dayTrips = await tripService.SearchDayTripsAsync(searchTripsDto);
+                return Ok(dayTrips);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        //public void AcceptRequestToJoinTrip([FromBody] string value)
     }
 }

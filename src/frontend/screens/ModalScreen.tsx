@@ -1,21 +1,12 @@
-import { StatusBar } from 'expo-status-bar';
-import * as React from 'react';
-import { useEffect, useState } from 'react';
-import { Image, Platform, StyleSheet } from 'react-native';
-import logo from '../assets/images/profile.png';
-import { Text, View } from '../components/Themed';
-import { Api } from '../constants/Api';
-import { useAuth } from '../hooks/useAuth';
-
-interface UserDetails {
-  firstName: string,
-  lastName: string,
-  email: string,
-  dateOfBirth: string,
-  driversLicenseNumber: string,
-  totalCo2Saved: number,
-  points: number
-}
+import { StatusBar } from "expo-status-bar";
+import * as React from "react";
+import { useEffect, useState } from "react";
+import { Image, Platform, StyleSheet } from "react-native";
+import logo from "../assets/images/profile.png";
+import { Text, View } from "../components/Themed";
+import { Api } from "../constants/Api";
+import { useAuth } from "../hooks/useAuth";
+import UserDetails from "../models/UserDetailsModel";
 
 export default function ModalScreen() {
   const auth = useAuth();
@@ -26,12 +17,12 @@ export default function ModalScreen() {
     dateOfBirth: "",
     driversLicenseNumber: "",
     totalCo2Saved: 0,
-    points: 0
+    points: 0,
   });
   useEffect(() => {
-    if (auth.authData?.email){
+    if (auth.authData?.email) {
       getUserAsync(auth.authData?.email);
-    }    
+    }
   }, []);
 
   const getUserAsync = async (email: string) => {
@@ -41,10 +32,10 @@ export default function ModalScreen() {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-        }
+        },
       })
-        .then(response => response.json())
-        .then(data => setUser(data));
+        .then((response) => response.json())
+        .then((data) => setUser(data));
     } catch (error) {
       console.error(error);
     }
@@ -52,13 +43,25 @@ export default function ModalScreen() {
 
   return (
     <View style={styles.container}>
-      <Image source={logo} style={{ width: 150, height: 150 }}/>
+      <Image source={logo} style={{ width: 150, height: 150 }} />
       <Text style={styles.title}>Personal information</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+      <View
+        style={styles.separator}
+        lightColor="#eee"
+        darkColor="rgba(255,255,255,0.1)"
+      />
       <Text style={styles.field}>{user.firstName}</Text>
       <Text style={styles.field}>{user.lastName}</Text>
       <Text style={styles.field}>{user.email}</Text>
-      <Text style={styles.field}>{user.dateOfBirth != "" ? new Date(user?.dateOfBirth).getDay()+"/"+new Date(user?.dateOfBirth).getMonth()+"/"+ new Date(user?.dateOfBirth).getFullYear() : ""}</Text>
+      <Text style={styles.field}>
+        {user.dateOfBirth != ""
+          ? new Date(user?.dateOfBirth).getDay() +
+            "/" +
+            new Date(user?.dateOfBirth).getMonth() +
+            "/" +
+            new Date(user?.dateOfBirth).getFullYear()
+          : ""}
+      </Text>
       <Text style={styles.field}>{user.driversLicenseNumber}</Text>
 
       {/* <Text style={styles.title}>Car information</Text>
@@ -67,18 +70,27 @@ export default function ModalScreen() {
       <Text style={styles.title}>{user?.lastName}</Text> */}
 
       <Text style={styles.title}>Puntuation</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+      <View
+        style={styles.separator}
+        lightColor="#eee"
+        darkColor="rgba(255,255,255,0.1)"
+      />
       <Text style={styles.field}>Points Balance: {user?.points}</Text>
-      <Text style={styles.field}>CO2 Saved with Carles: {user?.totalCo2Saved}</Text>
-      {
-        user.totalCo2Saved > 100 ?
-        <Text style={styles.recommendation}>Great job! You are saving this planet</Text>
-        : 
-        <Text style={styles.recommendation}>Work harder to make a better world!</Text>
-      }
+      <Text style={styles.field}>
+        CO2 Saved with Carles: {user?.totalCo2Saved}
+      </Text>
+      {user.totalCo2Saved > 100 ? (
+        <Text style={styles.recommendation}>
+          Great job! You are saving this planet
+        </Text>
+      ) : (
+        <Text style={styles.recommendation}>
+          Work harder to make a better world!
+        </Text>
+      )}
 
       {/* Use a light status bar on iOS to account for the black space above the modal */}
-      <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
+      <StatusBar style={Platform.OS === "ios" ? "light" : "auto"} />
     </View>
   );
 }
@@ -86,28 +98,28 @@ export default function ModalScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   title: {
     fontSize: 20,
-    fontWeight: 'bold',
-    textAlign: 'left',
-    marginTop: 20
+    fontWeight: "bold",
+    textAlign: "left",
+    marginTop: 20,
   },
   field: {
     fontSize: 18,
-    textAlign: 'left',
+    textAlign: "left",
   },
   recommendation: {
     fontSize: 18,
-    textAlign: 'left',
-    fontStyle: 'italic',
-    color: 'green'
+    textAlign: "left",
+    fontStyle: "italic",
+    color: "green",
   },
   separator: {
     marginVertical: 10,
     height: 1,
-    width: '80%',
+    width: "80%",
   },
 });

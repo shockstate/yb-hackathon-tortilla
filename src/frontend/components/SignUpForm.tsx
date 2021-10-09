@@ -236,7 +236,7 @@ export default function RegisterUserForm({ register }: RegisterUserFormProps) {
           control={control}
           render={({ field: { onChange, onBlur, value } }) => (
             <>
-              <Text style={styles.label}>Maximum capacity:</Text>
+              <Text style={styles.label}>Maximum passengers capacity:</Text>
               <TextInput
                 style={styles.input}
                 placeholder="4"
@@ -320,6 +320,7 @@ const styles = StyleSheet.create({
     padding: 12,
     width: "32%",
     marginTop: 12,
+    borderWidth: 1,
   },
   label: {
     marginTop: 12,

@@ -36,6 +36,7 @@ const linking: LinkingOptions<RootStackParamList> = {
         },
       },
       Modal: "modal",
+      CreateTripModal: "createTripModal",
       NotFound: "*",
     },
   },

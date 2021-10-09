@@ -1,7 +1,8 @@
 import { Ionicons } from "@expo/vector-icons";
-import * as React from "react";
+import React, { useState } from "react";
 import { Button, StatusBar, StyleSheet } from "react-native";
 import { FlatList, TouchableHighlight } from "react-native-gesture-handler";
+import CreateTripModal from "../components/CreateTripModal";
 
 import { Text, View } from "../components/Themed";
 import { Api } from "../constants/Api";
@@ -90,16 +91,12 @@ export default function TabOneScreen({
     getUserTrips();
   }, []);
 
-  const createTrip = () => {
-    alert("clicked");
-  };
-
   return (
     <View style={styles.container}>
       <Text style={styles.title}>My Trips</Text>
       <View>
         <Button
-          onPress={createTrip}
+          onPress={() => navigation.navigate("CreateTripModal")}
           title="Create trip"
           accessibilityLabel="Create Trip"
         />

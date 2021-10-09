@@ -1,8 +1,7 @@
-import * as React from "react";
+import React from "react";
 import { StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-import EditScreenInfo from "../components/EditScreenInfo";
 import SearchForm from "../components/SearchForm";
 import SearchResult from "../components/SearchResult";
 import { Text, View } from "../components/Themed";
