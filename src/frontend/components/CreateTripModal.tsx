@@ -87,7 +87,7 @@ export default function CreateTripModal({
                     />
                     <Picker.Item
                       value="47.451322893438046,8.568351419942868"
-                      label="isolutions Zurich"
+                      label="iSolutions Zurich"
                     />
                     <Picker.Item
                       value="45.977109747365404,7.658709362053811"
@@ -134,7 +134,7 @@ export default function CreateTripModal({
                     />
                     <Picker.Item
                       value="47.451322893438046,8.568351419942868"
-                      label="isolutions Zurich"
+                      label="iSolutions Zurich"
                     />
                     <Picker.Item
                       value="45.977109747365404,7.658709362053811"
