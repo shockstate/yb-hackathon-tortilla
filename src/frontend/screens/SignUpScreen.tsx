@@ -27,7 +27,7 @@ const SignUpScreen = ({
           lastName: user.lastName,
           email: user.email,
           password: user.password,
-          birthDate: user.birthDate,
+          dateOfBirth: user.dateOfBirth,
           driversLicenseNumber: user.driversLicenseNumber,
           car: {
             model: user.car.model,

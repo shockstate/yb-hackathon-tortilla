@@ -92,12 +92,12 @@ export default function RegisterUserForm({ register }: RegisterUserFormProps) {
             />
           </>
         )}
-        name="birthdate"
+        name="dateOfBirth"
         rules={{
           required: true,
         }}
       />
-      {errors.birthdate && (
+      {errors.dateOfBirth && (
         <Text style={styles.errorText}>The birthdate is required.</Text>
       )}
 

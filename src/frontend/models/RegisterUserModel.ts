@@ -6,7 +6,7 @@ interface RegisterUserModel {
   lastName: string;
   email: string;
   password: string;
-  birthDate: Date;
+  dateOfBirth: Date;
   driversLicenseNumber: string;
   car: CarModel;
 }
