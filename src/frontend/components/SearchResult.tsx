@@ -1,10 +1,9 @@
 import { Ionicons } from "@expo/vector-icons";
 import moment from "moment";
 import React from "react";
-import { Button, StatusBar, StyleSheet, TouchableOpacity } from "react-native";
+import { Button, StatusBar, StyleSheet } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { Api } from "../constants/Api";
-
 import Colors from "../constants/Colors";
 import { useAuth } from "../hooks/useAuth";
 import TripModel from "../models/TripModel";
@@ -82,7 +81,6 @@ export default function SearchResult(
         }),
       });
       if (response.ok) {
-        alert("Requested OK");
         navigation.navigate("TabOne");
       }
     } catch (error) {

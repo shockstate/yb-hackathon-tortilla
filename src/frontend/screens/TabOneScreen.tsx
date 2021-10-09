@@ -1,16 +1,14 @@
 import { Ionicons } from "@expo/vector-icons";
-import React, { useState } from "react";
-import { Button, Pressable, StatusBar, StyleSheet } from "react-native";
-import { FlatList, TouchableHighlight } from "react-native-gesture-handler";
-import CreateTripModal from "../components/CreateTripModal";
-
+import Moment from "moment";
+import React from "react";
+import { Pressable, StatusBar, StyleSheet } from "react-native";
+import { FlatList } from "react-native-gesture-handler";
 import { Text, View } from "../components/Themed";
 import { Api } from "../constants/Api";
 import Colors from "../constants/Colors";
 import { useAuth } from "../hooks/useAuth";
 import TripModel from "../models/TripModel";
 import { RootTabScreenProps } from "../types";
-import Moment from "moment";
 
 export default function TabOneScreen({
   navigation,

@@ -47,7 +47,7 @@ export default function CreateTripModal({
           userId: auth.authData?.id,
         }),
       });
-      return response.json();
+      return response;
     } catch (error) {
       console.log(error);
     } finally {
@@ -184,7 +184,7 @@ export default function CreateTripModal({
               rules={{
                 required: true,
               }}
-              defaultValue=""
+              defaultValue={TripRecurrency.NONE}
             />
             {errors.tripRecurrency && (
               <Text style={styles.errorText}>The frequency is required.</Text>

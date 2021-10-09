@@ -1,9 +1,8 @@
 import React, { ReactElement, useState } from "react";
-import { StyleSheet, Text, ScrollView, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import SignUpForm from "../components/SignUpForm";
 import { Api } from "../constants/Api";
 import RegisterUserModel from "../models/RegisterUserModel";
-
 import { RootStackScreenProps } from "../types";
 
 const SignUpScreen = ({
@@ -32,7 +31,7 @@ const SignUpScreen = ({
           car: {
             model: user.car.model,
             year: user.car.year,
-            maxCapacity: user.car.maxCapacity,
+            maxPassengersCapacity: user.car.maxPassengersCapacity,
             carType: user.car.carType,
           },
         }),
