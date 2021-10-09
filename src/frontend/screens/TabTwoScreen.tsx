@@ -1,8 +1,10 @@
 import * as React from "react";
 import { StyleSheet } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 import EditScreenInfo from "../components/EditScreenInfo";
 import SearchForm from "../components/SearchForm";
+import SearchResult from "../components/SearchResult";
 import { Text, View } from "../components/Themed";
 import { Api } from "../constants/Api";
 import SearchModel from "../models/SearchModel";
@@ -46,12 +48,17 @@ export default function TabTwoScreen() {
         lightColor="#eee"
         darkColor="rgba(255,255,255,0.1)"
       />
-      <SearchForm search={search}></SearchForm>
-      <View
-        style={styles.separator}
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
-      />
+      {!isFinishedResponse && <SearchForm search={search}></SearchForm>}
+
+      {isFinishedResponse && (
+        <>
+          <SearchResult></SearchResult>
+
+          <TouchableOpacity onPress={() => setIsFinishedResponse(false)}>
+            <Text>Search again</Text>
+          </TouchableOpacity>
+        </>
+      )}
     </View>
   );
 }

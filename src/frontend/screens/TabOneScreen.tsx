@@ -9,6 +9,7 @@ import Colors from "../constants/Colors";
 import { useAuth } from "../hooks/useAuth";
 import TripModel from "../models/TripModel";
 import { RootTabScreenProps } from "../types";
+import Moment from "moment";
 
 export default function TabOneScreen({
   navigation,
@@ -59,7 +60,7 @@ export default function TabOneScreen({
           color={Colors.light.tint}
         />
         <View style={styles.iconSeparator}></View>
-        <Text>{item.recurrency}</Text>
+        <Text>{Moment(item.dateTime).format("MMMM Do YYYY, h:mm:ss a")}</Text>
       </Text>
     </View>
   );
