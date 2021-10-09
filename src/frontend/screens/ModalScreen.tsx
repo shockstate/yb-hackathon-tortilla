@@ -47,42 +47,90 @@ export default function ModalScreen() {
         return (
           <Image
             source={require("../assets/images/img0.png")}
-            style={{ width: 150, height: 150 }}
+            style={{
+              width: 150,
+              height: 150,
+              borderWidth: 1,
+              borderBottomRightRadius: 72,
+              borderBottomLeftRadius: 72,
+              borderTopRightRadius: 72,
+              borderTopLeftRadius: 72,
+            }}
           />
         );
       case 1:
         return (
           <Image
             source={require("../assets/images/img1.png")}
-            style={{ width: 150, height: 150 }}
+            style={{
+              width: 150,
+              height: 150,
+              borderWidth: 1,
+              borderBottomRightRadius: 72,
+              borderBottomLeftRadius: 72,
+              borderTopRightRadius: 72,
+              borderTopLeftRadius: 72,
+            }}
           />
         );
       case 2:
         return (
           <Image
             source={require("../assets/images/img2.png")}
-            style={{ width: 150, height: 150 }}
+            style={{
+              width: 150,
+              height: 150,
+              borderWidth: 1,
+              borderBottomRightRadius: 72,
+              borderBottomLeftRadius: 72,
+              borderTopRightRadius: 72,
+              borderTopLeftRadius: 72,
+            }}
           />
         );
       case 3:
         return (
           <Image
             source={require("../assets/images/img3.png")}
-            style={{ width: 150, height: 150 }}
+            style={{
+              width: 150,
+              height: 150,
+              borderWidth: 1,
+              borderBottomRightRadius: 72,
+              borderBottomLeftRadius: 72,
+              borderTopRightRadius: 72,
+              borderTopLeftRadius: 72,
+            }}
           />
         );
       case 4:
         return (
           <Image
             source={require("../assets/images/img4.png")}
-            style={{ width: 150, height: 150 }}
+            style={{
+              width: 150,
+              height: 150,
+              borderWidth: 1,
+              borderBottomRightRadius: 72,
+              borderBottomLeftRadius: 72,
+              borderTopRightRadius: 72,
+              borderTopLeftRadius: 72,
+            }}
           />
         );
       default:
         return (
           <Image
             source={require("../assets/images/img5.png")}
-            style={{ width: 150, height: 150 }}
+            style={{
+              width: 150,
+              height: 150,
+              borderWidth: 1,
+              borderBottomRightRadius: 72,
+              borderBottomLeftRadius: 72,
+              borderTopRightRadius: 72,
+              borderTopLeftRadius: 72,
+            }}
           />
         );
     }
