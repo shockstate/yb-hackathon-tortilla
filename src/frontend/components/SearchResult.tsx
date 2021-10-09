@@ -98,7 +98,7 @@ export default function SearchResult(
 
       {data && data.data.length == 0 && (
         <Text style={styles.subTitle}>
-          No trips to show =( No worries! We can still save the planet
+          No trips to show =( No worries! You can still save the planet 🌍🌿
         </Text>
       )}
       {data && data.data.length > 0 && (

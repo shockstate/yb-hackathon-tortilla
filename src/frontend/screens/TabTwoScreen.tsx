@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { Button, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import SearchForm from "../components/SearchForm";
@@ -65,9 +65,12 @@ export default function TabTwoScreen({
         <>
           <SearchResult data={tripData} navigation={navigation}></SearchResult>
 
-          <TouchableOpacity onPress={() => setIsFinishedResponse(false)}>
-            <Text>Search again</Text>
-          </TouchableOpacity>
+          <View style={styles.button}>
+            <Button
+              title="Search again"
+              onPress={() => setIsFinishedResponse(false)}
+            />
+          </View>
         </>
       )}
     </View>
@@ -89,5 +92,8 @@ const styles = StyleSheet.create({
     marginVertical: 30,
     height: 1,
     width: "80%",
+  },
+  button: {
+    marginTop: 20,
   },
 });

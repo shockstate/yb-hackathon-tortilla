@@ -12,5 +12,6 @@ namespace Tortilla.Hackathon.Services.Interfaces
         Task CreateTripAsync(CreateTripDto createTripDto);
         Task<IList<DayTripDto>> SearchDayTripsAsync(SearchTripsDto searchTripsDto);
         Task CreteDayTripRequest(DayTripRequestDto dayTripRequestDto);
+        double GetDistanceBetweenTwoPoints(double originLong, double originLat, double destinLong, double destinLatitud);
     }
 }
