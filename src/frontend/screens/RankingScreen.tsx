@@ -142,7 +142,7 @@ export default function ModalScreen() {
           darkColor="rgba(255,255,255,0.1)"
         />
         {usersRanking.map((user, index) => (
-          <View style={styles.item}>
+          <View key={index} style={styles.item}>
             {index === 0 ? (
               <Text style={styles.medal}>🥇</Text>
             ) : index === 1 ? (

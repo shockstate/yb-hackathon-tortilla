@@ -48,7 +48,7 @@ export default function CreateTripModal({
           userId: auth.authData?.id,
         }),
       });
-      return response.json();
+      return response;
     } catch (error) {
       console.log(error);
     } finally {
