@@ -1,6 +1,6 @@
 import TripRecurrency from "../enums/TripRecurrency";
 
-interface CreateTrip {
+interface CreateTripModel {
   originLatitude: string;
   originLongitude: string;
   destinationLatitude: string;
@@ -10,4 +10,4 @@ interface CreateTrip {
   userId: string;
 }
 
-export default CreateTrip;
+export default CreateTripModel;
