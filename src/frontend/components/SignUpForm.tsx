@@ -78,7 +78,6 @@ export default function RegisterUserForm({ register }: RegisterUserFormProps) {
       {errors.lastName && (
         <Text style={styles.errorText}>The last name is required.</Text>
       )}
-
       <Controller
         control={control}
         render={({ field: { onChange, value } }) => (
