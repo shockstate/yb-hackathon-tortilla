@@ -3,6 +3,7 @@ import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Button, ScrollView, StyleSheet, Text, View } from "react-native";
 import DateField from "react-native-datefield";
+import { locations } from "../constants/Locations";
 import SearchModel from "../models/SearchModel";
 
 interface SearchFormProps {
@@ -36,26 +37,9 @@ export default function SearchForm({ search }: SearchFormProps) {
               style={{ height: 40, marginTop: 12 }}
               onValueChange={onChange}
             >
-              <Picker.Item
-                value="46.96271204384958,7.465173447017116"
-                label="Young Boys Stadium"
-              />
-              <Picker.Item
-                value="41.389010291692514,2.174671157358779"
-                label="iSolutions Bcn"
-              />
-              <Picker.Item
-                value="47.451322893438046,8.568351419942868"
-                label="isolutions Zurich"
-              />
-              <Picker.Item
-                value="45.977109747365404,7.658709362053811"
-                label="Matterhorn"
-              />
-              <Picker.Item
-                value="47.54473437449549,7.589980336081139"
-                label="iSolutions Basel"
-              />
+              {locations.map((loc, index) => (
+                <Picker.Item value={loc.value} label={loc.label} key={index} />
+              ))}
             </Picker>
           </>
         )}
@@ -63,7 +47,7 @@ export default function SearchForm({ search }: SearchFormProps) {
         rules={{
           required: true,
         }}
-        defaultValue="46.96271204384958,7.465173447017116"
+        defaultValue={locations[0].value}
       />
       {errors.origin && (
         <Text style={styles.errorText}>Origin is required.</Text>
@@ -78,26 +62,9 @@ export default function SearchForm({ search }: SearchFormProps) {
               style={{ height: 40, marginTop: 12 }}
               onValueChange={onChange}
             >
-              <Picker.Item
-                value="46.96271204384958,7.465173447017116"
-                label="Young Boys Stadium"
-              />
-              <Picker.Item
-                value="41.389010291692514,2.174671157358779"
-                label="iSolutions Bcn"
-              />
-              <Picker.Item
-                value="47.451322893438046,8.568351419942868"
-                label="isolutions Zurich"
-              />
-              <Picker.Item
-                value="45.977109747365404,7.658709362053811"
-                label="Matterhorn"
-              />
-              <Picker.Item
-                value="47.54473437449549,7.589980336081139"
-                label="iSolutions Basel"
-              />
+              {locations.map((loc, index) => (
+                <Picker.Item value={loc.value} label={loc.label} key={index} />
+              ))}
             </Picker>
           </>
         )}
@@ -105,7 +72,7 @@ export default function SearchForm({ search }: SearchFormProps) {
         rules={{
           required: true,
         }}
-        defaultValue="46.96271204384958,7.465173447017116"
+        defaultValue={locations[0].value}
       />
       {errors.destination && (
         <Text style={styles.errorText}>Destination is required.</Text>
