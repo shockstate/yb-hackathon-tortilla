@@ -10,5 +10,7 @@ namespace Tortilla.Hackathon.Data.Repositories
         Task<IList<DayTrip>> GetMyTripsAsOwnerOrPassengerByUserIdAsync(Guid userId);
 
         Task<IList<DayTrip>> GetDayTripsAvailableByDateTimeForUser(DateTime dateTime, Guid userId);
+
+        Task<DayTrip> GetDayTripById(Guid dayTripId);
     }
 }

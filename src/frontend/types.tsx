@@ -24,6 +24,7 @@ export type RootStackParamList = {
   SignUp: undefined;
   Home: undefined;
   CreateTripModal: undefined;
+  HeaderRight: undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =

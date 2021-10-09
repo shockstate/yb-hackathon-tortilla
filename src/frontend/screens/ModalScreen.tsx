@@ -1,12 +1,19 @@
 import { StatusBar } from "expo-status-bar";
 import * as React from "react";
 import { useEffect, useState } from "react";
-import { Image, Platform, StyleSheet } from "react-native";
+import {
+  Image,
+  Platform,
+  Pressable,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 import logo from "../assets/images/profile.png";
 import { Text, View } from "../components/Themed";
 import { Api } from "../constants/Api";
 import { useAuth } from "../hooks/useAuth";
 import UserDetails from "../models/UserDetailsModel";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default function ModalScreen() {
   const auth = useAuth();
@@ -43,6 +50,10 @@ export default function ModalScreen() {
 
   return (
     <View style={styles.container}>
+      <Pressable onPress={() => auth.signOut()} style={styles.logout}>
+        <MaterialCommunityIcons name="logout" size={30} color="#F41E1E" />
+      </Pressable>
+
       <Image source={logo} style={{ width: 150, height: 150 }} />
       <Text style={styles.title}>Personal information</Text>
       <View
@@ -121,5 +132,11 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     height: 1,
     width: "80%",
+  },
+  logout: {
+    position: "absolute",
+    right: 12,
+    top: 12,
+    cursor: "pointer",
   },
 });

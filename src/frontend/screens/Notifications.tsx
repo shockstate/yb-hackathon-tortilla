@@ -14,15 +14,14 @@ export default function Notifications() {
   const [visible, setVisible] = React.useState(false);
   const [snackbarText, setSnackBarText] = React.useState("");
 
-
   const onDismissSnackBar = () => setVisible(false);
-  const onClick = async (tripId: string, isAccepted : boolean) => {
+  const onClick = async (tripId: string, isAccepted: boolean) => {
     console.log(isAccepted);
     try {
-      var index = passengers.findIndex(i => i.tripId == tripId);
-      if(index > -1) {
+      var index = passengers.findIndex((i) => i.tripId == tripId);
+      if (index > -1) {
         var aux = passengers.slice(0);
-        aux.splice(index, 1)
+        aux.splice(index, 1);
         setPassengers(aux);
       }
       const response = await fetch(`${Api.URL_localhost}/Passenger/${tripId}`, {
@@ -32,23 +31,22 @@ export default function Notifications() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          isAccepted: isAccepted
+          isAccepted: isAccepted,
         }),
       });
       console.log(response);
-      if (response.status == 405){
+      if (response.status == 405) {
         setSnackBarText("The user doesn't have enough points");
         setVisible(true);
       }
-      if (response.status == 200 && isAccepted){
+      if (response.status == 200 && isAccepted) {
         setSnackBarText("Trip was accepted succesfully");
         setVisible(true);
       }
     } catch (error) {
-      
       console.log(error);
     }
-  }
+  };
 
   return (
     <View style={styles.container}>
@@ -78,34 +76,38 @@ export default function Notifications() {
         visible={visible}
         onDismiss={onDismissSnackBar}
         action={{
-          label: 'Undo',
+          label: "Undo",
           onPress: () => {
             // Do something
           },
-        }}>
-          {snackbarText}
+        }}
+      >
+        {snackbarText}
       </Snackbar>
     </View>
   );
 }
 
-const mockPassengers : PassengerModel[] = [{
-  userFirstName: "jabalina",
-  userLastName: "potulapiz",
-  from: "spain",
-  to: "guadalupe",
-  dayTrip: new Date(),
-  passengerStatus: PassengerStatus.Pending,
-  tripId: '00000000-0000-0000-0000-000000000000'
-},{
-  userFirstName: "telias",
-  userLastName: "marinera",
-  from: "switzerlina",
-  to: "freeburguer",
-  dayTrip: new Date(),
-  passengerStatus: PassengerStatus.Pending,
-  tripId: '00000000-0000-0000-0000-000000000000'
-}]
+const mockPassengers: PassengerModel[] = [
+  {
+    userFirstName: "jabalina",
+    userLastName: "potulapiz",
+    from: "spain",
+    to: "guadalupe",
+    dayTrip: new Date(),
+    passengerStatus: PassengerStatus.Pending,
+    tripId: "00000000-0000-0000-0000-000000000000",
+  },
+  {
+    userFirstName: "telias",
+    userLastName: "marinera",
+    from: "switzerlina",
+    to: "freeburguer",
+    dayTrip: new Date(),
+    passengerStatus: PassengerStatus.Pending,
+    tripId: "00000000-0000-0000-0000-000000000000",
+  },
+];
 
 function GetIcon(props: {
   name: React.ComponentProps<typeof MaterialIcons>["name"];
@@ -131,9 +133,9 @@ const styles = StyleSheet.create({
   },
   iconLeft: {
     marginLeft: 10,
-    marginTop: 10
+    marginTop: 10,
   },
   iconRight: {
-    marginTop: 10
+    marginTop: 10,
   },
 });

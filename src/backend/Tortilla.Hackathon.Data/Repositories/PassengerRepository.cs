@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using Tortilla.Hackathon.Domain;
 
 namespace Tortilla.Hackathon.Data.Repositories
@@ -21,6 +20,12 @@ namespace Tortilla.Hackathon.Data.Repositories
             return dbContext.Passengers
                 .Where(p => p.Id == id)
                 .FirstOrDefaultAsync();
+        }
+
+        public async Task InsertAsync(Passenger passenger)
+        {
+            await dbContext.Passengers.AddAsync(passenger);
+            await dbContext.SaveChangesAsync();
         }
 
         public async Task Update(Passenger passenger)

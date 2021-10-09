@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import React, { useState } from "react";
-import { Button, StatusBar, StyleSheet } from "react-native";
+import { Button, Pressable, StatusBar, StyleSheet } from "react-native";
 import { FlatList, TouchableHighlight } from "react-native-gesture-handler";
 import CreateTripModal from "../components/CreateTripModal";
 
@@ -95,11 +95,15 @@ export default function TabOneScreen({
     <View style={styles.container}>
       <Text style={styles.title}>My Trips</Text>
       <View>
-        <Button
+        <Pressable
           onPress={() => navigation.navigate("Create Trip Modal")}
-          title="Create trip"
-          accessibilityLabel="Create Trip"
-        />
+          style={({ pressed }) => ({
+            cursor: "pointer",
+            opacity: pressed ? 0.5 : 1,
+          })}
+        >
+          <Ionicons name="add-circle-sharp" size={30} color="#2F95DC" />
+        </Pressable>
       </View>
       <View
         style={styles.separator}

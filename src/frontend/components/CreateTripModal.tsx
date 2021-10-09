@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text, TextInput, Button } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Text,
+  TextInput,
+  Button,
+  ScrollView,
+} from "react-native";
 import TripRecurrency from "../enums/TripRecurrency";
 import CreateTripModel from "../models/CreateTripModel";
 import DateField from "react-native-datefield";
@@ -18,22 +25,13 @@ export default function CreateTripModal({
     control,
     formState: { errors },
   } = useForm();
-  const [createTrip, setCreateTrip] = useState<CreateTripModel>({
-    originLatitude: "",
-    originLongitude: "",
-    destinationLatitude: "",
-    destinationLongitude: "",
-    startDateTime: new Date(),
-    tripRecurrency: TripRecurrency.EVERYWORKDAY,
-    userId: "",
-  });
 
   const [loading, setLoading] = useState(false);
   const auth = useAuth();
 
   const createTripCall = async (createTrip: CreateTripModel) => {
     console.log("createTrip", createTrip);
-    // setLoading(true);
+    setLoading(true);
     try {
       const response = await fetch(`${Api.URL}/trip`, {
         method: "POST",
@@ -53,17 +51,17 @@ export default function CreateTripModal({
       });
       return response.json();
     } catch (error) {
-      //   setLoading(false);
+      setLoading(false);
       console.log(error);
     } finally {
-      //   setLoading(false);
+      setLoading(false);
       navigation.replace("Home");
     }
   };
 
   return (
-    <>
-      <View style={styles.mainCcontainer}>
+    <ScrollView style={styles.scrollView}>
+      <View style={styles.mainContainer}>
         <View style={styles.container}>
           <View style={styles.separator}>
             <Text style={styles.mainTitle}>CREATE A TRIP</Text>
@@ -78,6 +76,7 @@ export default function CreateTripModal({
                   <Text style={styles.label}>Origin Latitude</Text>
                   <TextInput
                     style={styles.input}
+                    onBlur={onBlur}
                     onChangeText={(value) => {
                       onChange(value);
                     }}
@@ -104,6 +103,7 @@ export default function CreateTripModal({
                   <Text style={styles.label}>Origin Longitude</Text>
                   <TextInput
                     style={styles.input}
+                    onBlur={onBlur}
                     onChangeText={(value) => {
                       onChange(value);
                     }}
@@ -134,6 +134,7 @@ export default function CreateTripModal({
                   <Text style={styles.label}>Destination Latitude</Text>
                   <TextInput
                     style={styles.input}
+                    onBlur={onBlur}
                     onChangeText={(value) => {
                       onChange(value);
                     }}
@@ -160,6 +161,7 @@ export default function CreateTripModal({
                   <Text style={styles.label}>Destination Longitude</Text>
                   <TextInput
                     style={styles.input}
+                    onBlur={onBlur}
                     onChangeText={(value) => {
                       onChange(value);
                     }}
@@ -186,7 +188,7 @@ export default function CreateTripModal({
             <View style={{ width: "100%" }}>
               <Controller
                 control={control}
-                render={({ field: { onChange, onBlur, value } }) => (
+                render={({ field: { onChange, value } }) => (
                   <DateField
                     styleInput={styles.dateInput}
                     onSubmit={(value) => {
@@ -210,7 +212,7 @@ export default function CreateTripModal({
 
             <Controller
               control={control}
-              render={({ field: { onChange, onBlur, value } }) => (
+              render={({ field: { onChange, value } }) => (
                 <>
                   <Picker
                     style={{ height: 40, marginTop: 12, width: "100%" }}
@@ -248,20 +250,24 @@ export default function CreateTripModal({
             />
           </View>
 
-          {/* {loading && (
+          {loading && (
             <View style={{ marginTop: 12 }}>
               <Loading></Loading>
             </View>
-          )} */}
+          )}
         </View>
       </View>
-    </>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  mainCcontainer: {
+  scrollView: {
     flex: 1,
+    backgroundColor: "#fff",
+    padding: 20,
+  },
+  mainContainer: {
     alignItems: "center",
     justifyContent: "center",
     width: "98%",
