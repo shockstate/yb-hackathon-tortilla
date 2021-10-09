@@ -49,8 +49,9 @@ namespace Tortilla.Hackathon.API.Controllers
             }
         }
 
-        [HttpGet("search")]
-        public async Task<IActionResult> SearchTrips([FromQuery] SearchTripsDto searchTripsDto)
+        // TODO: HttpGet => For simpliyfy
+        [HttpPost("search")]
+        public async Task<IActionResult> SearchTrips(SearchTripsDto searchTripsDto)
         {
             try
             {
