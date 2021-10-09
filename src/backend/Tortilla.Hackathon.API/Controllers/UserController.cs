@@ -58,7 +58,6 @@ namespace Tortilla.Hackathon.API.Controllers
         {
             try
             {
-                userDto.DateOfBirth = new DateTime(1990, 7, 12);
                 await userService.RegisterAsync(userDto);
             }
             catch (NotImplementedException ex)
