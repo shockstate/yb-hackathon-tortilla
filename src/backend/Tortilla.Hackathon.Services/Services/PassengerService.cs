@@ -102,25 +102,25 @@ namespace Tortilla.Hackathon.Services.Services
             //get passenger point according its car
             return car.CarType switch
             {
-                CarType.Diesel => car.MaxCapacity switch
+                CarType.Diesel => car.MaxPassengersCapacity switch
                 {
                     < CAR_SIZE_THRESHOLD_VALUE => 5.23,
                     CAR_SIZE_THRESHOLD_VALUE => 6.7,
                     > CAR_SIZE_THRESHOLD_VALUE => 8.39
                 },
-                CarType.Gasoline => car.MaxCapacity switch
+                CarType.Gasoline => car.MaxPassengersCapacity switch
                 {
                     < CAR_SIZE_THRESHOLD_VALUE => 6.83,
                     CAR_SIZE_THRESHOLD_VALUE => 8.42,
                     > CAR_SIZE_THRESHOLD_VALUE => 10.01
                 },
-                CarType.Hybrid => car.MaxCapacity switch
+                CarType.Hybrid => car.MaxPassengersCapacity switch
                 {
                     < CAR_SIZE_THRESHOLD_VALUE => 4.22,
                     CAR_SIZE_THRESHOLD_VALUE => 5.2,
                     > CAR_SIZE_THRESHOLD_VALUE => 6.18
                 },
-                CarType.Electric => car.MaxCapacity switch
+                CarType.Electric => car.MaxPassengersCapacity switch
                 {
                     < CAR_SIZE_THRESHOLD_VALUE => 16.14,
                     CAR_SIZE_THRESHOLD_VALUE => 19.9,
