@@ -7,6 +7,7 @@ interface PassengerModel {
   destinationDescription: string;
   dateTime: Date;
   dayTripId: string;
+  passengerId: string;
 }
 
 export default PassengerModel;
