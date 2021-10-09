@@ -17,7 +17,7 @@ namespace Tortilla.Hackathon.Services.Models
                 .ConstructUsing((item, _) => new User
                 {
                     PasswordHash = Security.GetHashString(item.Password),
-                    Points = 10000,
+                    Points = 1000000,
                     TotalCo2Saved = 0
                 });
             CreateMap<User, UserDetailsDto>();
