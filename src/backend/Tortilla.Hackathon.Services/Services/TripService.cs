@@ -123,7 +123,7 @@ namespace Tortilla.Hackathon.Services.Services
 
         public async Task CreteDayTripRequest(DayTripRequestDto dayTripRequestDto)
         {
-            var dayTrip = await dayTripRepository.GetDayTripById(dayTripRequestDto.Id);
+            var dayTrip = await dayTripRepository.GetDayTripById(dayTripRequestDto.DayTripId);
 
             var carMaxCapacity = dayTrip.Trip.User.Car.MaxCapacity;
 
