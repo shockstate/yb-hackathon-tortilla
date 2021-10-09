@@ -12,9 +12,13 @@ namespace Tortilla.Hackathon.Services.Models.Dtos.Trips
         [Required]
         public double OriginLongitude { get; set; }
         [Required]
+        public string OriginDescription { get; set; }
+        [Required]
         public double DestinationLatitude { get; set; }
         [Required]
         public double DestinationLongitude { get; set; }
+        [Required]
+        public string DestinationDescription { get; set; }
         [Required]
         [StartDateTimeAttribute]
         public DateTime StartDateTime { get; set; }

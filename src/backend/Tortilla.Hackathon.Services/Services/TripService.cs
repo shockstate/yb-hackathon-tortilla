@@ -62,8 +62,9 @@ namespace Tortilla.Hackathon.Services.Services
         public async Task CreateTripAsync(CreateTripDto createTripDto)
         {
             var trip = mapper.Map<Trip>(createTripDto);
-            trip.OriginDescription = "asd"; //await geolocationService.GetLocationDescription(trip.OriginLatitude, trip.OriginLongitude);
-            trip.DestinationDescription = "asd"; //await geolocationService.GetLocationDescription(trip.DestinationLatitude, trip.DestinationLongitude);
+            // Bing blocked us :( we mock the geolocationDescriptions in the DTO
+            //trip.OriginDescription = await geolocationService.GetLocationDescription(trip.OriginLatitude, trip.OriginLongitude);
+            //trip.DestinationDescription = await geolocationService.GetLocationDescription(trip.DestinationLatitude, trip.DestinationLongitude);
             CreateDayTripsForTrip(trip);
 
             await tripRepository.InsertAsync(trip);

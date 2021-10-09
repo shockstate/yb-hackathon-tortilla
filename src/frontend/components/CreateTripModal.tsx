@@ -36,8 +36,13 @@ export default function CreateTripModal({
         body: JSON.stringify({
           originLatitude: createTrip.origin.split(",")[0],
           originLongitude: createTrip.origin.split(",")[1],
+          originDescription: locations.find((l) => l.value == createTrip.origin)
+            ?.label,
           destinationLatitude: createTrip.destination.split(",")[0],
           destinationLongitude: createTrip.destination.split(",")[1],
+          destinationDescription: locations.find(
+            (l) => l.value == createTrip.destination
+          )?.label,
           startDateTime: createTrip.startDateTime,
           tripRecurrency: createTrip.tripRecurrency,
           userId: auth.authData?.id,
