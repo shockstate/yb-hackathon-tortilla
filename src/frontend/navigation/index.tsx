@@ -155,9 +155,9 @@ function BottomTabNavigator() {
         name="TabTwo"
         component={TabTwoScreen}
         options={{
-          title: "Offer",
+          title: "Search",
           tabBarIcon: ({ color }) => (
-            <MaterialIcons name="add-location-alt" size={24} color={color} />
+            <MaterialIcons name="search" size={24} color={color} />
           ),
         }}
       />

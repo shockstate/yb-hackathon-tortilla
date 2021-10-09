@@ -34,6 +34,13 @@ const LoginScreen = ({
         </Text>
       </Text>
 
+      <TouchableOpacity
+        onPress={() => navigation.replace("Home")}
+        style={styles.link}
+      >
+        <Text style={styles.linkText}>Go back</Text>
+      </TouchableOpacity>
+
       {auth.loading && <Loading></Loading>}
 
       {hasLoginError && (

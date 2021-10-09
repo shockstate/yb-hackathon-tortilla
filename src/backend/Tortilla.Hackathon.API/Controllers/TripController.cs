@@ -49,7 +49,21 @@ namespace Tortilla.Hackathon.API.Controllers
             }
         }
 
-        //public void RequestJoinToTrip([FromBody] string value)
+        // TODO: HttpGet => For simpliyfy
+        [HttpPost("search")]
+        public async Task<IActionResult> SearchTrips(SearchTripsDto searchTripsDto)
+        {
+            try
+            {
+                var dayTrips = await tripService.SearchDayTripsAsync(searchTripsDto);
+                return Ok(dayTrips);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
         //public void AcceptRequestToJoinTrip([FromBody] string value)
     }
 }
