@@ -48,8 +48,7 @@ export default function CreateTripModal({
       setLoading(false);
       console.log(error);
     } finally {
-      setLoading(false);
-      navigation.replace("Home");
+      navigation.navigate("Home");
     }
   };
 
