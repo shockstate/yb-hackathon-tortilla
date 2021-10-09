@@ -96,7 +96,7 @@ export default function TabOneScreen({
       <Text style={styles.title}>My Trips</Text>
       <View>
         <Pressable
-          onPress={() => navigation.navigate("Create Trip Modal")}
+          onPress={() => navigation.navigate("CreateTripModal")}
           style={({ pressed }) => ({
             cursor: "pointer",
             opacity: pressed ? 0.5 : 1,
