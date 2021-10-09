@@ -63,12 +63,14 @@ export default function SearchResult(data: any) {
 
   return (
     <View>
-      Search results here
-      <FlatList
-        data={data}
-        renderItem={renderItem}
-        keyExtractor={(item: TripModel) => item.id}
-      />
+      <Text style={styles.title}>Your search results</Text>
+      {data && data.length > 0 && (
+        <FlatList
+          data={data}
+          renderItem={renderItem}
+          keyExtractor={(item: TripModel) => item.id}
+        />
+      )}
     </View>
   );
 }
