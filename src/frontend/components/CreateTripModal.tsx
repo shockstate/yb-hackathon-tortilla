@@ -177,7 +177,7 @@ export default function CreateTripModal({
                     />
                     <Picker.Item
                       value={TripRecurrency.EVERYDAY}
-                      label="Every days"
+                      label="Every day"
                     />
                   </Picker>
                 </>
