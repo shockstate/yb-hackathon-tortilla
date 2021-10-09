@@ -100,8 +100,7 @@ namespace Tortilla.Hackathon.Services.Services
             var maxRadiusInMeters = 5000;
             var originGeoCoordinate = new GeoCoordinate(searchTripsDto.OriginLatitude, searchTripsDto.OriginLongitude);
             var destinationGeoCoordinate = new GeoCoordinate(searchTripsDto.DestinationLatitude, searchTripsDto.DestinationLongitude);
-            var asd = originGeoCoordinate.GetDistanceTo(new GeoCoordinate(
-                40.4440566095542, -3.683529221269652));
+            
             var dayTripsInRadius = dayTripsInDateTime
                 .Where(dayTrip =>
                     originGeoCoordinate.GetDistanceTo(new GeoCoordinate(dayTrip.Trip.OriginLatitude, dayTrip.Trip.OriginLongitude)) <= maxRadiusInMeters &&
