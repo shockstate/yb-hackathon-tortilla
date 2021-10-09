@@ -1,20 +1,47 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import * as React from "react";
+import { useEffect } from "react";
 import { StyleSheet } from "react-native";
-import { List, Snackbar } from "react-native-paper";
+import { Snackbar } from "react-native-paper";
 import { Text, View } from "../components/Themed";
 import { Api } from "../constants/Api";
 import PassengerStatus from "../enums/PassengerStatus";
+import { useAuth } from "../hooks/useAuth";
 import PassengerModel from "../models/PassengerModel";
-import TripModel from "../models/TripModel";
 
 export default function NotificationsScreen() {
   const [loading, setLoading] = React.useState(false);
+  const auth = useAuth();
   const [passengers, setPassengers] = React.useState(mockPassengers);
   const [visible, setVisible] = React.useState(false);
   const [snackbarText, setSnackBarText] = React.useState("");
 
+
   const onDismissSnackBar = () => setVisible(false);
+
+  useEffect(() => {
+    getUserNotifications();
+  }, []);
+
+  const getUserNotifications = async () => {
+    var id = auth.authData?.id;
+    if (id) {
+      
+    }
+    try {
+      fetch(`${Api.URL}/User/ranking`, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => setPassengers(data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
   const onClick = async (tripId: string, isAccepted: boolean) => {
     console.log(isAccepted);
     try {
