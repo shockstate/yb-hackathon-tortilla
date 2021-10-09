@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 using Tortilla.Hackathon.Domain;
@@ -25,6 +26,11 @@ namespace Tortilla.Hackathon.Data.Repositories
             return dbContext.Users
                 .Where(u => u.Email == email)
                 .FirstOrDefaultAsync();
+        }
+
+        public Task<IEnumerable<User>> GetUsers()
+        {
+            return Task.FromResult(dbContext.Users.AsEnumerable());
         }
     }
 }

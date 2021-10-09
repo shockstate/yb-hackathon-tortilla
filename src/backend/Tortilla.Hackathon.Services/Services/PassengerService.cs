@@ -66,6 +66,7 @@ namespace Tortilla.Hackathon.Services.Services
                 passenger.PassengerStatus = PassengerStatus.Accepted;
                 passenger.User.Points -= pointsToSubstract;
                 passenger.DayTrip.Trip.User.Points += pointsToAdd;
+                passenger.DayTrip.Trip.User.TotalCo2Saved += pointsToAdd;
                 await passengerRepository.Update(passenger);
             }
             else
