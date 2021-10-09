@@ -10,8 +10,7 @@ import {
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
-import { ColorSchemeName, Pressable } from "react-native";
-
+import { ColorSchemeName } from "react-native";
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 import HomeScreen from "../screens/HomeScreen";
@@ -29,11 +28,10 @@ import {
 } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
 import {} from "../contexts/AuthContext";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { Text } from "../components/Themed";
 import { useAuth } from "../hooks/useAuth";
 import CreateTripModal from "../components/CreateTripModal";
 import HeaderRight from "../components/HeaderRight";
+import RankingScreen from "../screens/RankingScreen";
 
 const Navigation = ({ colorScheme }: { colorScheme: ColorSchemeName }) => {
   const [userData, setUserData] = React.useState(null);
@@ -92,7 +90,11 @@ function RootNavigator(userData: any) {
             options={{ title: "Oops!" }}
           />
           <Stack.Group screenOptions={{ presentation: "modal" }}>
-            <Stack.Screen name="Modal" component={ModalScreen} />
+            <Stack.Screen name="Account" component={ModalScreen} />
+          </Stack.Group>
+
+          <Stack.Group screenOptions={{ presentation: "modal" }}>
+            <Stack.Screen name="Ranking" component={RankingScreen} />
           </Stack.Group>
 
           <Stack.Group screenOptions={{ presentation: "modal" }}>

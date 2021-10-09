@@ -78,7 +78,7 @@ namespace Tortilla.Hackathon.Services.Services
         public async Task<IEnumerable<UserRankingDto>> GetRankingUsers()
         {
             var users = await userRepository.GetUsers();
-            var top10Users = users.OrderByDescending(i => i.Points);
+            var top10Users = users.OrderByDescending(i => i.Points).Take(10);
             var top10dto = mapper.Map<List<User>, List<UserRankingDto>>(top10Users.ToList());
             return top10dto;
         }
