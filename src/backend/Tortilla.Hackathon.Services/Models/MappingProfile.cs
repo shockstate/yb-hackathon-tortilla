@@ -22,6 +22,8 @@ namespace Tortilla.Hackathon.Services.Models
                 });
             CreateMap<User, UserDetailsDto>();
 
+            CreateMap<User, UserRankingDto>();
+
             CreateMap<Passenger, PendingPassengerDto>();
 
             CreateMap<DayTrip, MyDayTripDto>()

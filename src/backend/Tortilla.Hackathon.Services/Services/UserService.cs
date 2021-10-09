@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
@@ -72,6 +73,14 @@ namespace Tortilla.Hackathon.Services.Services
             var userDto = mapper.Map<UserDetailsDto>(user);
             logger.LogInformation("Get mail was successful");
             return userDto;
+        }
+
+        public async Task<IEnumerable<UserRankingDto>> GetRankingUsers()
+        {
+            var users = await userRepository.GetUsers();
+            var top10Users = users.OrderByDescending(i => i.Points);
+            var top10dto = mapper.Map<List<User>, List<UserRankingDto>>(top10Users.ToList());
+            return top10dto;
         }
     }
 }
