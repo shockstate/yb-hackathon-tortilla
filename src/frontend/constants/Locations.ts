@@ -5,7 +5,7 @@ export const locations = [
   },
   {
     value: "41.389010291692514,2.174671157358779",
-    label: "iSolutions Bcn",
+    label: "isolutions Barcelona",
   },
   {
     value: "47.451322893438046,8.568351419942868",
@@ -17,6 +17,10 @@ export const locations = [
   },
   {
     value: "47.54473437449549,7.589980336081139",
-    label: "iSolutions Basel",
+    label: "isolutions Basel",
+  },
+  {
+    value: "46.94897263586793,7.438138660638385",
+    label: "isolutions Bern",
   },
 ];
