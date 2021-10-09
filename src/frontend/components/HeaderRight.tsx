@@ -12,19 +12,35 @@ interface HeaderRightProps {
 export default function HeaderRight({ navigation }: HeaderRightProps) {
   const colorScheme = useColorScheme();
   return (
-    <Pressable
-      onPress={() => navigation.navigate("Modal")}
-      style={({ pressed }) => ({
-        cursor: "pointer",
-        opacity: pressed ? 0.5 : 1,
-      })}
-    >
-      <FontAwesome
-        name="user"
-        size={30}
-        color="#2F95DC"
-        style={{ marginRight: 15 }}
-      />
-    </Pressable>
+    <>
+      <Pressable
+        onPress={() => navigation.navigate("Ranking")}
+        style={({ pressed }) => ({
+          cursor: "pointer",
+          opacity: pressed ? 0.5 : 1,
+        })}
+      >
+        <FontAwesome
+          name="trophy"
+          size={30}
+          color="#2F95DC"
+          style={{ marginRight: 15 }}
+        />
+      </Pressable>
+      <Pressable
+        onPress={() => navigation.navigate("Account")}
+        style={({ pressed }) => ({
+          cursor: "pointer",
+          opacity: pressed ? 0.5 : 1,
+        })}
+      >
+        <FontAwesome
+          name="user"
+          size={30}
+          color="#2F95DC"
+          style={{ marginRight: 15 }}
+        />
+      </Pressable>
+    </>
   );
 }

@@ -46,7 +46,7 @@ export default function SearchForm({ search }: SearchFormProps) {
               onValueChange={onChange}
             >
               <Picker.Item
-                value="46.96271204384958, 7.465173447017116"
+                value="46.96271204384958,7.465173447017116"
                 label="Young Boys Stadium"
               />
               <Picker.Item
@@ -58,7 +58,7 @@ export default function SearchForm({ search }: SearchFormProps) {
                 label="isolutions Zurich"
               />
               <Picker.Item
-                value="45.977109747365404, 7.658709362053811"
+                value="45.977109747365404,7.658709362053811"
                 label="Matterhorn"
               />
               <Picker.Item
@@ -88,7 +88,7 @@ export default function SearchForm({ search }: SearchFormProps) {
               onValueChange={onChange}
             >
               <Picker.Item
-                value="46.96271204384958, 7.465173447017116"
+                value="46.96271204384958,7.465173447017116"
                 label="Young Boys Stadium"
               />
               <Picker.Item
@@ -100,7 +100,7 @@ export default function SearchForm({ search }: SearchFormProps) {
                 label="isolutions Zurich"
               />
               <Picker.Item
-                value="45.977109747365404, 7.658709362053811"
+                value="45.977109747365404,7.658709362053811"
                 label="Matterhorn"
               />
               <Picker.Item

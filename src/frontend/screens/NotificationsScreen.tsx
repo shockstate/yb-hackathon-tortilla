@@ -13,7 +13,6 @@ export default function NotificationsScreen() {
   const [passengers, setPassengers] = React.useState(mockPassengers);
   const [visible, setVisible] = React.useState(false);
   const [snackbarText, setSnackBarText] = React.useState("");
-  const [tripData, setTripData] = React.useState<TripModel>();
 
   const onDismissSnackBar = () => setVisible(false);
   const onClick = async (tripId: string, isAccepted: boolean) => {

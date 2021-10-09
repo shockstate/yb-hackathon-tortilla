@@ -9,8 +9,11 @@ import { Api } from "../constants/Api";
 import { useAuth } from "../hooks/useAuth";
 import SearchModel from "../models/SearchModel";
 import TripModel from "../models/TripModel";
+import { RootTabScreenProps } from "../types";
 
-export default function TabTwoScreen() {
+export default function TabTwoScreen({
+  navigation,
+}: RootTabScreenProps<"TabTwo">) {
   const [loading, setLoading] = React.useState(false);
   const [isFinishedResponse, setIsFinishedResponse] = React.useState(false);
   const [tripData, setTripData] = React.useState<TripModel[]>([]);
@@ -30,7 +33,7 @@ export default function TabTwoScreen() {
           originLongitude: searchModel.originLongitude,
           destinationLatitude: searchModel.destinationLatitude,
           destinationLongitude: searchModel.destinationLongitude,
-          date: searchModel.date,
+          dateTime: searchModel.date,
           userId: auth.authData?.id,
         }),
       });
@@ -60,7 +63,7 @@ export default function TabTwoScreen() {
 
       {isFinishedResponse && (
         <>
-          <SearchResult data={tripData}></SearchResult>
+          <SearchResult data={tripData} navigation={navigation}></SearchResult>
 
           <TouchableOpacity onPress={() => setIsFinishedResponse(false)}>
             <Text>Search again</Text>
