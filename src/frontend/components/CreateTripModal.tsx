@@ -166,7 +166,7 @@ export default function CreateTripModal({
                       onChange(value);
                     }}
                   >
-                    <Picker.Item value={TripRecurrency.NONE} label="None" />
+                    <Picker.Item value={TripRecurrency.NONE} label="One time" />
                     <Picker.Item
                       value={TripRecurrency.EVERYWORKDAY}
                       label="Every working days"

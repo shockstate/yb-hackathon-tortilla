@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { Image, ScrollView, StyleSheet } from "react-native";
-import logo from "../assets/images/profile.png";
+// import logo from "../assets/images/profile.png";
 import { Text, View } from "../components/Themed";
 import { Api } from "../constants/Api";
 import { useAuth } from "../hooks/useAuth";
@@ -32,21 +32,96 @@ export default function ModalScreen() {
 
   const getRandomImage = () => {
     var chosen = Math.floor(Math.random() * 6);
-      switch(chosen){
-        case 0:
-          return <Image source={require("../assets/images/img0.png")} style={{ width: 150, height: 150 }} />
-        case 1:
-          return <Image source={require("../assets/images/img1.png")} style={{ width: 150, height: 150 }} />
-        case 2:
-          return <Image source={require("../assets/images/img2.png")} style={{ width: 150, height: 150 }} />
-        case 3:
-          return <Image source={require("../assets/images/img3.png")} style={{ width: 150, height: 150 }} />
-        case 4:
-          return <Image source={require("../assets/images/img4.png")} style={{ width: 150, height: 150 }} />
-        default:
-          return <Image source={require("../assets/images/img5.png")} style={{ width: 150, height: 150 }} />
-      }
-  }
+    switch (chosen) {
+      case 0:
+        return (
+          <Image
+            source={require("../assets/images/img0.png")}
+            style={{
+              width: 25,
+              height: 25,
+              marginRight: 20,
+              borderWidth: 1,
+              borderBottomLeftRadius: 50,
+              borderBottomRightRadius: 50,
+              borderTopLeftRadius: 50,
+              borderTopRightRadius: 50,
+            }}
+          />
+        );
+      case 1:
+        return (
+          <Image
+            source={require("../assets/images/img1.png")}
+            style={{
+              width: 25,
+              height: 25,
+              marginRight: 20,
+              borderWidth: 1,
+              borderBottomLeftRadius: 50,
+              borderBottomRightRadius: 50,
+              borderTopLeftRadius: 50,
+              borderTopRightRadius: 50,
+            }}
+          />
+        );
+      case 2:
+        return (
+          <Image
+            source={require("../assets/images/img2.png")}
+            style={{
+              width: 25,
+              height: 25,
+              marginRight: 20,
+              borderWidth: 1,
+              borderBottomLeftRadius: 50,
+              borderBottomRightRadius: 50,
+              borderTopLeftRadius: 50,
+              borderTopRightRadius: 50,
+            }}
+          />
+        );
+      case 3:
+        return (
+          <Image
+            source={require("../assets/images/img3.png")}
+            style={{
+              width: 25,
+              height: 25,
+              marginRight: 20,
+              borderWidth: 1,
+              borderBottomLeftRadius: 50,
+              borderBottomRightRadius: 50,
+              borderTopLeftRadius: 50,
+              borderTopRightRadius: 50,
+            }}
+          />
+        );
+      case 4:
+        return (
+          <Image
+            source={require("../assets/images/img4.png")}
+            style={{
+              width: 25,
+              height: 25,
+              marginRight: 20,
+              borderWidth: 1,
+              borderBottomLeftRadius: 50,
+              borderBottomRightRadius: 50,
+              borderTopLeftRadius: 50,
+              borderTopRightRadius: 50,
+            }}
+          />
+        );
+      default:
+        return (
+          <Image
+            source={require("../assets/images/img5.png")}
+            style={{ width: 25, height: 25 }}
+          />
+        );
+    }
+  };
 
   return (
     <ScrollView style={styles.scrollView}>
