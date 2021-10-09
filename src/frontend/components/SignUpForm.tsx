@@ -5,6 +5,8 @@ import CarTypeEnum from "../enums/CarTypeEnum";
 import RegisterUserModel from "../models/RegisterUserModel";
 import DateField from "react-native-datefield";
 import { Picker } from "@react-native-picker/picker";
+import { useAuth } from "../hooks/useAuth";
+import { Loading } from "./Loading";
 
 interface RegisterUserFormProps {
   register: (user: RegisterUserModel) => Promise<Response> | undefined;
@@ -16,6 +18,7 @@ export default function RegisterUserForm({ register }: RegisterUserFormProps) {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const auth = useAuth();
 
   const onSubmit = (data: RegisterUserModel) => register(data);
 
@@ -294,6 +297,12 @@ export default function RegisterUserForm({ register }: RegisterUserFormProps) {
       <View style={styles.submitButton}>
         <Button title="Register" onPress={handleSubmit(onSubmit)} />
       </View>
+
+      {auth.loading && (
+        <View style={{ marginTop: 12 }}>
+          <Loading></Loading>
+        </View>
+      )}
     </View>
   );
 }

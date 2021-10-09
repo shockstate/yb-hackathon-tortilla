@@ -7,6 +7,7 @@ namespace Tortilla.Hackathon.Data.Repositories
     public interface IPassengerRepository
     {
         Task<Passenger> GetPassengerById(Guid id);
+        Task InsertAsync(Passenger passenger);
         Task Update(Passenger passenger);
     }
 }

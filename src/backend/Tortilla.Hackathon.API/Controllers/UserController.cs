@@ -101,5 +101,24 @@ namespace Tortilla.Hackathon.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+
+        [HttpGet("ranking")]
+        public async Task<IActionResult> GetRankingUsers(CancellationToken cancellationToken = default)
+        {
+            try
+            {
+                var users = await userService.GetRankingUsers();
+                return new JsonResult(users);
+            }
+            catch (NotImplementedException ex)
+            {
+                logger.LogError(ex, ex.Message);
+                return StatusCode(StatusCodes.Status501NotImplemented, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
     }
 }

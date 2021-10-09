@@ -2,6 +2,8 @@ import React from "react";
 import { Text, View, TextInput, Button, StyleSheet } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import LoginModel from "../models/LoginModel";
+import { useAuth } from "../hooks/useAuth";
+import { Loading } from "./Loading";
 
 interface LoginFormProps {
   login: (email: string, password: string) => Promise<void>;
@@ -13,6 +15,7 @@ export default function LoginForm({ login }: LoginFormProps) {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const auth = useAuth();
 
   const onSubmit = (data: LoginModel) => login(data.email, data.password);
 
@@ -77,6 +80,12 @@ export default function LoginForm({ login }: LoginFormProps) {
       <View style={styles.submitButton}>
         <Button title="Login" onPress={handleSubmit(onSubmit)} />
       </View>
+
+      {auth.loading && (
+        <View style={{ marginTop: 12 }}>
+          <Loading></Loading>
+        </View>
+      )}
     </View>
   );
 }
