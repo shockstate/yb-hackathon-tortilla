@@ -1,7 +1,7 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import * as React from "react";
 import { StyleSheet } from "react-native";
-import { List } from "react-native-paper";
+import { List, Snackbar } from "react-native-paper";
 import { Text, View } from "../components/Themed";
 import { Api } from "../constants/Api";
 import PassengerStatus from "../enums/PassengerStatus";
@@ -10,17 +10,21 @@ import TripModel from "../models/TripModel";
 
 export default function Notifications() {
   const [loading, setLoading] = React.useState(false);
-  const [isFinishedResponse, setIsFinishedResponse] = React.useState(false);
+  const [passengers, setPassengers] = React.useState(mockPassengers);
+  const [visible, setVisible] = React.useState(false);
+  const [snackbarText, setSnackBarText] = React.useState("");
   const [tripData, setTripData] = React.useState<TripModel>();
 
-  React.useEffect
 
+  const onDismissSnackBar = () => setVisible(false);
   const onClick = async (tripId: string, isAccepted : boolean) => {
     console.log(isAccepted);
     try {
-      var index = mockPassengers.findIndex(i => i.tripId == tripId);
+      var index = passengers.findIndex(i => i.tripId == tripId);
       if(index > -1) {
-        mockPassengers.splice(index, 1);
+        var aux = passengers.slice(0);
+        aux.splice(index, 1)
+        setPassengers(aux);
       }
       const response = await fetch(`${Api.URL_localhost}/Passenger/${tripId}`, {
         method: "PATCH",
@@ -33,7 +37,16 @@ export default function Notifications() {
         }),
       });
       console.log(response);
+      if (response.status == 405){
+        setSnackBarText("The user doesn't have enough points");
+        setVisible(true);
+      }
+      if (response.status == 200 && isAccepted){
+        setSnackBarText("Trip was accepted succesfully");
+        setVisible(true);
+      }
     } catch (error) {
+      
       console.log(error);
     }
   }
@@ -41,7 +54,8 @@ export default function Notifications() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Requests to join your trips:</Text>
-      {mockPassengers.map((i, index)=>(
+      {passengers.map((i, index)=>(
+          i.passengerStatus == PassengerStatus.Pending ?
           <List.Item
           key={index}
           title={`From ${i.from} to ${i.to}, ${i.dayTrip.getDay()}/${i.dayTrip.getMonth()}/${i.dayTrip.getFullYear()} at ${i.dayTrip.getHours()}:${i.dayTrip.getMinutes()}`}
@@ -52,8 +66,21 @@ export default function Notifications() {
               <MaterialIcons style={styles.iconRight} onClick={() => onClick(i.tripId, true)} name="check" size={24} color='black'/>
             </>
           }
-        />
+          />
+          : 
+          <></>
       ))}
+      <Snackbar
+        visible={visible}
+        onDismiss={onDismissSnackBar}
+        action={{
+          label: 'Undo',
+          onPress: () => {
+            // Do something
+          },
+        }}>
+          {snackbarText}
+      </Snackbar>
     </View>
   );
 }
