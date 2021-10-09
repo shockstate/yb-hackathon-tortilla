@@ -30,6 +30,24 @@ export default function ModalScreen() {
     }
   };
 
+  const getRandomImage = () => {
+    var chosen = Math.floor(Math.random() * 6);
+      switch(chosen){
+        case 0:
+          return <Image source={require("../assets/images/img0.png")} style={{ width: 150, height: 150 }} />
+        case 1:
+          return <Image source={require("../assets/images/img1.png")} style={{ width: 150, height: 150 }} />
+        case 2:
+          return <Image source={require("../assets/images/img2.png")} style={{ width: 150, height: 150 }} />
+        case 3:
+          return <Image source={require("../assets/images/img3.png")} style={{ width: 150, height: 150 }} />
+        case 4:
+          return <Image source={require("../assets/images/img4.png")} style={{ width: 150, height: 150 }} />
+        default:
+          return <Image source={require("../assets/images/img5.png")} style={{ width: 150, height: 150 }} />
+      }
+  }
+
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.mainContainer}>
@@ -50,10 +68,7 @@ export default function ModalScreen() {
             ) : (
               <Text style={{ marginRight: 44 }} />
             )}
-            <Image
-              source={logo}
-              style={{ width: 25, height: 25, marginRight: 15 }}
-            />
+            {getRandomImage()}
             <Text style={styles.field}>{user.firstName}</Text>{" "}
             <Text style={styles.field}>{user.lastName}</Text>
             <Text style={styles.field}>
