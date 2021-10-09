@@ -156,7 +156,7 @@ export default function ModalScreen() {
             <Text style={styles.field}>{user.firstName}</Text>
             <Text style={styles.field}>{user.lastName}</Text>
             <Text style={styles.field}>
-              CO<Text style={{ fontSize: 10 }}>2</Text> points:
+              CO<Text style={{ fontSize: 10 }}>2</Text> points:{" "}
               {user.totalCo2Saved}
             </Text>
           </View>
