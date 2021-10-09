@@ -172,7 +172,6 @@ const styles = StyleSheet.create({
   },
   iconLeft: {
     color: "#F41E1E",
-    cursor: "pointer",
     display: "flex",
     justifyContent: "center",
   },
@@ -181,7 +180,6 @@ const styles = StyleSheet.create({
   },
   iconRight: {
     color: "#0F9D58",
-    cursor: "pointer",
     display: "flex",
     justifyContent: "center",
   },
