@@ -45,6 +45,7 @@ export default function SearchForm({ search }: SearchFormProps) {
               style={{ height: 40, marginTop: 12 }}
               onValueChange={onChange}
             >
+              <Picker.Item value="None" label="None" />
               <Picker.Item
                 value="46.96271204384958,7.465173447017116"
                 label="Young Boys Stadium"
@@ -87,6 +88,7 @@ export default function SearchForm({ search }: SearchFormProps) {
               style={{ height: 40, marginTop: 12 }}
               onValueChange={onChange}
             >
+              <Picker.Item value="None" label="None" />
               <Picker.Item
                 value="46.96271204384958,7.465173447017116"
                 label="Young Boys Stadium"
