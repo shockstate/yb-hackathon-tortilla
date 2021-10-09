@@ -27,14 +27,18 @@ export default function SearchForm({ search }: SearchFormProps) {
   };
 
   return (
-    <ScrollView style={styles.form}>
+    <View style={styles.form}>
       <Controller
         control={control}
         render={({ field: { onChange, onBlur, value } }) => (
           <>
             <Text style={styles.label}>Origin:</Text>
             <Picker
-              style={{ height: 40, marginTop: 12 }}
+              style={{
+                height: 40,
+                marginTop: 12,
+                borderWidth: 1,
+              }}
               onValueChange={onChange}
             >
               {locations.map((loc, index) => (
@@ -59,7 +63,11 @@ export default function SearchForm({ search }: SearchFormProps) {
           <>
             <Text style={styles.label}>Destination:</Text>
             <Picker
-              style={{ height: 40, marginTop: 12 }}
+              style={{
+                height: 40,
+                marginTop: 12,
+                borderWidth: 1,
+              }}
               onValueChange={onChange}
             >
               {locations.map((loc, index) => (
@@ -103,7 +111,7 @@ export default function SearchForm({ search }: SearchFormProps) {
       <View style={styles.submitButton}>
         <Button title="Search" onPress={handleSubmit(onSubmit)} />
       </View>
-    </ScrollView>
+    </View>
   );
 }
 
@@ -116,7 +124,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   form: {
-    margin: 12,
+    // margin: 12,
     borderWidth: 1,
     borderRadius: 5,
     padding: 12,

@@ -40,7 +40,7 @@ export default function ModalScreen() {
             style={{
               width: 25,
               height: 25,
-              marginRight: 20,
+              marginRight: 10,
               borderWidth: 1,
               borderBottomLeftRadius: 50,
               borderBottomRightRadius: 50,
@@ -56,7 +56,7 @@ export default function ModalScreen() {
             style={{
               width: 25,
               height: 25,
-              marginRight: 20,
+              marginRight: 10,
               borderWidth: 1,
               borderBottomLeftRadius: 50,
               borderBottomRightRadius: 50,
@@ -72,7 +72,7 @@ export default function ModalScreen() {
             style={{
               width: 25,
               height: 25,
-              marginRight: 20,
+              marginRight: 10,
               borderWidth: 1,
               borderBottomLeftRadius: 50,
               borderBottomRightRadius: 50,
@@ -88,7 +88,7 @@ export default function ModalScreen() {
             style={{
               width: 25,
               height: 25,
-              marginRight: 20,
+              marginRight: 10,
               borderWidth: 1,
               borderBottomLeftRadius: 50,
               borderBottomRightRadius: 50,
@@ -104,7 +104,7 @@ export default function ModalScreen() {
             style={{
               width: 25,
               height: 25,
-              marginRight: 20,
+              marginRight: 10,
               borderWidth: 1,
               borderBottomLeftRadius: 50,
               borderBottomRightRadius: 50,
@@ -120,7 +120,7 @@ export default function ModalScreen() {
             style={{
               width: 25,
               height: 25,
-              marginRight: 20,
+              marginRight: 10,
               borderWidth: 1,
               borderBottomLeftRadius: 50,
               borderBottomRightRadius: 50,
@@ -142,7 +142,7 @@ export default function ModalScreen() {
           darkColor="rgba(255,255,255,0.1)"
         />
         {usersRanking.map((user, index) => (
-          <View style={styles.item}>
+          <View style={styles.item} key={index}>
             {index === 0 ? (
               <Text style={styles.medal}>🥇</Text>
             ) : index === 1 ? (
@@ -150,13 +150,13 @@ export default function ModalScreen() {
             ) : index === 2 ? (
               <Text style={styles.medal}>🥉</Text>
             ) : (
-              <Text style={{ marginRight: 44 }} />
+              <Text style={{ marginRight: 44 }}></Text>
             )}
             {getRandomImage()}
-            <Text style={styles.field}>{user.firstName}</Text>{" "}
+            <Text style={styles.field}>{user.firstName}</Text>
             <Text style={styles.field}>{user.lastName}</Text>
             <Text style={styles.field}>
-              CO<Text style={{ fontSize: 10 }}>2</Text> points:{" "}
+              CO<Text style={{ fontSize: 10 }}>2</Text> points:
               {user.totalCo2Saved}
             </Text>
           </View>
@@ -170,12 +170,13 @@ const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
     backgroundColor: "#fff",
-    padding: 20,
+    padding: 10,
   },
   mainContainer: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    paddingBottom: 20,
   },
   containerInfo: {
     display: "flex",
@@ -187,10 +188,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     textAlign: "left",
-    marginTop: 20,
   },
   field: {
-    fontSize: 18,
+    fontSize: 13,
     marginRight: 10,
     flex: 1,
   },
@@ -218,7 +218,7 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "center",
     marginVertical: 8,
-    padding: 20,
+    padding: 10,
     borderRadius: 10,
     borderWidth: 1,
     shadowColor: "rgba(0, 0, 0, 0.25)",
@@ -228,6 +228,6 @@ const styles = StyleSheet.create({
   },
   medal: {
     fontSize: 20,
-    marginRight: 15,
+    marginRight: 10,
   },
 });

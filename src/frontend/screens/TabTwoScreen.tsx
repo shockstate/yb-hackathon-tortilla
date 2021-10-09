@@ -59,7 +59,7 @@ export default function TabTwoScreen({
         lightColor="#eee"
         darkColor="rgba(255,255,255,0.1)"
       />
-      {!isFinishedResponse && <SearchForm search={search}></SearchForm>}
+      {!isFinishedResponse && <SearchForm search={search} />}
 
       {isFinishedResponse && (
         <>

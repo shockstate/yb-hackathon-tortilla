@@ -204,6 +204,7 @@ const styles = StyleSheet.create({
   field: {
     fontSize: 18,
     textAlign: "left",
+    marginBottom: 10,
   },
   recommendation: {
     fontSize: 18,
