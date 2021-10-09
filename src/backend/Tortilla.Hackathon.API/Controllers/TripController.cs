@@ -49,7 +49,7 @@ namespace Tortilla.Hackathon.API.Controllers
             }
         }
 
-        // TODO: HttpGet => For simpliyfy
+        // TODO: HttpGet => For simplify
         [HttpPost("search")]
         public async Task<IActionResult> SearchTrips(SearchTripsDto searchTripsDto)
         {
@@ -64,6 +64,18 @@ namespace Tortilla.Hackathon.API.Controllers
             }
         }
 
-        //public void AcceptRequestToJoinTrip([FromBody] string value)
+        [HttpPost("request")]
+        public async Task<IActionResult> CreteDayTripRequest(DayTripRequestDto dayTripRequestDto)
+        {
+            try
+            {
+                await tripService.CreteDayTripRequest(dayTripRequestDto);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
     }
 }

@@ -17,6 +17,7 @@ namespace Tortilla.Hackathon.Services.Services
         private readonly IMapper mapper;
         private readonly IGeolocationService geolocationService;
         private readonly IDayTripRepository dayTripRepository;
+        private readonly IPassengerRepository passengerRepository;
         private readonly List<DayOfWeek> workableDays = new List<DayOfWeek> 
         {
             DayOfWeek.Monday,
@@ -28,12 +29,13 @@ namespace Tortilla.Hackathon.Services.Services
 
         public TripService(ITripRepository tripRepository, 
             IMapper mapper, IGeolocationService geolocationService,
-            IDayTripRepository dayTripRepository)
+            IDayTripRepository dayTripRepository, IPassengerRepository passengerRepository)
         {
             this.tripRepository = tripRepository;
             this.mapper = mapper;
             this.geolocationService = geolocationService;
             this.dayTripRepository = dayTripRepository;
+            this.passengerRepository = passengerRepository;
         }
 
         public async Task<IList<MyDayTripDto>> GetMyTripsAsOwnerOrPassengerByUserIdAsync(Guid userId)
@@ -117,6 +119,42 @@ namespace Tortilla.Hackathon.Services.Services
             }
 
             return dayTripDtos;
+        }
+
+        public async Task CreteDayTripRequest(DayTripRequestDto dayTripRequestDto)
+        {
+            var dayTrip = await dayTripRepository.GetDayTripById(dayTripRequestDto.DayTripId);
+
+            var carMaxCapacity = dayTrip.Trip.User.Car.MaxCapacity;
+
+            if (dayTrip.DateTime <= DateTime.Now)
+            {
+                throw new Exception("Date already passed.");
+            }
+
+            if (dayTrip.Trip.UserId == dayTripRequestDto.UserId)
+            {
+                throw new Exception("User is the own of the trip.");
+            }
+
+            if (dayTrip.Passengers.Any(p => p.UserId == dayTripRequestDto.UserId))
+            {
+                throw new Exception("User already requested this trip.");
+            }
+
+            if (dayTrip.Passengers.Count(p => p.PassengerStatus == PassengerStatus.Accepted) >= carMaxCapacity - 1)
+            {
+                throw new Exception("Trip is already full.");
+            }
+
+            var passenger = new Passenger
+            {
+                UserId = dayTripRequestDto.UserId,
+                PassengerStatus = PassengerStatus.Pending,
+                DayTripId = dayTrip.Id
+            };
+
+            await passengerRepository.InsertAsync(passenger);
         }
     }
 }
