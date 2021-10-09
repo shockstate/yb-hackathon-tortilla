@@ -48,7 +48,14 @@ const SignUpScreen = ({
 
   return (
     <ScrollView style={styles.container}>
-      <View style={{ alignItems: "center", justifyContent: "center" }}>
+      <View
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
+          paddingBottom: 35,
+          paddingTop: 35,
+        }}
+      >
         <SignUpForm register={register} />
         <Text>
           Already have an account? Go to{" "}
