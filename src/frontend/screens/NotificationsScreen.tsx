@@ -17,7 +17,6 @@ export default function NotificationsScreen() {
   const [visible, setVisible] = React.useState(false);
   const [snackbarText, setSnackBarText] = React.useState("");
 
-
   const onDismissSnackBar = () => setVisible(false);
 
   useEffect(() => {
@@ -27,7 +26,6 @@ export default function NotificationsScreen() {
   const getUserNotifications = async () => {
     var id = auth.authData?.id;
     if (id) {
-      
     }
     try {
       fetch(`${Api.URL}/Passenger/pendings?userId=${id}`, {
@@ -43,7 +41,11 @@ export default function NotificationsScreen() {
       console.error(error);
     }
   };
-  const onClick = async (tripId: string, passengerId: string,  isAccepted: boolean) => {
+  const onClick = async (
+    tripId: string,
+    passengerId: string,
+    isAccepted: boolean
+  ) => {
     console.log(isAccepted);
     try {
       var index = passengers.findIndex((i) => i.dayTripId == tripId);
@@ -78,47 +80,48 @@ export default function NotificationsScreen() {
 
   return (
     <View style={styles.mainContainer}>
-      <Text style={styles.title}>Requests to join your trips:</Text>
+      <Text style={styles.title}>Requests to join you on a trip:</Text>
       <View style={styles.container}>
-        {passengers.map((i, index) =>
-            <View key={index} style={styles.item}>
-              <View style={styles.notificationInfo}>
-                <Text>
-                  From <Text style={styles.bold}>{i.originDescription}</Text> to{" "}
-                  <Text style={styles.bold}>{i.destinationDescription}</Text>, {Moment(i.dateTime).format("MMMM Do YYYY}")} at{" "}
-                  {Moment(i.dateTime).format("h:mm")}
-                </Text>
-                <Text>
-                  <Text style={styles.bold}>
-                    {i.userFirstName} {i.userLastName}
-                  </Text>{" "}
-                  wants to join
-                </Text>
+        {passengers.map((i, index) => (
+          <View key={index} style={styles.item}>
+            <View style={styles.notificationInfo}>
+              <Text>
+                From <Text style={styles.bold}>{i.originDescription}</Text> to{" "}
+                <Text style={styles.bold}>{i.destinationDescription}</Text>,{" "}
+                {Moment(i.dateTime).format("MMMM Do YYYY}")} at{" "}
+                {Moment(i.dateTime).format("h:mm")}
+              </Text>
+              <Text>
+                <Text style={styles.bold}>
+                  {i.userFirstName} {i.userLastName}
+                </Text>{" "}
+                wants to join
+              </Text>
+            </View>
+            <View style={styles.icons}>
+              <View style={styles.containerIconLeft}>
+                <Text>Decline:</Text>
+                <MaterialIcons
+                  style={styles.iconLeft}
+                  onClick={() => onClick(i.dayTripId, i.passengerId, false)}
+                  name="clear"
+                  size={30}
+                  color="black"
+                />
               </View>
-              <View style={styles.icons}>
-                <View style={styles.containerIconLeft}>
-                  <Text>Decline:</Text>
-                  <MaterialIcons
-                    style={styles.iconLeft}
-                    onClick={() => onClick(i.dayTripId, i.passengerId, false)}
-                    name="clear"
-                    size={30}
-                    color="black"
-                  />
-                </View>
-                <View style={styles.containerIconRight}>
-                  <Text>Accept:</Text>
-                  <MaterialIcons
-                    style={styles.iconRight}
-                    onClick={() => onClick(i.dayTripId, i.passengerId, true)}
-                    name="check"
-                    size={30}
-                    color="black"
-                  />
-                </View>
+              <View style={styles.containerIconRight}>
+                <Text>Accept:</Text>
+                <MaterialIcons
+                  style={styles.iconRight}
+                  onClick={() => onClick(i.dayTripId, i.passengerId, true)}
+                  name="check"
+                  size={30}
+                  color="black"
+                />
               </View>
             </View>
-        )}
+          </View>
+        ))}
       </View>
       <Snackbar
         visible={visible}
@@ -169,7 +172,6 @@ const styles = StyleSheet.create({
   },
   iconLeft: {
     color: "#F41E1E",
-    cursor: "pointer",
     display: "flex",
     justifyContent: "center",
   },
@@ -178,7 +180,6 @@ const styles = StyleSheet.create({
   },
   iconRight: {
     color: "#0F9D58",
-    cursor: "pointer",
     display: "flex",
     justifyContent: "center",
   },

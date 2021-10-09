@@ -18,7 +18,7 @@ namespace Tortilla.Hackathon.Services.Services
         private readonly IGeolocationService geolocationService;
         private readonly IDayTripRepository dayTripRepository;
         private readonly IPassengerRepository passengerRepository;
-        private readonly List<DayOfWeek> workableDays = new List<DayOfWeek> 
+        private readonly List<DayOfWeek> workableDays = new List<DayOfWeek>
         {
             DayOfWeek.Monday,
             DayOfWeek.Tuesday,
@@ -27,7 +27,7 @@ namespace Tortilla.Hackathon.Services.Services
             DayOfWeek.Friday
         };
 
-        public TripService(ITripRepository tripRepository, 
+        public TripService(ITripRepository tripRepository,
             IMapper mapper, IGeolocationService geolocationService,
             IDayTripRepository dayTripRepository, IPassengerRepository passengerRepository)
         {
@@ -86,7 +86,7 @@ namespace Tortilla.Hackathon.Services.Services
             {
                 var tripDateTime = trip.StartDateTime.AddDays(i);
 
-                if (trip.Recurrency == TripRecurrency.EveryDay || 
+                if (trip.Recurrency == TripRecurrency.EveryDay ||
                     (trip.Recurrency == TripRecurrency.EveryWorkday && workableDays.Contains(tripDateTime.DayOfWeek)))
                 {
                     trip.DayTrips.Add(new DayTrip
@@ -100,11 +100,11 @@ namespace Tortilla.Hackathon.Services.Services
         public async Task<IList<DayTripDto>> SearchDayTripsAsync(SearchTripsDto searchTripsDto)
         {
             var dayTripsInDateTime = await dayTripRepository.GetDayTripsAvailableByDateTimeForUser(searchTripsDto.DateTime, searchTripsDto.UserId);
-            
+
             var maxRadiusInMeters = 5000;
             var originGeoCoordinate = new GeoCoordinate(searchTripsDto.OriginLatitude, searchTripsDto.OriginLongitude);
             var destinationGeoCoordinate = new GeoCoordinate(searchTripsDto.DestinationLatitude, searchTripsDto.DestinationLongitude);
-            
+
             var dayTripsInRadius = dayTripsInDateTime
                 .Where(dayTrip =>
                     originGeoCoordinate.GetDistanceTo(new GeoCoordinate(dayTrip.Trip.OriginLatitude, dayTrip.Trip.OriginLongitude)) <= maxRadiusInMeters &&
@@ -127,7 +127,7 @@ namespace Tortilla.Hackathon.Services.Services
         {
             var dayTrip = await dayTripRepository.GetDayTripById(dayTripRequestDto.DayTripId);
 
-            var carMaxCapacity = dayTrip.Trip.User.Car.MaxCapacity;
+            var carMaxCapacity = dayTrip.Trip.User.Car.MaxPassengersCapacity;
 
             if (dayTrip.DateTime <= DateTime.Now)
             {
@@ -144,7 +144,7 @@ namespace Tortilla.Hackathon.Services.Services
                 throw new Exception("User already requested this trip.");
             }
 
-            if (dayTrip.Passengers.Count(p => p.PassengerStatus == PassengerStatus.Accepted) >= carMaxCapacity - 1)
+            if (dayTrip.Passengers.Count(p => p.PassengerStatus == PassengerStatus.Accepted) >= carMaxCapacity)
             {
                 throw new Exception("Trip is already full.");
             }
@@ -157,6 +157,16 @@ namespace Tortilla.Hackathon.Services.Services
             };
 
             await passengerRepository.InsertAsync(passenger);
+        }
+
+        public double GetDistanceBetweenTwoPoints(double originLong, double originLat, double destinLong, double destinLatitud)
+        {
+            // Only taken account a straight line, not the proper car route. We can use Google Maps in the future, but is costly
+            var originGeoCoordinate = new GeoCoordinate(originLat, originLong);
+            var destinationGeoCoordinate = new GeoCoordinate(destinLatitud, destinLong);
+            var originDistanceInMeters = originGeoCoordinate.GetDistanceTo(destinationGeoCoordinate);
+
+            return originDistanceInMeters;
         }
     }
 }

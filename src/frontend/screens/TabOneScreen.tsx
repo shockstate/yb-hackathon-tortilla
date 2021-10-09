@@ -50,7 +50,12 @@ export default function TabOneScreen({
           color={Colors.light.tint}
         />
         <View style={styles.iconSeparator}></View>
-        <Text>{item.isUserPassenger ? "Passenger" : "Driver"}{item.isUserPassenger ? " - Reservation status: " + item.passengerStatus : ""}</Text>
+        <Text>
+          {item.isUserPassenger ? "Passenger" : "Driver"}
+          {item.isUserPassenger
+            ? " - Reservation status: " + item.passengerStatus
+            : ""}
+        </Text>
       </Text>
 
       <Text style={styles.cardTitle}>
@@ -98,7 +103,6 @@ export default function TabOneScreen({
         <Pressable
           onPress={() => navigation.navigate("CreateTripModal")}
           style={({ pressed }) => ({
-            cursor: "pointer",
             opacity: pressed ? 0.5 : 1,
             marginTop: 20,
           })}
