@@ -46,11 +46,11 @@ export default function TabOneScreen({
         <Ionicons
           size={30}
           style={{ marginBottom: -3 }}
-          name={item.isUserPassanger ? "people" : "key"}
+          name={item.isUserPassenger ? "people" : "key"}
           color={Colors.light.tint}
         />
         <View style={styles.iconSeparator}></View>
-        <Text>{item.isUserPassanger ? "Passenger" : "Driver"}</Text>
+        <Text>{item.isUserPassenger ? "Passenger" : "Driver"}{item.isUserPassenger ? " - Reservation status: " + item.passengerStatus : ""}</Text>
       </Text>
 
       <Text style={styles.cardTitle}>
