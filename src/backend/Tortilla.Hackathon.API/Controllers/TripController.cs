@@ -35,7 +35,7 @@ namespace Tortilla.Hackathon.API.Controllers
             }
         }
 
-        [HttpPost("")]
+        [HttpPost]
         public async Task<IActionResult> CreateTrip(CreateTripDto createTripDto)
         {
             try
@@ -49,7 +49,7 @@ namespace Tortilla.Hackathon.API.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("search")]
         public async Task<IActionResult> SearchTrips([FromQuery] SearchTripsDto searchTripsDto)
         {
             try
