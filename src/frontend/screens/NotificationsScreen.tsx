@@ -8,7 +8,7 @@ import PassengerStatus from "../enums/PassengerStatus";
 import PassengerModel from "../models/PassengerModel";
 import TripModel from "../models/TripModel";
 
-export default function Notifications() {
+export default function NotificationsScreen() {
   const [loading, setLoading] = React.useState(false);
   const [passengers, setPassengers] = React.useState(mockPassengers);
   const [visible, setVisible] = React.useState(false);
@@ -50,39 +50,54 @@ export default function Notifications() {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={styles.mainContainer}>
       <Text style={styles.title}>Requests to join your trips:</Text>
-      {passengers.map((i, index) =>
-        i.passengerStatus == PassengerStatus.Pending ? (
-          <List.Item
-            key={index}
-            title={`From ${i.from} to ${
-              i.to
-            }, ${i.dayTrip.getDay()}/${i.dayTrip.getMonth()}/${i.dayTrip.getFullYear()} at ${i.dayTrip.getHours()}:${i.dayTrip.getMinutes()}`}
-            description={`${i.userFirstName} ${i.userLastName} wants to join"`}
-            right={(_) => (
-              <>
-                <MaterialIcons
-                  style={styles.iconLeft}
-                  onClick={() => onClick(i.tripId, false)}
-                  name="clear"
-                  size={24}
-                  color="black"
-                />
-                <MaterialIcons
-                  style={styles.iconRight}
-                  onClick={() => onClick(i.tripId, true)}
-                  name="check"
-                  size={24}
-                  color="black"
-                />
-              </>
-            )}
-          />
-        ) : (
-          <></>
-        )
-      )}
+      <View style={styles.container}>
+        {passengers.map((i, index) =>
+          i.passengerStatus == PassengerStatus.Pending ? (
+            <View style={styles.item}>
+              <View style={styles.notificationInfo}>
+                <Text>
+                  From <Text style={styles.bold}>{i.from}</Text> to{" "}
+                  <Text style={styles.bold}>{i.to}</Text>, {i.dayTrip.getDay()}/
+                  {i.dayTrip.getMonth()}/{i.dayTrip.getFullYear()} at{" "}
+                  {i.dayTrip.getHours()}:{i.dayTrip.getMinutes()}
+                </Text>
+                <Text>
+                  <Text style={styles.bold}>
+                    {i.userFirstName} {i.userLastName}
+                  </Text>{" "}
+                  wants to join
+                </Text>
+              </View>
+              <View style={styles.icons}>
+                <View style={styles.containerIconLeft}>
+                  <Text>Decline:</Text>
+                  <MaterialIcons
+                    style={styles.iconLeft}
+                    onClick={() => onClick(i.tripId, false)}
+                    name="clear"
+                    size={30}
+                    color="black"
+                  />
+                </View>
+                <View style={styles.containerIconRight}>
+                  <Text>Accept:</Text>
+                  <MaterialIcons
+                    style={styles.iconRight}
+                    onClick={() => onClick(i.tripId, true)}
+                    name="check"
+                    size={30}
+                    color="black"
+                  />
+                </View>
+              </View>
+            </View>
+          ) : (
+            <></>
+          )
+        )}
+      </View>
       <Snackbar
         visible={visible}
         onDismiss={onDismissSnackBar}
@@ -128,25 +143,60 @@ function GetIcon(props: {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  mainContainer: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+  container: {
+    width: "98%",
   },
   title: {
     fontSize: 20,
     fontWeight: "bold",
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
+  notificationInfo: {
+    width: "60%",
+  },
+  icons: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  containerIconLeft: {
+    marginRight: 15,
   },
   iconLeft: {
-    marginLeft: 10,
-    marginTop: 10,
+    color: "#F41E1E",
+    cursor: "pointer",
+    display: "flex",
+    justifyContent: "center",
+  },
+  containerIconRight: {
+    marginLeft: 15,
   },
   iconRight: {
-    marginTop: 10,
+    color: "#0F9D58",
+    cursor: "pointer",
+    display: "flex",
+    justifyContent: "center",
+  },
+  item: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    height: 120,
+    width: "100%",
+    justifyContent: "center",
+    marginVertical: 8,
+    padding: 20,
+    borderRadius: 10,
+    borderWidth: 1,
+    shadowColor: "rgba(0, 0, 0, 0.25)",
+    shadowOffset: { width: 2, height: 2 }, //0 6
+    shadowRadius: 10,
+  },
+  bold: {
+    fontWeight: "bold",
   },
 });

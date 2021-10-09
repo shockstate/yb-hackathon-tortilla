@@ -20,7 +20,7 @@ import SignUpScreen from "../screens/SignUpScreen";
 import ModalScreen from "../screens/ModalScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import TabOneScreen from "../screens/TabOneScreen";
-import Notifications from "../screens/Notifications";
+import Notifications from "../screens/NotificationsScreen";
 import TabTwoScreen from "../screens/TabTwoScreen";
 import {
   RootStackParamList,
