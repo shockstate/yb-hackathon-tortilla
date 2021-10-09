@@ -9,7 +9,7 @@ namespace Tortilla.Hackathon.Services.Models.Dtos
         [Required]
         public int Year { get; set; }
         [Required]
-        public int MaxCapacity { get; set; }
+        public int MaxPassengersCapacity { get; set; }
         [Required]
         public CarType CarType { get; set; }
     }
