@@ -100,6 +100,7 @@ export default function TabOneScreen({
           style={({ pressed }) => ({
             cursor: "pointer",
             opacity: pressed ? 0.5 : 1,
+            marginTop: 20,
           })}
         >
           <Ionicons name="add-circle-sharp" size={30} color="#2F95DC" />
@@ -129,6 +130,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: "bold",
+    marginTop: 20,
   },
   separator: {
     marginVertical: 30,
