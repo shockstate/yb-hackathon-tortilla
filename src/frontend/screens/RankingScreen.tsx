@@ -54,8 +54,8 @@ export default function ModalScreen() {
               source={logo}
               style={{ width: 25, height: 25, marginRight: 15 }}
             />
-            <Text style={styles.field}>Name: {user.firstName}</Text>{" "}
-            <Text style={styles.field}>Surname: {user.lastName}</Text>
+            <Text style={styles.field}>{user.firstName}</Text>{" "}
+            <Text style={styles.field}>{user.lastName}</Text>
             <Text style={styles.field}>
               CO<Text style={{ fontSize: 10 }}>2</Text> points:{" "}
               {user.totalCo2Saved}
