@@ -33,6 +33,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { Text } from "../components/Themed";
 import { useAuth } from "../hooks/useAuth";
 import CreateTripModal from "../components/CreateTripModal";
+import HeaderRight from "../components/HeaderRight";
 
 const Navigation = ({ colorScheme }: { colorScheme: ColorSchemeName }) => {
   const [userData, setUserData] = React.useState(null);
@@ -128,48 +129,30 @@ function BottomTabNavigator() {
         options={({ navigation }: RootTabScreenProps<"TabOne">) => ({
           title: "My Trips",
           tabBarIcon: ({ color }) => <TabBarIcon name="car" color={color} />,
-          headerRight: () => (
-            <>
-              <TouchableOpacity onPress={() => auth.signOut()}>
-                <Text>Log out</Text>
-              </TouchableOpacity>
-              <Pressable
-                onPress={() => navigation.navigate("Modal")}
-                style={({ pressed }) => ({
-                  cursor: "pointer",
-                  opacity: pressed ? 0.5 : 1,
-                })}
-              >
-                <FontAwesome
-                  name="user"
-                  size={25}
-                  color={Colors[colorScheme].text}
-                  style={{ marginRight: 15 }}
-                />
-              </Pressable>
-            </>
-          ),
+          headerRight: () => <HeaderRight navigation={navigation} />,
         })}
       />
       <BottomTab.Screen
         name="TabTwo"
         component={TabTwoScreen}
-        options={{
+        options={({ navigation }: RootTabScreenProps<"TabTwo">) => ({
           title: "Search",
           tabBarIcon: ({ color }) => (
             <MaterialIcons name="search" size={24} color={color} />
           ),
-        }}
+          headerRight: () => <HeaderRight navigation={navigation} />,
+        })}
       />
       <BottomTab.Screen
         name="TabThree"
         component={Notifications}
-        options={{
+        options={({ navigation }: RootTabScreenProps<"TabThree">) => ({
           title: "Notifications",
           tabBarIcon: ({ color }) => (
             <CalendarTabIcon name="notification" color={color} />
           ),
-        }}
+          headerRight: () => <HeaderRight navigation={navigation} />,
+        })}
       />
     </BottomTab.Navigator>
   );
