@@ -35,7 +35,7 @@ const linking: LinkingOptions<RootStackParamList> = {
           },
         },
       },
-      Account: "Account",
+      Modal: "modal",
       CreateTripModal: "Create Trip Modal",
       NotFound: "*",
     },

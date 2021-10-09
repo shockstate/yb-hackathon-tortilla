@@ -31,8 +31,6 @@ namespace Tortilla.Hackathon.Data.Repositories
         public async Task<IList<DayTrip>> GetDayTripsAvailableByDateTimeForUser(DateTime dateTime, Guid userId)
         {
             // I search all the trips in the day
-            //TODO: fix javscript datetime passing
-            dateTime = dateTime.AddDays(-1);
             var dateTimeBeginningOfTheDay = DateTime.Parse(dateTime.ToShortDateString());
             var dateTimeEndOfTheDay = dateTimeBeginningOfTheDay.AddDays(1).AddTicks(-1);
 
