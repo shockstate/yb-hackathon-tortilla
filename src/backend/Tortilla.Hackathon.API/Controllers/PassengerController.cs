@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Tortilla.Hackathon.Services.Interfaces;
+using Tortilla.Hackathon.Services.Models.Dtos;
 
 namespace Tortilla.Hackathon.API.Controllers
 {
@@ -24,11 +25,11 @@ namespace Tortilla.Hackathon.API.Controllers
         }
 
         [HttpPatch("{id}")]
-        public async Task<IActionResult> AcceptPassenger([FromRoute] Guid id, [FromBody] bool isAccepted)
+        public async Task<IActionResult> AcceptPassenger([FromRoute] Guid id, [FromBody] AcceptDto acceptDto)
         {
             try
             {
-                await passengerService.AcceptPassenger(isAccepted, id);
+                await passengerService.AcceptPassenger(acceptDto.IsAccepted, id);
                 return Ok();
             }
             catch (NotImplementedException ex)
