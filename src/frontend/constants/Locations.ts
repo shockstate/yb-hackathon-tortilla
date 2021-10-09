@@ -23,4 +23,12 @@ export const locations = [
     value: "46.94897263586793,7.438138660638385",
     label: "isolutions Bern",
   },
+  {
+    value: "41.38112138392231,2.123109476393067",
+    label: "Camp Nou",
+  },
+  {
+    value: "40.45309582709248,-3.6879474641134546",
+    label: "Santiago Bernabeu",
+  },
 ];
