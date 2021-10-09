@@ -4,21 +4,23 @@ import { Controller, useForm } from "react-hook-form";
 import { Button, StyleSheet, Text, TextInput, View } from "react-native";
 import DateField from "react-native-datefield";
 import CarTypeEnum from "../enums/CarTypeEnum";
-import { useAuth } from "../hooks/useAuth";
 import RegisterUserModel from "../models/RegisterUserModel";
 import { Loading } from "./Loading";
 
 interface RegisterUserFormProps {
   register: (user: RegisterUserModel) => Promise<Response> | undefined;
+  loading: boolean;
 }
 
-export default function RegisterUserForm({ register }: RegisterUserFormProps) {
+export default function RegisterUserForm({
+  register,
+  loading,
+}: RegisterUserFormProps) {
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const auth = useAuth();
 
   const onSubmit = (data: RegisterUserModel) => register(data);
 
@@ -306,7 +308,7 @@ export default function RegisterUserForm({ register }: RegisterUserFormProps) {
         <Button title="Register" onPress={handleSubmit(onSubmit)} />
       </View>
 
-      {auth.loading && (
+      {loading && (
         <View style={{ marginTop: 12 }}>
           <Loading></Loading>
         </View>

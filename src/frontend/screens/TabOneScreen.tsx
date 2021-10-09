@@ -103,6 +103,7 @@ export default function TabOneScreen({
         <Pressable
           onPress={() => navigation.navigate("CreateTripModal")}
           style={({ pressed }) => ({
+            cursor: "pointer",
             opacity: pressed ? 0.5 : 1,
             marginTop: 20,
           })}
