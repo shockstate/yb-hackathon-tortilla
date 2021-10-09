@@ -24,7 +24,7 @@ namespace Tortilla.Hackathon.API.Controllers
         }
 
         [HttpPatch("{id}")]
-        public async Task<IActionResult> AcceptPassenger([FromRoute] Guid id, [FromBody] Boolean isAccepted)
+        public async Task<IActionResult> AcceptPassenger([FromRoute] Guid id, [FromBody] bool isAccepted)
         {
             try
             {

@@ -20,7 +20,7 @@ import SignUpScreen from "../screens/SignUpScreen";
 import ModalScreen from "../screens/ModalScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import TabOneScreen from "../screens/TabOneScreen";
-import TabThreeScreen from "../screens/TabThreeScreen";
+import Notifications from "../screens/Notifications";
 import TabTwoScreen from "../screens/TabTwoScreen";
 import {
   RootStackParamList,
@@ -28,10 +28,7 @@ import {
   RootTabScreenProps,
 } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { StorageKeys } from "../constants/StorageKeys";
 import {} from "../contexts/AuthContext";
-import { Loading } from "../components/Loading";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Text } from "../components/Themed";
 import { useAuth } from "../hooks/useAuth";
@@ -166,11 +163,11 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="TabThree"
-        component={TabThreeScreen}
+        component={Notifications}
         options={{
-          title: "Calendar",
+          title: "Notifications",
           tabBarIcon: ({ color }) => (
-            <CalendarTabIcon name="calendar" color={color} />
+            <CalendarTabIcon name="notification" color={color} />
           ),
         }}
       />
