@@ -8,11 +8,12 @@ import { Api } from "../constants/Api";
 import PassengerStatus from "../enums/PassengerStatus";
 import { useAuth } from "../hooks/useAuth";
 import PassengerModel from "../models/PassengerModel";
+import Moment from "moment";
 
 export default function NotificationsScreen() {
   const [loading, setLoading] = React.useState(false);
   const auth = useAuth();
-  const [passengers, setPassengers] = React.useState(mockPassengers);
+  const [passengers, setPassengers] = React.useState<PassengerModel[]>([]);
   const [visible, setVisible] = React.useState(false);
   const [snackbarText, setSnackBarText] = React.useState("");
 
@@ -29,7 +30,7 @@ export default function NotificationsScreen() {
       
     }
     try {
-      fetch(`${Api.URL}/User/ranking`, {
+      fetch(`${Api.URL}/Passenger/pendings?userId=${id}`, {
         method: "GET",
         headers: {
           Accept: "application/json",
@@ -45,7 +46,7 @@ export default function NotificationsScreen() {
   const onClick = async (tripId: string, isAccepted: boolean) => {
     console.log(isAccepted);
     try {
-      var index = passengers.findIndex((i) => i.tripId == tripId);
+      var index = passengers.findIndex((i) => i.dayTripId == tripId);
       if (index > -1) {
         var aux = passengers.slice(0);
         aux.splice(index, 1);
@@ -80,14 +81,12 @@ export default function NotificationsScreen() {
       <Text style={styles.title}>Requests to join your trips:</Text>
       <View style={styles.container}>
         {passengers.map((i, index) =>
-          i.passengerStatus == PassengerStatus.Pending ? (
             <View style={styles.item}>
               <View style={styles.notificationInfo}>
                 <Text>
-                  From <Text style={styles.bold}>{i.from}</Text> to{" "}
-                  <Text style={styles.bold}>{i.to}</Text>, {i.dayTrip.getDay()}/
-                  {i.dayTrip.getMonth()}/{i.dayTrip.getFullYear()} at{" "}
-                  {i.dayTrip.getHours()}:{i.dayTrip.getMinutes()}
+                  From <Text style={styles.bold}>{i.originDescription}</Text> to{" "}
+                  <Text style={styles.bold}>{i.destinationDescription}</Text>, {Moment(i.dateTime).format("MMMM Do YYYY}")} at{" "}
+                  {Moment(i.dateTime).format("h:mm")}
                 </Text>
                 <Text>
                   <Text style={styles.bold}>
@@ -101,7 +100,7 @@ export default function NotificationsScreen() {
                   <Text>Decline:</Text>
                   <MaterialIcons
                     style={styles.iconLeft}
-                    onClick={() => onClick(i.tripId, false)}
+                    onClick={() => onClick(i.dayTripId, false)}
                     name="clear"
                     size={30}
                     color="black"
@@ -111,7 +110,7 @@ export default function NotificationsScreen() {
                   <Text>Accept:</Text>
                   <MaterialIcons
                     style={styles.iconRight}
-                    onClick={() => onClick(i.tripId, true)}
+                    onClick={() => onClick(i.dayTripId, true)}
                     name="check"
                     size={30}
                     color="black"
@@ -119,9 +118,6 @@ export default function NotificationsScreen() {
                 </View>
               </View>
             </View>
-          ) : (
-            <></>
-          )
         )}
       </View>
       <Snackbar
@@ -139,27 +135,6 @@ export default function NotificationsScreen() {
     </View>
   );
 }
-
-const mockPassengers: PassengerModel[] = [
-  {
-    userFirstName: "jabalina",
-    userLastName: "potulapiz",
-    from: "spain",
-    to: "guadalupe",
-    dayTrip: new Date(),
-    passengerStatus: PassengerStatus.Pending,
-    tripId: "00000000-0000-0000-0000-000000000000",
-  },
-  {
-    userFirstName: "telias",
-    userLastName: "marinera",
-    from: "switzerlina",
-    to: "freeburguer",
-    dayTrip: new Date(),
-    passengerStatus: PassengerStatus.Pending,
-    tripId: "00000000-0000-0000-0000-000000000000",
-  },
-];
 
 function GetIcon(props: {
   name: React.ComponentProps<typeof MaterialIcons>["name"];
