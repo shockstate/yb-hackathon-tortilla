@@ -45,7 +45,7 @@ namespace Tortilla.Hackathon.Services.Services
             var acceptedPassengers = passenger.DayTrip.Passengers.Count(p => p.PassengerStatus == PassengerStatus.Accepted);
             if (isAccepted)
             {
-                if (acceptedPassengers >= passenger.DayTrip.Trip.User.Car.MaxCapacity)
+                if (acceptedPassengers >= passenger.DayTrip.Trip.User.Car.MaxPassengersCapacity)
                 {
                     throw new InvalidOperationException("Trip is full");
                 }

@@ -127,7 +127,7 @@ namespace Tortilla.Hackathon.Services.Services
         {
             var dayTrip = await dayTripRepository.GetDayTripById(dayTripRequestDto.DayTripId);
 
-            var carMaxCapacity = dayTrip.Trip.User.Car.MaxCapacity;
+            var carMaxCapacity = dayTrip.Trip.User.Car.MaxPassengersCapacity;
 
             if (dayTrip.DateTime <= DateTime.Now)
             {
@@ -144,7 +144,7 @@ namespace Tortilla.Hackathon.Services.Services
                 throw new Exception("User already requested this trip.");
             }
 
-            if (dayTrip.Passengers.Count(p => p.PassengerStatus == PassengerStatus.Accepted) >= carMaxCapacity - 1)
+            if (dayTrip.Passengers.Count(p => p.PassengerStatus == PassengerStatus.Accepted) >= carMaxCapacity)
             {
                 throw new Exception("Trip is already full.");
             }
