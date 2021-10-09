@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { Text, View, TextInput, Button, StyleSheet } from "react-native";
-import { useForm, Controller } from "react-hook-form";
-import CarTypeEnum from "../enums/CarTypeEnum";
-import RegisterUserModel from "../models/RegisterUserModel";
-import DateField from "react-native-datefield";
 import { Picker } from "@react-native-picker/picker";
+import React from "react";
+import { Controller, useForm } from "react-hook-form";
+import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import DateField from "react-native-datefield";
+import CarTypeEnum from "../enums/CarTypeEnum";
 import { useAuth } from "../hooks/useAuth";
+import RegisterUserModel from "../models/RegisterUserModel";
 import { Loading } from "./Loading";
 
 interface RegisterUserFormProps {
@@ -243,22 +243,30 @@ export default function RegisterUserForm({ register }: RegisterUserFormProps) {
           render={({ field: { onChange, onBlur, value } }) => (
             <>
               <Text style={styles.label}>Maximum passengers capacity:</Text>
-              <TextInput
-                style={styles.input}
-                placeholder="4"
-                onBlur={onBlur}
-                onChangeText={(value) => {
-                  onChange(value);
-                }}
-                value={value}
-              />
+              <Picker
+                style={{ height: 40, marginTop: 12 }}
+                onValueChange={onChange}
+              >
+                <Picker.Item
+                  value={2}
+                  label="Small car - (up to 1 passenger)"
+                />
+                <Picker.Item
+                  value={4}
+                  label="Medium car - (up to 4 passengers)"
+                />
+                <Picker.Item
+                  value={6}
+                  label="Large car - (6 or more passengers)"
+                />
+              </Picker>
             </>
           )}
           name="car.maxCapacity"
           rules={{
             required: true,
           }}
-          defaultValue=""
+          defaultValue={2}
         />
         {errors.maxCapacity && (
           <Text style={styles.errorText}>

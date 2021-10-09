@@ -1,17 +1,9 @@
-import React, { useState } from "react";
-import {
-  Text,
-  View,
-  TextInput,
-  Button,
-  StyleSheet,
-  ScrollView,
-} from "react-native";
-import { useForm, Controller } from "react-hook-form";
-import CarTypeEnum from "../enums/CarTypeEnum";
-import RegisterUserModel from "../models/RegisterUserModel";
-import DateField from "react-native-datefield";
 import { Picker } from "@react-native-picker/picker";
+import React from "react";
+import { Controller, useForm } from "react-hook-form";
+import { Button, ScrollView, StyleSheet, Text, View } from "react-native";
+import DateField from "react-native-datefield";
+import { locations } from "../constants/Locations";
 import SearchModel from "../models/SearchModel";
 
 interface SearchFormProps {
@@ -66,6 +58,9 @@ export default function SearchForm({ search }: SearchFormProps) {
                 value="47.54473437449549,7.589980336081139"
                 label="iSolutions Basel"
               />
+              {locations.map((loc, index) => (
+                <Picker.Item value={loc.value} label={loc.label} key={index} />
+              ))}
             </Picker>
           </>
         )}
@@ -73,7 +68,7 @@ export default function SearchForm({ search }: SearchFormProps) {
         rules={{
           required: true,
         }}
-        defaultValue=""
+        defaultValue={locations[0].value}
       />
       {errors.origin && (
         <Text style={styles.errorText}>Origin is required.</Text>
@@ -109,6 +104,9 @@ export default function SearchForm({ search }: SearchFormProps) {
                 value="47.54473437449549,7.589980336081139"
                 label="iSolutions Basel"
               />
+              {locations.map((loc, index) => (
+                <Picker.Item value={loc.value} label={loc.label} key={index} />
+              ))}
             </Picker>
           </>
         )}
@@ -116,7 +114,7 @@ export default function SearchForm({ search }: SearchFormProps) {
         rules={{
           required: true,
         }}
-        defaultValue=""
+        defaultValue={locations[0].value}
       />
       {errors.destination && (
         <Text style={styles.errorText}>Destination is required.</Text>

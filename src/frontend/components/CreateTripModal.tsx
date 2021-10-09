@@ -1,20 +1,14 @@
-import React, { useState } from "react";
-import {
-  View,
-  StyleSheet,
-  Text,
-  TextInput,
-  Button,
-  ScrollView,
-} from "react-native";
-import TripRecurrency from "../enums/TripRecurrency";
-import CreateTripModel from "../models/CreateTripModel";
-import DateField from "react-native-datefield";
 import { Picker } from "@react-native-picker/picker";
-import { Api } from "../constants/Api";
-import { useAuth } from "../hooks/useAuth";
-import { RootStackScreenProps } from "../types";
+import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { Button, ScrollView, StyleSheet, Text, View } from "react-native";
+import DateField from "react-native-datefield";
+import { Api } from "../constants/Api";
+import { locations } from "../constants/Locations";
+import TripRecurrency from "../enums/TripRecurrency";
+import { useAuth } from "../hooks/useAuth";
+import CreateTripModel from "../models/CreateTripModel";
+import { RootStackScreenProps } from "../types";
 import { Loading } from "./Loading";
 
 export default function CreateTripModal({
@@ -77,26 +71,13 @@ export default function CreateTripModal({
                     style={{ height: 40, marginTop: 12, width: "100%" }}
                     onValueChange={onChange}
                   >
-                    <Picker.Item
-                      value="46.96271204384958,7.465173447017116"
-                      label="Young Boys Stadium"
-                    />
-                    <Picker.Item
-                      value="41.389010291692514,2.174671157358779"
-                      label="iSolutions Bcn"
-                    />
-                    <Picker.Item
-                      value="47.451322893438046,8.568351419942868"
-                      label="iSolutions Zurich"
-                    />
-                    <Picker.Item
-                      value="45.977109747365404,7.658709362053811"
-                      label="Matterhorn"
-                    />
-                    <Picker.Item
-                      value="47.54473437449549,7.589980336081139"
-                      label="iSolutions Basel"
-                    />
+                    {locations.map((loc, index) => (
+                      <Picker.Item
+                        value={loc.value}
+                        label={loc.label}
+                        key={index}
+                      />
+                    ))}
                   </Picker>
                 </>
               )}
@@ -104,7 +85,7 @@ export default function CreateTripModal({
               rules={{
                 required: true,
               }}
-              defaultValue="46.96271204384958,7.465173447017116"
+              defaultValue={locations[0].value}
             />
             {errors.origin && (
               <Text style={styles.errorText}>
@@ -124,26 +105,13 @@ export default function CreateTripModal({
                     style={{ height: 40, marginTop: 12, width: "100%" }}
                     onValueChange={onChange}
                   >
-                    <Picker.Item
-                      value="46.96271204384958,7.465173447017116"
-                      label="Young Boys Stadium"
-                    />
-                    <Picker.Item
-                      value="41.389010291692514,2.174671157358779"
-                      label="iSolutions Bcn"
-                    />
-                    <Picker.Item
-                      value="47.451322893438046,8.568351419942868"
-                      label="iSolutions Zurich"
-                    />
-                    <Picker.Item
-                      value="45.977109747365404,7.658709362053811"
-                      label="Matterhorn"
-                    />
-                    <Picker.Item
-                      value="47.54473437449549,7.589980336081139"
-                      label="iSolutions Basel"
-                    />
+                    {locations.map((loc, index) => (
+                      <Picker.Item
+                        value={loc.value}
+                        label={loc.label}
+                        key={index}
+                      />
+                    ))}
                   </Picker>
                 </>
               )}
@@ -151,7 +119,7 @@ export default function CreateTripModal({
               rules={{
                 required: true,
               }}
-              defaultValue="41.389010291692514,2.174671157358779"
+              defaultValue={locations[0].value}
             />
             {errors.destination && (
               <Text style={styles.errorText}>

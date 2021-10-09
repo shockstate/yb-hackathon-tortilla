@@ -43,7 +43,7 @@ export default function NotificationsScreen() {
       console.error(error);
     }
   };
-  const onClick = async (tripId: string, isAccepted: boolean) => {
+  const onClick = async (tripId: string, passengerId: string,  isAccepted: boolean) => {
     console.log(isAccepted);
     try {
       var index = passengers.findIndex((i) => i.dayTripId == tripId);
@@ -52,7 +52,7 @@ export default function NotificationsScreen() {
         aux.splice(index, 1);
         setPassengers(aux);
       }
-      const response = await fetch(`${Api.URL_localhost}/Passenger/${tripId}`, {
+      const response = await fetch(`${Api.URL}/Passenger/${passengerId}`, {
         method: "PATCH",
         headers: {
           Accept: "application/json",
@@ -81,7 +81,7 @@ export default function NotificationsScreen() {
       <Text style={styles.title}>Requests to join your trips:</Text>
       <View style={styles.container}>
         {passengers.map((i, index) =>
-            <View style={styles.item}>
+            <View key={index} style={styles.item}>
               <View style={styles.notificationInfo}>
                 <Text>
                   From <Text style={styles.bold}>{i.originDescription}</Text> to{" "}
@@ -100,7 +100,7 @@ export default function NotificationsScreen() {
                   <Text>Decline:</Text>
                   <MaterialIcons
                     style={styles.iconLeft}
-                    onClick={() => onClick(i.dayTripId, false)}
+                    onClick={() => onClick(i.dayTripId, i.passengerId, false)}
                     name="clear"
                     size={30}
                     color="black"
@@ -110,7 +110,7 @@ export default function NotificationsScreen() {
                   <Text>Accept:</Text>
                   <MaterialIcons
                     style={styles.iconRight}
-                    onClick={() => onClick(i.dayTripId, true)}
+                    onClick={() => onClick(i.dayTripId, i.passengerId, true)}
                     name="check"
                     size={30}
                     color="black"
