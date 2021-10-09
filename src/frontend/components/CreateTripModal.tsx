@@ -40,10 +40,10 @@ export default function CreateTripModal({
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          originLatitude: createTrip.originLatitude,
-          originLongitude: createTrip.originLongitude,
-          destinationLatitude: createTrip.destinationLatitude,
-          destinationLongitude: createTrip.destinationLongitude,
+          originLatitude: createTrip.origin.split(",")[0],
+          originLongitude: createTrip.origin.split(",")[1],
+          destinationLatitude: createTrip.destination.split(",")[0],
+          destinationLongitude: createTrip.destination.split(",")[1],
           startDateTime: createTrip.startDateTime,
           tripRecurrency: createTrip.tripRecurrency,
           userId: auth.authData?.id,
@@ -73,51 +73,41 @@ export default function CreateTripModal({
               control={control}
               render={({ field: { onChange, onBlur, value } }) => (
                 <>
-                  <Text style={styles.label}>Origin Latitude</Text>
-                  <TextInput
-                    style={styles.input}
-                    onBlur={onBlur}
-                    onChangeText={(value) => {
-                      onChange(value);
-                    }}
-                    value={value}
-                  />
+                  <Text style={styles.label}>Origin</Text>
+                  <Picker
+                    style={{ height: 40, marginTop: 12 }}
+                    onValueChange={onChange}
+                  >
+                    <Picker.Item
+                      value="46.96271204384958,7.465173447017116"
+                      label="Young Boys Stadium"
+                    />
+                    <Picker.Item
+                      value="41.389010291692514,2.174671157358779"
+                      label="iSolutions Bcn"
+                    />
+                    <Picker.Item
+                      value="47.451322893438046,8.568351419942868"
+                      label="isolutions Zurich"
+                    />
+                    <Picker.Item
+                      value="45.977109747365404,7.658709362053811"
+                      label="Matterhorn"
+                    />
+                    <Picker.Item
+                      value="47.54473437449549,7.589980336081139"
+                      label="iSolutions Basel"
+                    />
+                  </Picker>
                 </>
               )}
-              name="originLatitude"
+              name="origin"
               rules={{
                 required: true,
               }}
-              defaultValue=""
+              defaultValue="46.96271204384958,7.465173447017116"
             />
-            {errors.originLatitude && (
-              <Text style={styles.errorText}>
-                The origin latitude is required.
-              </Text>
-            )}
-
-            <Controller
-              control={control}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <>
-                  <Text style={styles.label}>Origin Longitude</Text>
-                  <TextInput
-                    style={styles.input}
-                    onBlur={onBlur}
-                    onChangeText={(value) => {
-                      onChange(value);
-                    }}
-                    value={value}
-                  />
-                </>
-              )}
-              name="originLongitude"
-              rules={{
-                required: true,
-              }}
-              defaultValue=""
-            />
-            {errors.originLongitude && (
+            {errors.origin && (
               <Text style={styles.errorText}>
                 The origin latitude is required.
               </Text>
@@ -131,53 +121,43 @@ export default function CreateTripModal({
               control={control}
               render={({ field: { onChange, onBlur, value } }) => (
                 <>
-                  <Text style={styles.label}>Destination Latitude</Text>
-                  <TextInput
-                    style={styles.input}
-                    onBlur={onBlur}
-                    onChangeText={(value) => {
-                      onChange(value);
-                    }}
-                    value={value}
-                  />
+                  <Text style={styles.label}>Destination</Text>
+                  <Picker
+                    style={{ height: 40, marginTop: 12 }}
+                    onValueChange={onChange}
+                  >
+                    <Picker.Item
+                      value="46.96271204384958,7.465173447017116"
+                      label="Young Boys Stadium"
+                    />
+                    <Picker.Item
+                      value="41.389010291692514,2.174671157358779"
+                      label="iSolutions Bcn"
+                    />
+                    <Picker.Item
+                      value="47.451322893438046,8.568351419942868"
+                      label="isolutions Zurich"
+                    />
+                    <Picker.Item
+                      value="45.977109747365404,7.658709362053811"
+                      label="Matterhorn"
+                    />
+                    <Picker.Item
+                      value="47.54473437449549,7.589980336081139"
+                      label="iSolutions Basel"
+                    />
+                  </Picker>
                 </>
               )}
-              name="destinationLatitude"
+              name="destination"
               rules={{
                 required: true,
               }}
-              defaultValue=""
+              defaultValue="41.389010291692514,2.174671157358779"
             />
-            {errors.destinationLatitude && (
+            {errors.destination && (
               <Text style={styles.errorText}>
                 The destination latitude is required.
-              </Text>
-            )}
-
-            <Controller
-              control={control}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <>
-                  <Text style={styles.label}>Destination Longitude</Text>
-                  <TextInput
-                    style={styles.input}
-                    onBlur={onBlur}
-                    onChangeText={(value) => {
-                      onChange(value);
-                    }}
-                    value={value}
-                  />
-                </>
-              )}
-              name="destinationLongitude"
-              rules={{
-                required: true,
-              }}
-              defaultValue=""
-            />
-            {errors.destinationLongitude && (
-              <Text style={styles.errorText}>
-                The destination longitude is required.
               </Text>
             )}
           </View>
