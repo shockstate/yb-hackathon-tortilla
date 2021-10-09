@@ -7,6 +7,7 @@ import {
   Pressable,
   StyleSheet,
   TouchableOpacity,
+  Button,
 } from "react-native";
 import logo from "../assets/images/profile.png";
 import { Text, View } from "../components/Themed";
@@ -50,9 +51,9 @@ export default function ModalScreen() {
 
   return (
     <View style={styles.container}>
-      <Pressable onPress={() => auth.signOut()} style={styles.logout}>
-        <MaterialCommunityIcons name="logout" size={30} color="#F41E1E" />
-      </Pressable>
+      <View style={styles.logout}>
+        <Button title="Logout" onPress={() => auth.signOut()} color="#F41E1E" />
+      </View>
 
       <Image source={logo} style={{ width: 150, height: 150 }} />
       <Text style={styles.title}>Personal information</Text>

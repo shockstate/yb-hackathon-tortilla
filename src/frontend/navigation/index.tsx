@@ -19,7 +19,7 @@ import SignUpScreen from "../screens/SignUpScreen";
 import ModalScreen from "../screens/ModalScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import TabOneScreen from "../screens/TabOneScreen";
-import Notifications from "../screens/Notifications";
+import Notifications from "../screens/NotificationsScreen";
 import TabTwoScreen from "../screens/TabTwoScreen";
 import {
   RootStackParamList,
@@ -98,10 +98,7 @@ function RootNavigator(userData: any) {
           </Stack.Group>
 
           <Stack.Group screenOptions={{ presentation: "modal" }}>
-            <Stack.Screen
-              name="Create Trip Modal"
-              component={CreateTripModal}
-            />
+            <Stack.Screen name="CreateTripModal" component={CreateTripModal} />
           </Stack.Group>
         </>
       )}
