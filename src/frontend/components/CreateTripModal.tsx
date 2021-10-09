@@ -24,7 +24,6 @@ export default function CreateTripModal({
   const auth = useAuth();
 
   const createTripCall = async (createTrip: CreateTripModel) => {
-    console.log("createTrip", createTrip);
     setLoading(true);
     try {
       const response = await fetch(`${Api.URL}/trip`, {
@@ -53,7 +52,6 @@ export default function CreateTripModal({
       console.log(error);
     } finally {
       setLoading(false);
-      navigation.navigate("Home");
     }
   };
 
