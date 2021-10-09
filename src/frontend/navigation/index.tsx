@@ -73,7 +73,7 @@ function RootNavigator(userData: any) {
             name="SignUp"
             component={SignUpScreen}
             options={{
-              title: "Sign in",
+              headerShown: false,
             }}
           />
         </>
@@ -90,7 +90,11 @@ function RootNavigator(userData: any) {
             options={{ title: "Oops!" }}
           />
           <Stack.Group screenOptions={{ presentation: "modal" }}>
-            <Stack.Screen name="Account" component={ModalScreen} />
+            <Stack.Screen
+              name="Account"
+              component={ModalScreen}
+              options={{ title: "My account" }}
+            />
           </Stack.Group>
 
           <Stack.Group screenOptions={{ presentation: "modal" }}>
@@ -98,7 +102,11 @@ function RootNavigator(userData: any) {
           </Stack.Group>
 
           <Stack.Group screenOptions={{ presentation: "modal" }}>
-            <Stack.Screen name="CreateTripModal" component={CreateTripModal} />
+            <Stack.Screen
+              name="CreateTripModal"
+              component={CreateTripModal}
+              options={{ title: "Prepare your next trip" }}
+            />
           </Stack.Group>
         </>
       )}

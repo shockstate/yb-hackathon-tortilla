@@ -56,7 +56,7 @@ const SignUpScreen = ({
           paddingTop: 35,
         }}
       >
-        <SignUpForm register={register} />
+        <SignUpForm register={register} loading={loading} />
         <Text>
           Already have an account? Go to{" "}
           <Text

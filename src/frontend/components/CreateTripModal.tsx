@@ -186,7 +186,7 @@ export default function CreateTripModal({
               rules={{
                 required: true,
               }}
-              defaultValue=""
+              defaultValue={TripRecurrency.NONE}
             />
             {errors.tripRecurrency && (
               <Text style={styles.errorText}>The frequency is required.</Text>

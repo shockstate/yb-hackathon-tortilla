@@ -135,7 +135,7 @@ export default function ModalScreen() {
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.mainContainer}>
-        <Text style={styles.title}>Ranking of best Carless people</Text>
+        <Text style={styles.title}>Ranking of the best Carless people</Text>
         <View
           style={styles.separator}
           lightColor="#eee"
