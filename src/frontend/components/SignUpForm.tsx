@@ -21,6 +21,9 @@ export default function RegisterUserForm({ register }: RegisterUserFormProps) {
 
   return (
     <View style={styles.form}>
+      <View style={styles.separator}>
+        <Text style={styles.mainTitle}>SIGN UP</Text>
+      </View>
       <Controller
         control={control}
         render={({ field: { onChange, onBlur, value } }) => (
@@ -307,7 +310,7 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     borderRadius: 5,
-    padding: 12,
+    padding: 50,
   },
   input: {
     height: 40,
@@ -326,14 +329,26 @@ const styles = StyleSheet.create({
     marginTop: 12,
   },
   addCar: {
-    marginTop: 12,
+    marginTop: 30,
     marginBottom: 12,
-    padding: 12,
+    borderWidth: 1,
+    borderColor: "black",
+    padding: 30,
   },
   errorText: {
     color: "red",
   },
   submitButton: {
     marginTop: 12,
+  },
+  separator: {
+    borderBottomWidth: 1,
+    alignItems: "center",
+    marginBottom: 30,
+  },
+  mainTitle: {
+    fontWeight: "bold",
+    fontSize: 20,
+    marginBottom: 30,
   },
 });

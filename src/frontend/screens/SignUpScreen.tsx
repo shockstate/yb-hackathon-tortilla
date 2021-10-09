@@ -49,8 +49,6 @@ const SignUpScreen = ({
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.title}>Sign Up</Text>
-
       <SignUpForm register={register} />
       <Text>
         Already have an account? Go to{" "}

@@ -18,6 +18,9 @@ export default function LoginForm({ login }: LoginFormProps) {
 
   return (
     <View style={styles.form}>
+      <View style={styles.separator}>
+        <Text style={styles.mainTitle}>LOGIN</Text>
+      </View>
       <Controller
         control={control}
         render={({ field: { onChange, onBlur, value } }) => (
@@ -83,13 +86,26 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     borderRadius: 5,
-    padding: 12,
+    width: "98%",
+    padding: 50,
+  },
+  mainTitle: {
+    fontWeight: "bold",
+    fontSize: 20,
+    marginBottom: 30,
+  },
+  separator: {
+    borderBottomWidth: 1,
+    alignItems: "center",
+    marginBottom: 30,
   },
   input: {
     height: 40,
     marginTop: 12,
     borderWidth: 1,
+    borderColor: "black",
     padding: 10,
+    width: "100%",
   },
   dateInput: {
     fontSize: 15,
@@ -99,11 +115,6 @@ const styles = StyleSheet.create({
   },
   label: {
     marginTop: 12,
-  },
-  addCar: {
-    marginTop: 12,
-    marginBottom: 12,
-    padding: 12,
   },
   errorText: {
     color: "red",

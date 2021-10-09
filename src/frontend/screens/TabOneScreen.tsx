@@ -96,7 +96,7 @@ export default function TabOneScreen({
       <Text style={styles.title}>My Trips</Text>
       <View>
         <Button
-          onPress={() => navigation.navigate("CreateTripModal")}
+          onPress={() => navigation.navigate("Create Trip Modal")}
           title="Create trip"
           accessibilityLabel="Create Trip"
         />

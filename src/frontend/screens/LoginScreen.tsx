@@ -21,8 +21,6 @@ const LoginScreen = ({
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
-
       <LoginForm login={login} />
       <Text>
         You don't have an account? Go to{" "}
@@ -33,13 +31,6 @@ const LoginScreen = ({
           SIGN UP
         </Text>
       </Text>
-
-      <TouchableOpacity
-        onPress={() => navigation.replace("Home")}
-        style={styles.link}
-      >
-        <Text style={styles.linkText}>Go back</Text>
-      </TouchableOpacity>
 
       {auth.loading && <Loading></Loading>}
 
