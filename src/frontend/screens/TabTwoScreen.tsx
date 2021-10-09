@@ -13,7 +13,7 @@ import TripModel from "../models/TripModel";
 export default function TabTwoScreen() {
   const [loading, setLoading] = React.useState(false);
   const [isFinishedResponse, setIsFinishedResponse] = React.useState(false);
-  const [tripData, setTripData] = React.useState<TripModel>();
+  const [tripData, setTripData] = React.useState<TripModel[]>([]);
 
   const search = async (searchModel: SearchModel) => {
     setLoading(true);
@@ -52,7 +52,7 @@ export default function TabTwoScreen() {
 
       {isFinishedResponse && (
         <>
-          <SearchResult></SearchResult>
+          <SearchResult data={tripData}></SearchResult>
 
           <TouchableOpacity onPress={() => setIsFinishedResponse(false)}>
             <Text>Search again</Text>

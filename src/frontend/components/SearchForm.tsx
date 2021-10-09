@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { Text, View, TextInput, Button, StyleSheet } from "react-native";
+import {
+  Text,
+  View,
+  TextInput,
+  Button,
+  StyleSheet,
+  ScrollView,
+} from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import CarTypeEnum from "../enums/CarTypeEnum";
 import RegisterUserModel from "../models/RegisterUserModel";
@@ -18,24 +25,47 @@ export default function SearchForm({ search }: SearchFormProps) {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data: SearchModel) => search(data);
+  const onSubmit = (data: SearchModel) => {
+    console.log(data, "data on submit");
+    data.originLatitude = data.origin.split(",")[0];
+    data.originLongitude = data.origin.split(",")[1];
+    data.destinationLatitude = data.destination.split(",")[0];
+    data.destinationLongitude = data.destination.split(",")[1];
+    return search(data);
+  };
 
   return (
-    <View style={styles.form}>
+    <ScrollView style={styles.form}>
       <Controller
         control={control}
         render={({ field: { onChange, onBlur, value } }) => (
           <>
             <Text style={styles.label}>Origin:</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Origin"
-              onBlur={onBlur}
-              onChangeText={(value) => {
-                onChange(value);
-              }}
-              value={value}
-            />
+            <Picker
+              style={{ height: 40, marginTop: 12 }}
+              onValueChange={onChange}
+            >
+              <Picker.Item
+                value="46.96271204384958, 7.465173447017116"
+                label="Young Boys Stadium"
+              />
+              <Picker.Item
+                value="41.389010291692514,2.174671157358779"
+                label="iSolutions Bcn"
+              />
+              <Picker.Item
+                value="47.451322893438046,8.568351419942868"
+                label="isolutions Zurich"
+              />
+              <Picker.Item
+                value="45.977109747365404, 7.658709362053811"
+                label="Matterhorn"
+              />
+              <Picker.Item
+                value="47.54473437449549,7.589980336081139"
+                label="iSolutions Basel"
+              />
+            </Picker>
           </>
         )}
         name="origin"
@@ -53,15 +83,31 @@ export default function SearchForm({ search }: SearchFormProps) {
         render={({ field: { onChange, onBlur, value } }) => (
           <>
             <Text style={styles.label}>Destination:</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Destination"
-              onBlur={onBlur}
-              onChangeText={(value) => {
-                onChange(value);
-              }}
-              value={value}
-            />
+            <Picker
+              style={{ height: 40, marginTop: 12 }}
+              onValueChange={onChange}
+            >
+              <Picker.Item
+                value="46.96271204384958, 7.465173447017116"
+                label="Young Boys Stadium"
+              />
+              <Picker.Item
+                value="41.389010291692514,2.174671157358779"
+                label="iSolutions Bcn"
+              />
+              <Picker.Item
+                value="47.451322893438046,8.568351419942868"
+                label="isolutions Zurich"
+              />
+              <Picker.Item
+                value="45.977109747365404, 7.658709362053811"
+                label="Matterhorn"
+              />
+              <Picker.Item
+                value="47.54473437449549,7.589980336081139"
+                label="iSolutions Basel"
+              />
+            </Picker>
           </>
         )}
         name="destination"
@@ -99,7 +145,7 @@ export default function SearchForm({ search }: SearchFormProps) {
       <View style={styles.submitButton}>
         <Button title="Search" onPress={handleSubmit(onSubmit)} />
       </View>
-    </View>
+    </ScrollView>
   );
 }
 

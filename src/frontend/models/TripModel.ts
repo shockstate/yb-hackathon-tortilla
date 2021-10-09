@@ -10,6 +10,8 @@ interface TripModel {
   destinationLongitude: string;
   dateTime: Date;
   isUserPassanger: boolean;
+  originDistanceInMeters: number;
+  destinationDistanceInMeters: number;
 }
 
 export default TripModel;
