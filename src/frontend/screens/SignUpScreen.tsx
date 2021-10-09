@@ -1,6 +1,5 @@
 import React, { ReactElement, useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, ScrollView } from "react-native";
-import { Loading } from "../components/Loading";
+import { StyleSheet, Text, ScrollView, View } from "react-native";
 import SignUpForm from "../components/SignUpForm";
 import { Api } from "../constants/Api";
 import RegisterUserModel from "../models/RegisterUserModel";
@@ -49,15 +48,18 @@ const SignUpScreen = ({
 
   return (
     <ScrollView style={styles.container}>
-      <SignUpForm register={register} />
-      <Text>
-        Already have an account? Go to{" "}
-        <Text onPress={() => navigation.replace("Login")} style={styles.login}>
-          LOGIN
+      <View style={{ alignItems: "center", justifyContent: "center" }}>
+        <SignUpForm register={register} />
+        <Text>
+          Already have an account? Go to{" "}
+          <Text
+            onPress={() => navigation.replace("Login")}
+            style={styles.login}
+          >
+            LOGIN
+          </Text>
         </Text>
-      </Text>
-
-      {loading && <Loading></Loading>}
+      </View>
     </ScrollView>
   );
 };

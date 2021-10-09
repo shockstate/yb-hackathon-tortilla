@@ -2,7 +2,6 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { Component, ReactElement, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import LoginForm from "../components/LoginForm";
-import { Loading } from "../components/Loading";
 
 import { useAuth } from "../hooks/useAuth";
 import { RootStackScreenProps } from "../types";
@@ -22,8 +21,9 @@ const LoginScreen = ({
   return (
     <View style={styles.container}>
       <LoginForm login={login} />
+
       <Text>
-        You don't have an account? Go to{" "}
+        Don't have an account yet? Go to{" "}
         <Text
           onPress={() => navigation.replace("SignUp")}
           style={styles.signUp}
@@ -31,8 +31,6 @@ const LoginScreen = ({
           SIGN UP
         </Text>
       </Text>
-
-      {auth.loading && <Loading></Loading>}
 
       {hasLoginError && (
         <Text style={styles.errorMessage}>
