@@ -3,11 +3,11 @@ import PassengerStatus from "../enums/PassengerStatus";
 interface PassengerModel {
   userFirstName: string;
   userLastName: string;
-  from: string;
-  to: string;
-  dayTrip: Date;
-  tripId: string;
-  passengerStatus: PassengerStatus;
+  originDescription: string;
+  destinationDescription: string;
+  dateTime: Date;
+  dayTripId: string;
+  passengerId: string;
 }
 
 export default PassengerModel;

@@ -1,30 +1,58 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import * as React from "react";
+import { useEffect } from "react";
 import { StyleSheet } from "react-native";
-import { List, Snackbar } from "react-native-paper";
+import { Snackbar } from "react-native-paper";
 import { Text, View } from "../components/Themed";
 import { Api } from "../constants/Api";
 import PassengerStatus from "../enums/PassengerStatus";
+import { useAuth } from "../hooks/useAuth";
 import PassengerModel from "../models/PassengerModel";
-import TripModel from "../models/TripModel";
+import Moment from "moment";
 
 export default function NotificationsScreen() {
   const [loading, setLoading] = React.useState(false);
-  const [passengers, setPassengers] = React.useState(mockPassengers);
+  const auth = useAuth();
+  const [passengers, setPassengers] = React.useState<PassengerModel[]>([]);
   const [visible, setVisible] = React.useState(false);
   const [snackbarText, setSnackBarText] = React.useState("");
 
+
   const onDismissSnackBar = () => setVisible(false);
-  const onClick = async (tripId: string, isAccepted: boolean) => {
+
+  useEffect(() => {
+    getUserNotifications();
+  }, []);
+
+  const getUserNotifications = async () => {
+    var id = auth.authData?.id;
+    if (id) {
+      
+    }
+    try {
+      fetch(`${Api.URL}/Passenger/pendings?userId=${id}`, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => setPassengers(data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const onClick = async (tripId: string, passengerId: string,  isAccepted: boolean) => {
     console.log(isAccepted);
     try {
-      var index = passengers.findIndex((i) => i.tripId == tripId);
+      var index = passengers.findIndex((i) => i.dayTripId == tripId);
       if (index > -1) {
         var aux = passengers.slice(0);
         aux.splice(index, 1);
         setPassengers(aux);
       }
-      const response = await fetch(`${Api.URL_localhost}/Passenger/${tripId}`, {
+      const response = await fetch(`${Api.URL}/Passenger/${passengerId}`, {
         method: "PATCH",
         headers: {
           Accept: "application/json",
@@ -53,14 +81,12 @@ export default function NotificationsScreen() {
       <Text style={styles.title}>Requests to join your trips:</Text>
       <View style={styles.container}>
         {passengers.map((i, index) =>
-          i.passengerStatus == PassengerStatus.Pending ? (
-            <View style={styles.item}>
+            <View key={index} style={styles.item}>
               <View style={styles.notificationInfo}>
                 <Text>
-                  From <Text style={styles.bold}>{i.from}</Text> to{" "}
-                  <Text style={styles.bold}>{i.to}</Text>, {i.dayTrip.getDay()}/
-                  {i.dayTrip.getMonth()}/{i.dayTrip.getFullYear()} at{" "}
-                  {i.dayTrip.getHours()}:{i.dayTrip.getMinutes()}
+                  From <Text style={styles.bold}>{i.originDescription}</Text> to{" "}
+                  <Text style={styles.bold}>{i.destinationDescription}</Text>, {Moment(i.dateTime).format("MMMM Do YYYY}")} at{" "}
+                  {Moment(i.dateTime).format("h:mm")}
                 </Text>
                 <Text>
                   <Text style={styles.bold}>
@@ -74,7 +100,7 @@ export default function NotificationsScreen() {
                   <Text>Decline:</Text>
                   <MaterialIcons
                     style={styles.iconLeft}
-                    onClick={() => onClick(i.tripId, false)}
+                    onClick={() => onClick(i.dayTripId, i.passengerId, false)}
                     name="clear"
                     size={30}
                     color="black"
@@ -84,7 +110,7 @@ export default function NotificationsScreen() {
                   <Text>Accept:</Text>
                   <MaterialIcons
                     style={styles.iconRight}
-                    onClick={() => onClick(i.tripId, true)}
+                    onClick={() => onClick(i.dayTripId, i.passengerId, true)}
                     name="check"
                     size={30}
                     color="black"
@@ -92,9 +118,6 @@ export default function NotificationsScreen() {
                 </View>
               </View>
             </View>
-          ) : (
-            <></>
-          )
         )}
       </View>
       <Snackbar
@@ -112,27 +135,6 @@ export default function NotificationsScreen() {
     </View>
   );
 }
-
-const mockPassengers: PassengerModel[] = [
-  {
-    userFirstName: "jabalina",
-    userLastName: "potulapiz",
-    from: "spain",
-    to: "guadalupe",
-    dayTrip: new Date(),
-    passengerStatus: PassengerStatus.Pending,
-    tripId: "00000000-0000-0000-0000-000000000000",
-  },
-  {
-    userFirstName: "telias",
-    userLastName: "marinera",
-    from: "switzerlina",
-    to: "freeburguer",
-    dayTrip: new Date(),
-    passengerStatus: PassengerStatus.Pending,
-    tripId: "00000000-0000-0000-0000-000000000000",
-  },
-];
 
 function GetIcon(props: {
   name: React.ComponentProps<typeof MaterialIcons>["name"];

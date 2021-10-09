@@ -20,11 +20,11 @@ namespace Tortilla.Hackathon.Data.Repositories
         {
             return await dbContext.DayTrips
                 .Include(d => d.Trip)
+                .Include(d => d.Passengers)
                 .Where(dayTrip =>
                     dayTrip.Trip.UserId == userId ||
                     dayTrip.Passengers.Any(p => p.UserId == userId))
-                // My following trips (one week)
-                //.Where(dayTrip => dayTrip.DateTime >= DateTime.Now && dayTrip.DateTime <= DateTime.Now.AddDays(7))
+                .Where(dayTrip => dayTrip.DateTime >= DateTime.Now)
                 .ToListAsync();
         }
 

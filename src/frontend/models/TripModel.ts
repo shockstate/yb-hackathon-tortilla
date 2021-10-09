@@ -1,3 +1,4 @@
+import PassengerTypeEnum from "../enums/PassengerStatus";
 import RecurrencyEnum from "../enums/RecurrencyEnum";
 
 interface TripModel {
@@ -9,9 +10,10 @@ interface TripModel {
   destinationLatitude: string;
   destinationLongitude: string;
   dateTime: Date;
-  isUserPassanger: boolean;
+  isUserPassenger: boolean;
   originDistanceInMeters: number;
   destinationDistanceInMeters: number;
+  passengerStatus: PassengerTypeEnum;
 }
 
 export default TripModel;
