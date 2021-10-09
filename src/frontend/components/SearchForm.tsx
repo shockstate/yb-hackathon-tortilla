@@ -1,17 +1,8 @@
-import React, { useState } from "react";
-import {
-  Text,
-  View,
-  TextInput,
-  Button,
-  StyleSheet,
-  ScrollView,
-} from "react-native";
-import { useForm, Controller } from "react-hook-form";
-import CarTypeEnum from "../enums/CarTypeEnum";
-import RegisterUserModel from "../models/RegisterUserModel";
-import DateField from "react-native-datefield";
 import { Picker } from "@react-native-picker/picker";
+import React from "react";
+import { Controller, useForm } from "react-hook-form";
+import { Button, ScrollView, StyleSheet, Text, View } from "react-native";
+import DateField from "react-native-datefield";
 import SearchModel from "../models/SearchModel";
 
 interface SearchFormProps {
@@ -72,7 +63,7 @@ export default function SearchForm({ search }: SearchFormProps) {
         rules={{
           required: true,
         }}
-        defaultValue=""
+        defaultValue="46.96271204384958,7.465173447017116"
       />
       {errors.origin && (
         <Text style={styles.errorText}>Origin is required.</Text>
@@ -114,7 +105,7 @@ export default function SearchForm({ search }: SearchFormProps) {
         rules={{
           required: true,
         }}
-        defaultValue=""
+        defaultValue="46.96271204384958,7.465173447017116"
       />
       {errors.destination && (
         <Text style={styles.errorText}>Destination is required.</Text>
