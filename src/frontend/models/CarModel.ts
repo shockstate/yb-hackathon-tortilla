@@ -3,7 +3,7 @@ import CarTypeEnum from "../enums/CarTypeEnum";
 interface CarModel {
   model: string;
   year: string;
-  maxCapacity: string;
+  maxPassengersCapacity: string;
   carType: CarTypeEnum;
 }
 

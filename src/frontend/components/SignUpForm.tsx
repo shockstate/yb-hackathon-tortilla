@@ -264,13 +264,13 @@ export default function RegisterUserForm({
               </Picker>
             </>
           )}
-          name="car.maxCapacity"
+          name="car.maxPassengersCapacity"
           rules={{
             required: true,
           }}
           defaultValue={2}
         />
-        {errors.maxCapacity && (
+        {errors.maxPassengersCapacity && (
           <Text style={styles.errorText}>
             The maximum capacity is required.
           </Text>
