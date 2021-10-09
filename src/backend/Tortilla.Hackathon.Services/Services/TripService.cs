@@ -53,7 +53,9 @@ namespace Tortilla.Hackathon.Services.Services
             foreach (var myDayTripDto in myDayTripDtos)
             {
                 var myDayTrip = dayTrips.First(t => t.Id == myDayTripDto.Id);
-                myDayTripDto.IsUserPassenger = myDayTrip.Trip.UserId != userId;
+                var userPassenger = myDayTrip.Passengers.FirstOrDefault(p => p.UserId == userId);
+                myDayTripDto.IsUserPassenger = userPassenger != null;
+                myDayTripDto.PassengerStatus = userPassenger?.PassengerStatus ?? PassengerStatus.Pending;
             }
         }
 

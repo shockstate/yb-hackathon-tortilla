@@ -13,5 +13,6 @@ namespace Tortilla.Hackathon.Services.Models.Dtos.Trips
         public double DestinationLongitude { get; set; }
         public DateTime DateTime { get; set; }
         public bool IsUserPassenger { get; set; }
+        public PassengerStatus PassengerStatus { get;set; }
     }
 }
