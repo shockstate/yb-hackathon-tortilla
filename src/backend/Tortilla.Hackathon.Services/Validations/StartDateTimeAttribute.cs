@@ -12,7 +12,7 @@ namespace Tortilla.Hackathon.Services.Validations
 
             if (startDateTime < DateTime.Now)
             {
-                return new ValidationResult("StartDateTime should be greater than today", new List<string>()
+                return new ValidationResult("Should be greater than today", new List<string>()
                 {
                     validationContext.MemberName
                 });
