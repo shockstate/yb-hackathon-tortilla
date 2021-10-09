@@ -11,13 +11,14 @@ import {
 
 import { RootStackScreenProps } from "../types";
 import logo from "../assets/images/logo.png";
+import lesscars from "../assets/images/lesscars.png";
 
 const HomeScreen = ({
   navigation,
 }: RootStackScreenProps<"Home">): ReactElement => {
   return (
     <View style={styles.container}>
-      <Image source={logo} style={{ width: 257, height: 59 }} />
+      <Image source={logo} style={{ width: 317, height:72, position:"absolute", top:120}} />
 
       <Text style={styles.title}>Welcome!</Text>
 
@@ -28,6 +29,8 @@ const HomeScreen = ({
       <View style={styles.link}>
         <Button title="Sign up" onPress={() => navigation.replace("SignUp")} />
       </View>
+
+      <Image source={lesscars} style={{ width: 320, height: 42, position:"absolute", bottom:50}} />
     </View>
   );
 };
