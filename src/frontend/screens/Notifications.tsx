@@ -13,7 +13,6 @@ export default function Notifications() {
   const [passengers, setPassengers] = React.useState(mockPassengers);
   const [visible, setVisible] = React.useState(false);
   const [snackbarText, setSnackBarText] = React.useState("");
-  const [tripData, setTripData] = React.useState<TripModel>();
 
   const onDismissSnackBar = () => setVisible(false);
   const onClick = async (tripId: string, isAccepted: boolean) => {
@@ -52,37 +51,27 @@ export default function Notifications() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Requests to join your trips:</Text>
-      {passengers.map((i, index) =>
-        i.passengerStatus == PassengerStatus.Pending ? (
-          <List.Item
-            key={index}
-            title={`From ${i.from} to ${
-              i.to
-            }, ${i.dayTrip.getDay()}/${i.dayTrip.getMonth()}/${i.dayTrip.getFullYear()} at ${i.dayTrip.getHours()}:${i.dayTrip.getMinutes()}`}
-            description={`${i.userFirstName} ${i.userLastName} wants to join"`}
-            right={(_) => (
-              <>
-                <MaterialIcons
-                  style={styles.iconLeft}
-                  onClick={() => onClick(i.tripId, false)}
-                  name="clear"
-                  size={24}
-                  color="black"
-                />
-                <MaterialIcons
-                  style={styles.iconRight}
-                  onClick={() => onClick(i.tripId, true)}
-                  name="check"
-                  size={24}
-                  color="black"
-                />
-              </>
-            )}
-          />
-        ) : (
-          <></>
-        )
-      )}
+      {
+        passengers.length > 0 ?
+          passengers.map((i, index)=>(
+              i.passengerStatus == PassengerStatus.Pending ?
+              <List.Item
+              key={index}
+              title={`From ${i.from} to ${i.to}, ${i.dayTrip.getDay()}/${i.dayTrip.getMonth()}/${i.dayTrip.getFullYear()} at ${i.dayTrip.getHours()}:${i.dayTrip.getMinutes()}`}
+              description={`${i.userFirstName} ${i.userLastName} wants to join"`}
+              right={_ => 
+                <>
+                  <MaterialIcons style={styles.iconLeft} onClick={() => onClick(i.tripId, false)} name="clear" size={24} color='black'/>
+                  <MaterialIcons style={styles.iconRight} onClick={() => onClick(i.tripId, true)} name="check" size={24} color='black'/>
+                </>
+              }
+              />
+              : 
+              <></>
+          ))
+        :
+        <Text>You have no requests... Create new trips to get new ones!</Text>
+        }
       <Snackbar
         visible={visible}
         onDismiss={onDismissSnackBar}
