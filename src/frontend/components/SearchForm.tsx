@@ -174,6 +174,7 @@ const styles = StyleSheet.create({
     padding: 12,
     width: "32%",
     marginTop: 12,
+    borderWidth: 1,
   },
   label: {
     marginTop: 12,
