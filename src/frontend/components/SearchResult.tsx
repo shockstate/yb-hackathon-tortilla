@@ -8,10 +8,13 @@ import { Api } from "../constants/Api";
 import Colors from "../constants/Colors";
 import { useAuth } from "../hooks/useAuth";
 import TripModel from "../models/TripModel";
-import { MonoText } from "./StyledText";
+import { RootTabScreenProps } from "../types";
 import { Text, View } from "./Themed";
 
-export default function SearchResult(data: any) {
+export default function SearchResult(
+  data: any,
+  { navigation }: RootTabScreenProps<"TabTwo">
+) {
   const auth = useAuth();
 
   const Item = ({ item }: { item: TripModel }) => (
@@ -80,6 +83,7 @@ export default function SearchResult(data: any) {
       });
       if (response.ok) {
         alert("Requested OK");
+        navigation.navigate("TabOne");
       }
     } catch (error) {
       console.log(error);
@@ -91,7 +95,13 @@ export default function SearchResult(data: any) {
   return (
     <View>
       <Text style={styles.title}>Your search results</Text>
-      {data && data.data.length && (
+
+      {data && data.data.length == 0 && (
+        <Text style={styles.subTitle}>
+          No trips to show =( No worries! We can still save the planet
+        </Text>
+      )}
+      {data && data.data.length > 0 && (
         <>
           <FlatList
             data={data.data}
