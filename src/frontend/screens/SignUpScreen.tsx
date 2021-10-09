@@ -52,14 +52,14 @@ const SignUpScreen = ({
       <Text style={styles.title}>Sign Up</Text>
 
       <SignUpForm register={register} />
-      {loading && <Loading></Loading>}
+      <Text>
+        Already have an account? Go to{" "}
+        <Text onPress={() => navigation.replace("Login")} style={styles.login}>
+          LOGIN
+        </Text>
+      </Text>
 
-      <TouchableOpacity
-        onPress={() => navigation.replace("Home")}
-        style={styles.link}
-      >
-        <Text style={styles.linkText}>Go back</Text>
-      </TouchableOpacity>
+      {loading && <Loading></Loading>}
     </ScrollView>
   );
 };
@@ -75,6 +75,9 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: "bold",
+  },
+  login: {
+    color: "#2196F3",
   },
   link: {
     marginTop: 15,

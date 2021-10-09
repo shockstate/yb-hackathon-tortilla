@@ -1,17 +1,20 @@
-import * as React from "react";
+import React from "react";
 import { StyleSheet } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
-import EditScreenInfo from "../components/EditScreenInfo";
 import SearchForm from "../components/SearchForm";
+import SearchResult from "../components/SearchResult";
 import { Text, View } from "../components/Themed";
 import { Api } from "../constants/Api";
+import { useAuth } from "../hooks/useAuth";
 import SearchModel from "../models/SearchModel";
 import TripModel from "../models/TripModel";
 
 export default function TabTwoScreen() {
   const [loading, setLoading] = React.useState(false);
   const [isFinishedResponse, setIsFinishedResponse] = React.useState(false);
-  const [tripData, setTripData] = React.useState<TripModel>();
+  const [tripData, setTripData] = React.useState<TripModel[]>([]);
+  const auth = useAuth();
 
   const search = async (searchModel: SearchModel) => {
     setLoading(true);
@@ -23,13 +26,20 @@ export default function TabTwoScreen() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          origin: searchModel.origin,
-          destination: searchModel.destination,
+          originLatitude: searchModel.originLatitude,
+          originLongitude: searchModel.originLongitude,
+          destinationLatitude: searchModel.destinationLatitude,
+          destinationLongitude: searchModel.destinationLongitude,
           date: searchModel.date,
+          userId: auth.authData?.id,
         }),
       });
-      setTripData(await response.json());
-      return response.json();
+      if (response.ok) {
+        const result = await response.json();
+        setTripData(result);
+        return result;
+      }
+      return [] as SearchModel[];
     } catch (error) {
       console.log(error);
     } finally {
@@ -46,12 +56,17 @@ export default function TabTwoScreen() {
         lightColor="#eee"
         darkColor="rgba(255,255,255,0.1)"
       />
-      <SearchForm search={search}></SearchForm>
-      <View
-        style={styles.separator}
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
-      />
+      {!isFinishedResponse && <SearchForm search={search}></SearchForm>}
+
+      {isFinishedResponse && (
+        <>
+          <SearchResult data={tripData}></SearchResult>
+
+          <TouchableOpacity onPress={() => setIsFinishedResponse(false)}>
+            <Text>Search again</Text>
+          </TouchableOpacity>
+        </>
+      )}
     </View>
   );
 }

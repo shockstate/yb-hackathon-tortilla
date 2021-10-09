@@ -1,23 +1,16 @@
 import { Ionicons } from "@expo/vector-icons";
-import React, { useState } from "react";
-import { Button, StatusBar, StyleSheet } from "react-native";
-import { FlatList, TouchableHighlight } from "react-native-gesture-handler";
-import CreateTripModal from "../components/CreateTripModal";
+import * as WebBrowser from "expo-web-browser";
+import moment from "moment";
+import React from "react";
+import { StatusBar, StyleSheet, TouchableOpacity } from "react-native";
+import { FlatList } from "react-native-gesture-handler";
 
-import { Text, View } from "../components/Themed";
-import { Api } from "../constants/Api";
 import Colors from "../constants/Colors";
-import { useAuth } from "../hooks/useAuth";
 import TripModel from "../models/TripModel";
-import { RootTabScreenProps } from "../types";
-import Moment from "moment";
+import { MonoText } from "./StyledText";
+import { Text, View } from "./Themed";
 
-export default function TabOneScreen({
-  navigation,
-}: RootTabScreenProps<"TabOne">) {
-  const auth = useAuth();
-  const [tripsData, setTripsData] = React.useState<TripModel[]>([]);
-
+export default function SearchResult(data: any) {
   const Item = ({ item }: { item: TripModel }) => (
     <View style={styles.item}>
       <Text style={styles.cardTitle}>
@@ -61,57 +54,23 @@ export default function TabOneScreen({
           color={Colors.light.tint}
         />
         <View style={styles.iconSeparator}></View>
-        <Text>{Moment(item.dateTime).format("MMMM Do YYYY, h:mm:ss a")}</Text>
+        <Text>{moment(item.dateTime).format("MMMM Do YYYY, h:mm:ss a")}</Text>
       </Text>
     </View>
   );
 
   const renderItem = ({ item }: { item: TripModel }) => <Item item={item} />;
 
-  const onRefresh = () => {
-    getUserTrips();
-  };
-
-  const getUserTrips = async () => {
-    const data = await fetch(
-      `${Api.URL}/Trip/myTrips?userId=${auth.authData?.id}`
-    )
-      .then((response) => response.json())
-      .then((json) => {
-        setTripsData(json);
-        return json;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-    setTripsData(data);
-  };
-
-  React.useEffect(() => {
-    getUserTrips();
-  }, []);
-
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>My Trips</Text>
-      <View>
-        <Button
-          onPress={() => navigation.navigate("CreateTripModal")}
-          title="Create trip"
-          accessibilityLabel="Create Trip"
+    <View>
+      <Text style={styles.title}>Your search results</Text>
+      {data && data.length > 0 && (
+        <FlatList
+          data={data}
+          renderItem={renderItem}
+          keyExtractor={(item: TripModel) => item.id}
         />
-      </View>
-      <View
-        style={styles.separator}
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
-      />
-      <FlatList
-        data={tripsData}
-        renderItem={renderItem}
-        keyExtractor={(item: TripModel) => item.id}
-        onRefresh={onRefresh}
-      />
+      )}
     </View>
   );
 }

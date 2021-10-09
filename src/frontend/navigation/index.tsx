@@ -32,6 +32,7 @@ import {} from "../contexts/AuthContext";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Text } from "../components/Themed";
 import { useAuth } from "../hooks/useAuth";
+import CreateTripModal from "../components/CreateTripModal";
 
 const Navigation = ({ colorScheme }: { colorScheme: ColorSchemeName }) => {
   const [userData, setUserData] = React.useState(null);
@@ -91,6 +92,10 @@ function RootNavigator(userData: any) {
           />
           <Stack.Group screenOptions={{ presentation: "modal" }}>
             <Stack.Screen name="Modal" component={ModalScreen} />
+          </Stack.Group>
+
+          <Stack.Group screenOptions={{ presentation: "modal" }}>
+            <Stack.Screen name="CreateTripModal" component={CreateTripModal} />
           </Stack.Group>
         </>
       )}

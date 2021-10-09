@@ -8,8 +8,10 @@ interface TripModel {
   destinationDescription: string;
   destinationLatitude: string;
   destinationLongitude: string;
-  recurrency: RecurrencyEnum;
+  dateTime: Date;
   isUserPassanger: boolean;
+  originDistanceInMeters: number;
+  destinationDistanceInMeters: number;
 }
 
 export default TripModel;
