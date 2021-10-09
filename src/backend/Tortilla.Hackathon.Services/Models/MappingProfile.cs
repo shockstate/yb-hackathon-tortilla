@@ -24,7 +24,18 @@ namespace Tortilla.Hackathon.Services.Models
 
             CreateMap<User, UserRankingDto>();
 
-            CreateMap<Passenger, PendingPassengerDto>();
+            CreateMap<Passenger, PendingPassengerDto>()
+                .ForMember(dest => dest.PassengerId, opts => opts.MapFrom(src => src.Id))
+                .ForMember(dest => dest.UserId, opts => opts.MapFrom(src => src.User.Id))
+                .ForMember(dest => dest.UserFirstName, opts => opts.MapFrom(src => src.User.FirstName))
+                .ForMember(dest => dest.UserLastName, opts => opts.MapFrom(src => src.User.LastName))
+                .ForMember(dest => dest.OriginDescription, opts => opts.MapFrom(src => src.DayTrip.Trip.OriginDescription))
+                .ForMember(dest => dest.OriginLatitude, opts => opts.MapFrom(src => src.DayTrip.Trip.OriginLatitude))
+                .ForMember(dest => dest.OriginLongitude, opts => opts.MapFrom(src => src.DayTrip.Trip.OriginLongitude))
+                .ForMember(dest => dest.DestinationDescription, opts => opts.MapFrom(src => src.DayTrip.Trip.DestinationDescription))
+                .ForMember(dest => dest.DestinationLatitude, opts => opts.MapFrom(src => src.DayTrip.Trip.DestinationLatitude))
+                .ForMember(dest => dest.DestinationLongitude, opts => opts.MapFrom(src => src.DayTrip.Trip.DestinationLongitude))
+                .ForMember(dest => dest.DateTime, opts => opts.MapFrom(src => src.DayTrip.DateTime));
 
             CreateMap<DayTrip, MyDayTripDto>()
                 .ForMember(dest => dest.OriginDescription, opts => opts.MapFrom(src => src.Trip.OriginDescription))

@@ -24,6 +24,20 @@ namespace Tortilla.Hackathon.API.Controllers
             this.logger = logger;
         }
 
+        [HttpGet("pendings")]
+        public async Task<IActionResult> GetPendingPassengers([FromQuery] Guid userId)
+        {
+            try
+            {
+                var pendingsPassengers = await passengerService.GetPendingPassengersAsync(userId);
+                return Ok(pendingsPassengers);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
         [HttpPatch("{id}")]
         public async Task<IActionResult> AcceptPassenger([FromRoute] Guid id, [FromBody] AcceptDto acceptDto)
         {
