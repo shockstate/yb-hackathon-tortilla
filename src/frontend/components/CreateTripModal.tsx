@@ -12,7 +12,7 @@ import { Loading } from "./Loading";
 
 export default function CreateTripModal({
   navigation,
-}: RootStackScreenProps<"CreateTripModal">) {
+}: RootStackScreenProps<"Create Trip Modal">) {
   const {
     handleSubmit,
     control,
@@ -327,7 +327,6 @@ const styles = StyleSheet.create({
     marginTop: 12,
   },
   separator: {
-    // borderBottomColor: "red",
     borderBottomWidth: 1,
     alignItems: "center",
     marginBottom: 30,

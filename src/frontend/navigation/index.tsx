@@ -98,7 +98,10 @@ function RootNavigator(userData: any) {
           </Stack.Group>
 
           <Stack.Group screenOptions={{ presentation: "modal" }}>
-            <Stack.Screen name="CreateTripModal" component={CreateTripModal} />
+            <Stack.Screen
+              name="Create Trip Modal"
+              component={CreateTripModal}
+            />
           </Stack.Group>
         </>
       )}
